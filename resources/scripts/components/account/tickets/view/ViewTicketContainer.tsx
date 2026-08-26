@@ -46,7 +46,7 @@ export default () => {
                             <span
                                 className={classNames(
                                     statusToColor(ticket.status),
-                                    'px-2 py-1 ml-2 text-sm font-medium rounded-full hidden sm:inline',
+                                    'px-2 py-1 ml-2 text-sm font-medium rounded-full',
                                 )}
                             >
                                 {ticket.status[0]?.toUpperCase() + ticket.status.slice(1)}

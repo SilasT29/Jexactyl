@@ -6,6 +6,7 @@ import { ServerContext } from '@/state/server';
 import { PowerAction } from '@server/console/ServerConsoleContainer';
 import { Dialog } from '@/elements/dialog';
 import { PlayIcon, StopIcon, BanIcon, RefreshIcon } from '@heroicons/react/outline';
+import { useTranslation } from 'react-i18next';
 import SaveButton from '@server/console/SaveButton';
 
 interface PowerButtonProps {
@@ -13,6 +14,7 @@ interface PowerButtonProps {
 }
 
 export default ({ className }: PowerButtonProps) => {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const status = ServerContext.useStoreState(state => state.status.value);
     const instance = ServerContext.useStoreState(state => state.socket.instance);
@@ -45,21 +47,21 @@ export default ({ className }: PowerButtonProps) => {
                 open={open}
                 hideCloseIcon
                 onClose={() => setOpen(false)}
-                title={'Forcibly Stop Process'}
-                confirm={'Continue'}
+                title={t('console.kill_dialog.title')}
+                confirm={t('console.kill_dialog.confirm')}
                 onConfirmed={onButtonClick.bind(this, 'kill-confirmed')}
             >
-                Forcibly stopping a server can lead to data corruption.
+                {t('console.kill_dialog.message')}
             </Dialog.Confirm>
             <SaveButton />
             <Can action={'control.start'}>
                 <Button.Success disabled={status !== 'offline'} onClick={onButtonClick.bind(this, 'start')}>
-                    <PlayIcon className={'w-5 mr-1'} /> Start
+                    <PlayIcon className={'w-5 mr-1'} /> {t('console.power_buttons.start')}
                 </Button.Success>
             </Can>
             <Can action={'control.restart'}>
                 <Button.Dark disabled={!status} onClick={onButtonClick.bind(this, 'restart')}>
-                    <RefreshIcon className={'w-5 mr-1'} /> Restart
+                    <RefreshIcon className={'w-5 mr-1'} /> {t('console.power_buttons.restart')}
                 </Button.Dark>
             </Can>
             <Can action={'control.stop'}>
@@ -69,11 +71,11 @@ export default ({ className }: PowerButtonProps) => {
                 >
                     {killable ? (
                         <>
-                            <BanIcon className={'w-5 mr-1'} /> Kill
+                            <BanIcon className={'w-5 mr-1'} /> {t('console.power_buttons.kill')}
                         </>
                     ) : (
                         <>
-                            <StopIcon className={'w-5 mr-1'} /> Stop
+                            <StopIcon className={'w-5 mr-1'} /> {t('console.power_buttons.stop')}
                         </>
                     )}
                 </Button.Danger>

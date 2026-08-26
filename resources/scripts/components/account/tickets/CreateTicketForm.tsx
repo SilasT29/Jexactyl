@@ -1,5 +1,6 @@
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { object, string } from 'yup';
+import { useTranslation } from 'react-i18next';
 import FormikFieldWrapper from '@/elements/FormikFieldWrapper';
 import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import tw from 'twin.macro';
@@ -23,6 +24,7 @@ const CustomTextarea = styled(Textarea)`
 export default () => {
     const { clearAndAddHttpError } = useFlashKey('account:tickets');
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const submit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearAndAddHttpError();
@@ -47,25 +49,25 @@ export default () => {
             >
                 {({ isSubmitting }) => (
                     <Form>
-                        <FlashMessageRender byKey={'account:tickets'} className={'mb-4'} />
+                        <FlashMessageRender byKey={'account:tickets'} css={tw`mb-4`} />
                         <SpinnerOverlay visible={isSubmitting} />
                         <FormikFieldWrapper
                             name={'title'}
                             css={tw`mb-6`}
-                            label={'Ticket Name'}
-                            description={'Enter a user-friendly name for this ticket.'}
+                            label={String(t('tickets.form.ticket_name'))}
+                            description={String(t('tickets.form.ticket_name_description'))}
                         >
-                            <Field name={'title'} as={Input} />
+                            <Field name={'title'} as={Input} css={tw`w-full`} />
                         </FormikFieldWrapper>
                         <FormikFieldWrapper
-                            label={'Message'}
+                            label={String(t('tickets.form.message'))}
                             name={'message'}
-                            description={'Enter a message for this ticket.'}
+                            description={String(t('tickets.form.message_description'))}
                         >
-                            <Field name={'message'} as={CustomTextarea} />
+                            <Field name={'message'} as={CustomTextarea} css={tw`w-full`} />
                         </FormikFieldWrapper>
                         <div css={tw`flex justify-end mt-6`}>
-                            <Button>Save</Button>
+                            <Button>{String(t('buttons.save'))}</Button>
                         </div>
                     </Form>
                 )}

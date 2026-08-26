@@ -13,8 +13,10 @@ import { XCircleIcon } from '@heroicons/react/solid';
 import useLocationHash from '@/plugins/useLocationHash';
 import PageContentBlock from '@/elements/PageContentBlock';
 import { useStoreState } from '@/state/hooks';
+import { useTranslation } from 'react-i18next';
 
 export default () => {
+    const { t } = useTranslation();
     const { hash } = useLocationHash();
     const { clearAndAddHttpError } = useFlashKey('server:activity');
     const [filters, setFilters] = useState<ActivityLogFilters>({ page: 1, sorts: { timestamp: -1 } });
@@ -36,7 +38,7 @@ export default () => {
     }, [error]);
 
     return (
-        <PageContentBlock title={'Activity Log'} header description={'View recent activity on your server.'}>
+        <PageContentBlock title={t('activity_log.title')} header description={t('activity_log.description')}>
             <FlashMessageRender byKey={'server:activity'} />
             {(filters.filters?.event || filters.filters?.ip) && (
                 <div className={'mb-2 flex justify-end'}>
@@ -45,14 +47,14 @@ export default () => {
                         className={classNames(btnStyles.button, btnStyles.text, 'w-full sm:w-auto')}
                         onClick={() => setFilters(value => ({ ...value, filters: {} }))}
                     >
-                        Clear Filters <XCircleIcon className={'ml-2 h-4 w-4'} />
+                        {t('activity_log.clear_filters')} <XCircleIcon className={'ml-2 h-4 w-4'} />
                     </Link>
                 </div>
             )}
             {!data && isValidating ? (
                 <Spinner centered />
             ) : !data?.items.length ? (
-                <p className={'text-center text-sm text-slate-400'}>No activity logs available for this server.</p>
+                <p className={'text-center text-sm text-slate-400'}>{t('activity_log.no_logs')}</p>
             ) : (
                 <div className={'bg-slate-700'}>
                     {data?.items.map(activity => (

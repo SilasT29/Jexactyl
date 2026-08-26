@@ -62,10 +62,12 @@ export default () => {
         }
     }, [open]);
 
+    const [submitted, setSubmitted] = useState(false);
+
     const submit = () => {
         if (open) {
             processUpgrade(server.id, open.id)
-                .then(url => window.location.assign(url))
+                .then(() => setSubmitted(true))
                 .catch(error => clearAndAddHttpError({ key: 'server:billing:upgrade', error }));
         }
     };
@@ -101,11 +103,17 @@ export default () => {
                     Then, from {new Date(server.renewalDate!).toLocaleDateString()}, your renewal cost will be{' '}
                     {settings.currency.symbol}
                     {open.price}/mo.
-                    <div className={'mt-4 text-right'}>
-                        <Button onClick={submit} disabled={!charge}>
-                            Upgrade Now
-                        </Button>
-                    </div>
+                    {submitted ? (
+                        <Alert type={'success'} className={'mt-4'}>
+                            Your upgrade request has been submitted. Our team will review it and contact you for payment.
+                        </Alert>
+                    ) : (
+                        <div className={'mt-4 text-right'}>
+                            <Button onClick={submit} disabled={!charge}>
+                                Submit Upgrade Request
+                            </Button>
+                        </div>
+                    )}
                 </Dialog>
             )}
             <FlashMessageRender byKey={'server:billing:upgrade'} />

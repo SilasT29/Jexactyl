@@ -55,8 +55,8 @@ export default () => {
     return (
         <AdminContentBlock title={'Server - ' + server.name}>
             <FlashMessageRender byKey={'backups'} css={tw`mb-4`} />
-            <div css={tw`w-full flex flex-row items-center mb-4`}>
-                <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+            <div css={tw`w-full flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0 mb-4`}>
+                <div css={tw`flex flex-col flex-shrink w-full sm:w-auto`} style={{ minWidth: '0' }}>
                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>{server.name}</h2>
                     <p
                         css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
@@ -64,7 +64,7 @@ export default () => {
                         {server.uuid}
                     </p>
                 </div>
-                <div className={'my-auto ml-2 flex space-x-2'}>
+                <div className={'my-auto sm:ml-2 flex flex-wrap gap-2'}>
                     <Pill type={'warn'}>
                         <ServerIcon className={'w-3 mr-1'} /> {server.relationships.allocations[0]?.getDisplayText()}
                     </Pill>

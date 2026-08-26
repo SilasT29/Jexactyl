@@ -35,6 +35,7 @@ import PageContentBlock from '@/elements/PageContentBlock';
 import { hashToPath } from '@/lib/helpers';
 import FileSortControls from '@server/files/FileSortControls';
 import type { SortField, SortDirection } from '@/state/server/files';
+import { useTranslation } from 'react-i18next';
 
 const sortFiles = (files: FileObject[], sortField: SortField, sortDirection: SortDirection): FileObject[] => {
     const sorted = [...files].sort((a, b) => {
@@ -81,6 +82,7 @@ const filterFiles = (files: FileObject[], searchTerm: string): FileObject[] => {
 };
 
 export default () => {
+    const { t } = useTranslation();
     const id = ServerContext.useStoreState(state => state.server.data!.id);
     const { hash } = useLocation();
     const { data: files, error, mutate } = useFileManagerSwr();
@@ -154,30 +156,32 @@ export default () => {
 
     return (
         <PageContentBlock
-            title={'File Manager'}
+            title={t('files.title')}
             header
-            description={'Control your files and folders via the UI.'}
+            description={t('files.description')}
             showFlashKey={'files'}
         >
             <ErrorBoundary>
-                <div className={'mb-4 flex flex-wrap-reverse md:flex-nowrap'}>
-                    <FileManagerBreadcrumbs
-                        renderLeft={
-                            <FileActionCheckbox
-                                type={'checkbox'}
-                                css={tw`mx-4`}
-                                checked={selectedFilesLength === (files?.length === 0 ? -1 : files?.length)}
-                                onChange={onSelectAllClick}
-                            />
-                        }
-                    />
+                <div className={'mb-4 flex flex-col gap-3 md:flex-row md:items-center md:gap-2'}>
+                    <div className={'flex items-center flex-1 min-w-0'}>
+                        <FileManagerBreadcrumbs
+                            renderLeft={
+                                <FileActionCheckbox
+                                    type={'checkbox'}
+                                    css={tw`mx-2 sm:mx-4`}
+                                    checked={selectedFilesLength === (files?.length === 0 ? -1 : files?.length)}
+                                    onChange={onSelectAllClick}
+                                />
+                            }
+                        />
+                    </div>
                     <Can action={'file.create'}>
                         <div className={style.manager_actions}>
                             <FileManagerStatus />
                             <NewDirectoryButton />
                             <UploadButton />
                             <NavLink to={`/server/${id}/files/new${window.location.hash}`}>
-                                <Button>New File</Button>
+                                <Button>{t('files.new_file')}</Button>
                             </NavLink>
                             <Button onClick={() => setGridView(!gridView)}>
                                 <FontAwesomeIcon icon={gridView ? faList : faBorderAll} fixedWidth />
@@ -197,9 +201,7 @@ export default () => {
                         <>
                             {!filteredFiles.length ? (
                                 <p css={tw`text-sm text-neutral-400 text-center`}>
-                                    {searchTerm
-                                        ? 'No files found matching your search.'
-                                        : 'This directory seems to be empty.'}
+                                    {searchTerm ? t('files.no_search_results') : t('files.empty_directory')}
                                 </p>
                             ) : (
                                 <FadeTransition duration="duration-150" appear show>
@@ -208,8 +210,12 @@ export default () => {
                                             <div css={tw`rounded bg-yellow-400 mb-px p-3`}>
                                                 <p css={tw`text-yellow-900 text-sm text-center`}>
                                                     {searchTerm
-                                                        ? `Found ${filteredFiles.length} files matching your search, showing first 250.`
-                                                        : 'This directory is too large to display in the browser, limiting the output to the first 250 files.'}
+                                                        ? t('files.search_match_count', {
+                                                              count: filteredFiles.length,
+                                                              count_plural: t('files.files'),
+                                                              term: searchTerm,
+                                                          })
+                                                        : t('files.search_too_many')}
                                                 </p>
                                             </div>
                                         )}
@@ -219,14 +225,21 @@ export default () => {
                                                 style={{ backgroundColor: colors.primary }}
                                             >
                                                 <p css={tw`text-white text-sm text-center`}>
-                                                    Found {filteredFiles.length}{' '}
-                                                    {filteredFiles.length === 1 ? 'file' : 'files'} matching &quot;
-                                                    {searchTerm}&quot;
+                                                    {t('files.search_match_count', {
+                                                        count: filteredFiles.length,
+                                                        count_plural:
+                                                            filteredFiles.length === 1 ? t('files.file') : t('files.files'),
+                                                        term: searchTerm,
+                                                    })}
                                                 </p>
                                             </div>
                                         )}
                                         {gridView ? (
-                                            <div className={'grid grid-cols-2 gap-2 lg:grid-cols-6 lg:gap-4'}>
+                                            <div
+                                                className={
+                                                    'grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 lg:gap-4'
+                                                }
+                                            >
                                                 {displayFiles.map(file => (
                                                     <FileObjectGrid key={file.key} file={file} />
                                                 ))}
@@ -246,15 +259,15 @@ export default () => {
                     )}
                 </div>
                 <Can action={'file.sftp'}>
-                    <TitledGreyBox title={'SFTP Details'} icon={faFolderPlus} css={tw`xl:mt-0 mt-6 h-auto`}>
+                    <TitledGreyBox title={t('files.sftp_details')} icon={faFolderPlus} css={tw`xl:mt-0 mt-6 h-auto`}>
                         <div>
-                            <Label>Server Address</Label>
+                            <Label>{t('files.server_address')}</Label>
                             <CopyOnClick text={`sftp://${ip(sftp.ip)}:${sftp.port}`}>
                                 <Input type={'text'} value={`sftp://${ip(sftp.ip)}:${sftp.port}`} readOnly />
                             </CopyOnClick>
                         </div>
                         <div css={tw`mt-6`}>
-                            <Label>Username</Label>
+                            <Label>{t('files.username')}</Label>
                             <CopyOnClick text={`${username}.${id}`}>
                                 <Input type={'text'} value={`${username}.${id}`} readOnly />
                             </CopyOnClick>
@@ -262,14 +275,12 @@ export default () => {
                         <div css={tw`mt-6 flex items-center`}>
                             <div css={tw`flex-1`}>
                                 <div css={tw`border-l-4 border-cyan-500 p-3`}>
-                                    <p css={tw`text-xs text-neutral-200`}>
-                                        Your SFTP password is the same as the password you use to access this panel.
-                                    </p>
+                                    <p css={tw`text-xs text-neutral-200`}>{t('files.sftp_password_note')}</p>
                                 </div>
                             </div>
                             <div css={tw`ml-4`}>
                                 <a href={`sftp://${username}.${id}@${ip(sftp.ip)}:${sftp.port}`}>
-                                    <Button.Text variant={Button.Variants.Secondary}>Launch SFTP</Button.Text>
+                                    <Button.Text variant={Button.Variants.Secondary}>{t('files.launch_sftp')}</Button.Text>
                                 </a>
                             </div>
                         </div>

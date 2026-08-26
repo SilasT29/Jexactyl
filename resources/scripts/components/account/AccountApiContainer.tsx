@@ -76,7 +76,7 @@ export default () => {
                             <p css={tw`text-sm ml-4 hidden md:block`}>
                                 <code css={tw`font-mono py-1 px-2 bg-neutral-900 rounded`}>{key.identifier}</code>
                             </p>
-                            <button css={tw`ml-4 p-2 text-sm`} onClick={() => setDeleteIdentifier(key.identifier)}>
+                            <button css={tw`ml-2 md:ml-4 p-3 md:p-2 text-sm`} onClick={() => setDeleteIdentifier(key.identifier)}>
                                 <FontAwesomeIcon
                                     icon={faTrashAlt}
                                     css={tw`text-neutral-400 hover:text-red-400 transition-colors duration-150`}

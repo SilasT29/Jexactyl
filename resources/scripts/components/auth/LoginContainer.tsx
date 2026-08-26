@@ -2,6 +2,7 @@ import { useStoreState } from 'easy-peasy';
 import type { FormikHelpers } from 'formik';
 import { Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Reaptcha from 'reaptcha';
 import tw from 'twin.macro';
@@ -23,7 +24,13 @@ interface Values {
     password: string;
 }
 
+interface Values {
+    username: string;
+    password: string;
+}
+
 function LoginContainer() {
+    const { t } = useTranslation();
     const ref = useRef<Reaptcha>(null);
     const token = useRef('');
 
@@ -132,24 +139,24 @@ function LoginContainer() {
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={`Welcome to ${appName}`}>
+                <LoginFormContainer title={String(t('auth.login.title', { appName }))}>
                     <Field
                         icon={faAt}
                         type={'text'}
-                        label={'Username or Email'}
+                        label={String(t('auth.login.username_or_email'))}
                         name={'username'}
                         disabled={isSubmitting}
-                        placeholder={'user@jexpanel.com'}
+                        placeholder={'user@silast29.de'}
                     />
                     <div css={tw`mt-6`}>
                         <Label>
-                            Password
+                            {String(t('auth.login.password'))}
                             <Link
                                 to={'/auth/password'}
                                 tabIndex={-1}
                                 className={'ml-1 text-green-400 hover:text-green-200 duration-300 text-xs'}
                             >
-                                Forgot Password?
+                                {String(t('auth.login.forgot_password'))}
                             </Link>
                         </Label>
                         <Field
@@ -168,7 +175,7 @@ function LoginContainer() {
                             size={Button.Sizes.Large}
                             disabled={isSubmitting}
                         >
-                            Login
+                            {String(t('auth.login.button'))}
                         </Button>
                     </div>
                     {passkeysSupported() && (
@@ -181,8 +188,8 @@ function LoginContainer() {
                                 loading={passkeyPending}
                                 className={'w-full'}
                             >
-                                <FontAwesomeIcon icon={faFingerprint} className={'mr-2 my-auto'} /> Or, Sign in with a
-                                Passkey
+                                <FontAwesomeIcon icon={faFingerprint} className={'mr-2 my-auto'} />{' '}
+                                {String(t('auth.login.passkey'))}
                             </Button.Text>
                         </div>
                     )}
@@ -202,17 +209,19 @@ function LoginContainer() {
                         />
                     )}
                     {(modules.discord.enabled || modules.google.enabled || registration) && (
-                        <div className={'w-full text-center my-3 text-gray-400'}>OR</div>
+                        <div className={'w-full text-center my-3 text-gray-400'}>{String(t('auth.login.or'))}</div>
                     )}
                     <div className={'mt-4 w-full grid gap-4 grid-cols-2'}>
                         {modules.discord.enabled && (
                             <Button.Info type={'button'} onClick={() => useOauth('discord')} size={Button.Sizes.Small}>
-                                <FontAwesomeIcon icon={faDiscord} className={'mr-2 my-auto'} /> Use Discord SSO
+                                <FontAwesomeIcon icon={faDiscord} className={'mr-2 my-auto'} />{' '}
+                                {String(t('auth.login.discord_sso'))}
                             </Button.Info>
                         )}
                         {modules.google.enabled && (
                             <Button.Text type={'button'} onClick={() => useOauth('google')} size={Button.Sizes.Small}>
-                                <FontAwesomeIcon icon={faGoogle} className={'mr-2 my-auto'} /> Use Google SSO
+                                <FontAwesomeIcon icon={faGoogle} className={'mr-2 my-auto'} />{' '}
+                                {String(t('auth.login.google_sso'))}
                             </Button.Text>
                         )}
                         {registration && (
@@ -221,7 +230,8 @@ function LoginContainer() {
                                 onClick={() => navigate('/auth/register')}
                                 size={Button.Sizes.Small}
                             >
-                                <FontAwesomeIcon icon={faEnvelope} className={'mr-2 my-auto'} /> Register with Email
+                                <FontAwesomeIcon icon={faEnvelope} className={'mr-2 my-auto'} />{' '}
+                                {String(t('auth.login.register_with_email'))}
                             </Button.Text>
                         )}
                     </div>

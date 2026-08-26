@@ -48,7 +48,7 @@ const ResourceBox = ({
 }) => (
     <div className={large ? 'col-span-2' : 'col-span-1'}>
         <div className={'bg-black/50 rounded-lg shadow-xl text-left'}>
-            <div className={'grid grid-cols-3 gap-4 w-full p-4'}>
+            <div className={'grid grid-cols-1 sm:grid-cols-3 gap-4 w-full p-4'}>
                 <div className={'w-12 h-12 rounded-xl bg-black grid m-auto'}>
                     <div className={'m-auto'}>
                         <FontAwesomeIcon icon={icon} className={'text-xl'} />
@@ -135,8 +135,9 @@ export default () => {
             ) : (
                 <>
                     <AdminBox title={'System Information'} icon={faServer}>
-                        <table>
-                            <tbody>
+                        <div className={'overflow-x-auto'}>
+                            <table css={tw`w-full table-auto`}>
+                                <tbody>
                                 <tr>
                                     <td css={tw`py-1 pr-6`}>Version</td>
                                     <td css={tw`py-1`}>
@@ -183,7 +184,8 @@ export default () => {
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>
+                            </table>
+                        </div>
                     </AdminBox>
                     <AdminBox icon={faMicrochip} title={'Resources'} css={tw`w-full relative`}>
                         <div css={tw`md:w-full md:flex md:flex-row mb-6`}>

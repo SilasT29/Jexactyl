@@ -50,20 +50,28 @@ export default ({
             onConfirmed={onSubmit}
             confirm={group ? 'Update' : 'Create'}
         >
-            <div className={'mt-4'}>
-                <Label>Group Name</Label>
-                <InputField defaultValue={group?.name} name={'name'} onChange={updateValues}></InputField>
-                <p className={'text-gray-400 text-sm mt-1'}>Provide a name for this server group.</p>
-            </div>
-            <div className={'mt-2'}>
-                <Label>Group Color</Label>
-                <InputField
-                    type={'color'}
-                    name={'color'}
-                    onChange={updateValues}
-                    defaultValue={group?.color}
-                ></InputField>
-                <p className={'text-gray-400 text-sm mt-1'}>This is the hex value of the group color.</p>
+            <div className={'mt-4 space-y-4'}>
+                <div>
+                    <Label>Group Name</Label>
+                    <InputField
+                        className={'w-full'}
+                        defaultValue={group?.name}
+                        name={'name'}
+                        onChange={updateValues}
+                    />
+                    <p className={'text-gray-400 text-sm mt-1'}>Provide a name for this server group.</p>
+                </div>
+                <div>
+                    <Label>Group Color</Label>
+                    <InputField
+                        className={'w-full'}
+                        type={'color'}
+                        name={'color'}
+                        onChange={updateValues}
+                        defaultValue={group?.color}
+                    />
+                    <p className={'text-gray-400 text-sm mt-1'}>This is the hex value of the group color.</p>
+                </div>
             </div>
         </Dialog.Confirm>
     );

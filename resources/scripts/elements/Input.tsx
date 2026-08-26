@@ -16,7 +16,8 @@ const light = css<Props>`
 `;
 
 const checkboxStyle = css<Props>`
-    ${tw`bg-neutral-500 cursor-pointer appearance-none inline-block align-middle select-none flex-shrink-0 w-4 h-4 text-primary-400 border border-neutral-300 rounded-sm`};
+    ${tw`bg-neutral-500 cursor-pointer appearance-none inline-block align-middle select-none flex-shrink-0 text-primary-400 border border-neutral-300 rounded-sm`};
+    ${tw`w-6 h-6 min-w-[24px] min-h-[24px] sm:w-4 sm:h-4`};
     color-adjust: exact;
     background-origin: border-box;
     transition: all 75ms linear, box-shadow 25ms linear;
@@ -36,7 +37,7 @@ const inputStyle = () => {
         // Reset to normal styling.
         resize: none;
         ${tw`appearance-none outline-none w-full min-w-0`};
-        ${tw`py-2.5 px-3 border-2 rounded-lg text-sm transition-all duration-150`};
+        ${tw`py-2 px-3 sm:py-2.5 border-2 rounded-lg text-sm transition-all duration-150`};
         ${tw`border-zinc-700 hover:border-neutral-400 text-neutral-200 shadow-none`};
         ${tw`focus:ring-4 focus:ring-primary-500/20 focus:border-primary-400`};
 

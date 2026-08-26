@@ -21,7 +21,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Alert } from '@/elements/alert';
 import useFlash from '@/plugins/useFlash';
-import PaymentButton from './PaymentButton';
+import OrderConfirmationButton from './OrderConfirmationButton';
 import { EggVariable } from '@definitions/server';
 import { Button } from '@/elements/button';
 import FlashMessageRender from '@/elements/FlashMessageRender';
@@ -158,12 +158,12 @@ export default () => {
     const paymentStep = stepCounter++;
 
     return (
-        <PageContentBlock title={'Your Order'}>
+        <PageContentBlock title={'Your Order'} className={'pb-20 md:pb-8'}>
             <FlashMessageRender byKey={'account:billing:order'} className={'mb-4'} />
             <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
                 Your Order
                 <p className={'text-gray-400 font-normal text-sm mt-1'}>
-                    Customize your selected plan and submit a payment.
+                    Customize your selected plan and submit an order request for staff review.
                 </p>
             </div>
             <div className={'grid lg:grid-cols-8 gap-4 lg:gap-12'}>
@@ -354,7 +354,7 @@ export default () => {
                                                         starting next billing cycle.
                                                     </>
                                                 ) : (
-                                                    'Press Pay Now to checkout via your preferred payment method.'
+                                                    'Press Submit Order to send your request to our team for review.'
                                                 )
                                             }
                                         />
@@ -364,7 +364,7 @@ export default () => {
                                                 setDiscountCode={setDiscountCode}
                                             />
                                             <div className={'ml-auto'}>
-                                                <PaymentButton
+                                                <OrderConfirmationButton
                                                     node={selectedNode}
                                                     product={product}
                                                     vars={vars}

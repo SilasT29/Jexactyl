@@ -3,10 +3,10 @@ import { breakpoint } from '@/assets/theme';
 import tw from 'twin.macro';
 
 const ContentContainer = styled.div`
-    ${tw`mx-4`};
+    ${tw`w-full max-w-full overflow-x-hidden px-4 sm:px-0`};
 
     ${breakpoint('xl')`
-        ${tw`mx-12`};
+        ${tw`px-12`};
     `};
 `;
 ContentContainer.displayName = 'ContentContainer';

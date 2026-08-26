@@ -10,6 +10,7 @@ import CredentialsContainer from '@account/security/CredentialsContainer';
 import AccountApiContainer from '@account/AccountApiContainer';
 import AccountSSHContainer from '@account/ssh/AccountSSHContainer';
 import AccountPasskeyContainer from '@account/passkeys/AccountPasskeyContainer';
+import { useTranslation } from 'react-i18next';
 
 interface SecurityTab {
     path: string;
@@ -23,43 +24,48 @@ interface SecurityTab {
 /**
  * Drives the sub-navigation, the nested routes, and the per-tab document title from one place.
  */
-const tabs: SecurityTab[] = [
-    {
-        path: '',
-        name: 'Credentials',
-        title: 'Credentials',
-        description: 'Update the email address, password, and two-step verification on your account.',
-        icon: Icon.LockClosedIcon,
-        component: CredentialsContainer,
-    },
-    {
-        path: 'passkeys',
-        name: 'Passkeys',
-        title: 'Passkeys',
-        description: 'Sign in with your fingerprint, face, or security key instead of a password.',
-        icon: Icon.FingerPrintIcon,
-        component: AccountPasskeyContainer,
-    },
-    {
-        path: 'ssh',
-        name: 'SSH Keys',
-        title: 'SSH Keys',
-        description: 'Create, use and delete SSH keys to access servers.',
-        icon: Icon.TerminalIcon,
-        component: AccountSSHContainer,
-    },
-    {
-        path: 'api',
-        name: 'API Credentials',
-        title: 'API Credentials',
-        description: 'Create, edit and delete API keys to access the Panel.',
-        icon: Icon.CodeIcon,
-        component: AccountApiContainer,
-    },
-];
+const useSecurityTabs = (): SecurityTab[] => {
+    const { t } = useTranslation();
+    return [
+        {
+            path: '',
+            name: t('security.tabs.credentials'),
+            title: t('security.tabs.credentials'),
+            description: t('security.description'),
+            icon: Icon.LockClosedIcon,
+            component: CredentialsContainer,
+        },
+        {
+            path: 'passkeys',
+            name: t('security.tabs.passkeys'),
+            title: t('security.tabs.passkeys'),
+            description: t('security.description'),
+            icon: Icon.FingerPrintIcon,
+            component: AccountPasskeyContainer,
+        },
+        {
+            path: 'ssh',
+            name: t('security.tabs.ssh_keys'),
+            title: t('security.tabs.ssh_keys'),
+            description: t('security.description'),
+            icon: Icon.TerminalIcon,
+            component: AccountSSHContainer,
+        },
+        {
+            path: 'api',
+            name: t('security.tabs.api_credentials'),
+            title: t('security.tabs.api_credentials'),
+            description: t('security.description'),
+            icon: Icon.CodeIcon,
+            component: AccountApiContainer,
+        },
+    ];
+};
 
 const SecurityRouter = () => {
+    const { t } = useTranslation();
     const { pathname, state } = useLocation();
+    const tabs = useSecurityTabs();
 
     // The base tab is the fallback, so an unrecognised sub-path still renders sensible chrome.
     const active =
@@ -68,13 +74,13 @@ const SecurityRouter = () => {
     return (
         <PageContentBlock title={active.title}>
             {state?.twoFactorRedirect && (
-                <MessageBox title="2-Factor Required" type="error">
-                    Your account must have two-factor authentication enabled in order to continue.
+                <MessageBox title={t('security.two_factor_required')} type="error">
+                    {t('security.two_factor_required_message')}
                 </MessageBox>
             )}
 
             <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-8'}>
-                Security
+                {t('security.title')}
                 <p className={'text-gray-400 font-normal text-sm mt-1'}>{active.description}</p>
             </div>
 

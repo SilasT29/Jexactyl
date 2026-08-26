@@ -20,16 +20,22 @@ import DeleteTicketDialog from './DeleteTicketDialog';
 import { Alert } from '@/elements/alert';
 import Spinner from '@/elements/Spinner';
 import useStatus from '@/plugins/useStatus';
+import { hasAdminPermission } from '@/plugins/adminPermissions';
+import { useStoreState } from '@/state/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { TicketStatus, Values, updateTicket, useTicketFromRoute } from '@/api/routes/admin/tickets';
+import { faServer } from '@fortawesome/free-solid-svg-icons';
+import { TicketStatus, Values, createServerFromTicket, updateTicket, useTicketFromRoute } from '@/api/routes/admin/tickets';
 
 export default () => {
-    const { data: ticket, isLoading } = useTicketFromRoute();
+    const { data: ticket, isLoading, mutate } = useTicketFromRoute();
     const boxStatus = useStatus();
 
     const [unassign, setUnassign] = useState<boolean>(false);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
     const [status, setStatus] = useState<TicketStatus>('pending');
+    const [creatingServer, setCreatingServer] = useState(false);
+    const adminPermissions = useStoreState(state => state.user.data!.adminPermissions);
+    const canCreateServer = hasAdminPermission(adminPermissions, 'tickets.create-server');
 
     const submit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes();
@@ -50,6 +56,20 @@ export default () => {
                 boxStatus.setStatus('error');
             });
     };
+
+    const onCreateServer = () => {
+        clearFlashes();
+        setCreatingServer(true);
+
+        createServerFromTicket(ticket!.id)
+            .then(() => {
+                mutate();
+            })
+            .catch(error => clearAndAddHttpError({ key: 'tickets:view', error }))
+            .finally(() => setCreatingServer(false));
+    };
+
+    const isOrderTicket = ticket?.title.toLowerCase().startsWith('new order #');
 
     if (!ticket || isLoading) return <Spinner size={'large'} centered />;
 
@@ -142,14 +162,25 @@ export default () => {
                                     </p>
                                 </div>
                             </div>
-                            <div css={tw`flex flex-row`}>
-                                <div className={'ml-auto mt-4'}>
-                                    <DeleteTicketDialog ticketId={ticket.id} />
-                                    <Button type={'submit'} disabled={isSubmitting}>
-                                        Save Changes
-                                    </Button>
-                                </div>
-                            </div>
+            <div css={tw`flex flex-row`}>
+                <div className={'ml-auto mt-4'}>
+                    {isOrderTicket && canCreateServer && (
+                        <Button
+                            type={'button'}
+                            className={'mr-2'}
+                            disabled={creatingServer}
+                            onClick={onCreateServer}
+                        >
+                            <FontAwesomeIcon icon={faServer} className={'mr-2'} />
+                            Create Server
+                        </Button>
+                    )}
+                    <DeleteTicketDialog ticketId={ticket.id} />
+                    <Button type={'submit'} disabled={isSubmitting}>
+                        Save Changes
+                    </Button>
+                </div>
+            </div>
                         </AdminBox>
                     </Form>
                 )}

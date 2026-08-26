@@ -8,7 +8,6 @@ import { differenceInDays, parseISO } from 'date-fns';
 import SuccessChart from './SuccessChart';
 import RevenueChart from './RevenueChart';
 import Select from '@/elements/Select';
-import SetupStripe from '@admin/modules/billing/guides/SetupStripe';
 import { getBillingAnalytics } from '@/api/routes/admin/billing';
 import { BillingAnalytics, Order } from '@definitions/admin';
 
@@ -41,7 +40,6 @@ export default () => {
 
     return (
         <div className={'grid lg:grid-cols-5 gap-4'}>
-            <SetupStripe />
             <ol className="space-y-4 w-full">
                 <Select onChange={e => setHistory(Number(e.currentTarget.value))}>
                     <option value={7}>Last 7 days</option>
@@ -70,7 +68,7 @@ export default () => {
                 />
             </ol>
             <div className={'flex flex-col items-center rounded-lg shadow md:flex-row col-span-4'}>
-                <div className={'w-full grid grid-cols-3 mb-auto gap-6'}>
+                <div className={'w-full grid grid-cols-1 md:grid-cols-3 mb-auto gap-6'}>
                     <ContentBox>
                         <h1 className={'text-2xl font-bold'}>
                             <span className={'text-4xl'}>{successRate}</span>% conversion rate
@@ -80,7 +78,7 @@ export default () => {
                         </p>
                         <SuccessChart data={analytics} history={history} />
                     </ContentBox>
-                    <ContentBox className={'col-span-2'}>
+                    <ContentBox className={'md:col-span-2'}>
                         <h1 className={'text-2xl font-bold'}>
                             {settings.currency.symbol}
                             <span className={'text-4xl'}>{revenue}</span> total revenue

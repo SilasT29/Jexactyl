@@ -65,7 +65,7 @@ export default ({ name, uuid }: { name: string; uuid: string }) => {
                     <Button.Danger onClick={onConfirmed}>Remove Passkey</Button.Danger>
                 </Dialog.Footer>
             </Dialog>
-            <button css={tw`ml-4 p-2 text-sm`} onClick={() => setVisible(true)}>
+            <button css={tw`ml-2 md:ml-4 p-3 md:p-2 text-sm`} onClick={() => setVisible(true)}>
                 <FontAwesomeIcon
                     icon={faTrashAlt}
                     css={tw`text-neutral-400 hover:text-red-400 transition-colors duration-150`}

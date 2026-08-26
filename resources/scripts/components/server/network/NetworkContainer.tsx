@@ -11,8 +11,10 @@ import SpinnerOverlay from '@/elements/SpinnerOverlay';
 import isEqual from 'react-fast-compare';
 import { useDeepCompareEffect } from '@/plugins/useDeepCompareEffect';
 import PageContentBlock from '@/elements/PageContentBlock';
+import { useTranslation } from 'react-i18next';
 
 const NetworkContainer = () => {
+    const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
     const allocationLimit = ServerContext.useStoreState(state => state.server.data!.featureLimits.allocations);
@@ -52,9 +54,9 @@ const NetworkContainer = () => {
     return (
         <PageContentBlock
             showFlashKey={'server:network'}
-            title={'Network'}
+            title={t('network.title')}
             header
-            description={'Assign, edit and remove ports from this server.'}
+            description={t('network.description')}
         >
             {!data ? (
                 <Spinner size={'large'} centered />
@@ -68,12 +70,11 @@ const NetworkContainer = () => {
                             <SpinnerOverlay visible={loading} />
                             <div css={tw`mt-6 sm:flex items-center justify-end`}>
                                 <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
-                                    You are currently using {data.length} of {allocationLimit} allowed allocations for
-                                    this server.
+                                    {t('network.usage_status', { count: data.length, limit: allocationLimit })}
                                 </p>
                                 {allocationLimit > data.length && (
                                     <Button css={tw`w-full sm:w-auto`} color={'primary'} onClick={onCreateAllocation}>
-                                        Create Allocation
+                                        {t('network.create_allocation')}
                                     </Button>
                                 )}
                             </div>

@@ -18,14 +18,14 @@ const AdminContentBlock: React.FC<{
             {showFlashKey && <FlashMessageRender byKey={showFlashKey} css={tw`mb-4`} />}
             {children}
             <p css={tw`text-center text-neutral-500 text-xs mt-4 mb-8`}>
-                &copy; {new Date().getFullYear()}&nbsp;
+                &copy; {new Date().getFullYear()}&nbsp;Powered by&nbsp;
                 <a
                     rel={'noopener nofollow noreferrer'}
-                    href={'https://jexpanel.com'}
+                    href={'https://silast29.de'}
                     target={'_blank'}
                     css={tw`no-underline text-neutral-500 hover:text-neutral-300`}
                 >
-                    Jexpanel.com
+                    SilasT29.de
                 </a>
             </p>
         </>

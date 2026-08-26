@@ -11,8 +11,10 @@ import useFlash from '@/plugins/useFlash';
 import tw from 'twin.macro';
 import { Button } from '@/elements/button/index';
 import PageContentBlock from '@/elements/PageContentBlock';
+import { useTranslation } from 'react-i18next';
 
 function ScheduleContainer() {
+    const { t } = useTranslation();
     const server = ServerContext.useStoreState(state => state.server.data!);
     const { clearFlashes, addError } = useFlash();
     const [loading, setLoading] = useState(true);
@@ -34,16 +36,14 @@ function ScheduleContainer() {
     }, []);
 
     return (
-        <PageContentBlock title={'Schedules'} header description={'Create and edit automatic tasks for your server.'}>
+        <PageContentBlock title={t('schedules.title')} header description={t('schedules.description')}>
             <FlashMessageRender byKey={'schedules'} css={tw`mb-4`} />
             {!schedules.length && loading ? (
                 <Spinner size={'large'} centered />
             ) : (
                 <>
                     {schedules.length === 0 ? (
-                        <p css={tw`text-sm text-center text-neutral-300`}>
-                            There are no schedules configured for this server.
-                        </p>
+                        <p css={tw`text-sm text-center text-neutral-300`}>{t('schedules.empty')}</p>
                     ) : (
                         schedules.map(schedule => (
                             <ScheduleRow
@@ -57,7 +57,7 @@ function ScheduleContainer() {
                         <div css={tw`mt-8 flex justify-end`}>
                             <EditScheduleModal visible={visible} onModalDismissed={() => setVisible(false)} />
                             <Button type={'button'} onClick={() => setVisible(true)}>
-                                Create schedule
+                                {t('schedules.new_button')}
                             </Button>
                         </div>
                     </Can>

@@ -1,5 +1,6 @@
 import tw from 'twin.macro';
 import { Link, NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import AdminContentBlock from '@/elements/AdminContentBlock';
 import { Button } from '@/elements/button';
 import { RealFilters, useGetUsers, Context as UsersContext } from '@/api/routes/admin/users';
@@ -30,8 +31,10 @@ import { useStoreState } from '@/state/hooks';
 import Pill from '@/elements/Pill';
 import { SubNavigation, SubNavigationLink } from '../../SubNavigation';
 import { UsersIcon, UserAddIcon } from '@heroicons/react/outline';
+import { isPrivacyModeEnabled, maskEmail } from '@/hooks/usePrivacyMode';
 
 function UsersContainer() {
+    const { t } = useTranslation();
     const { data: users, error, isValidating } = useGetUsers();
     const { colors } = useStoreState(state => state.theme.data!);
     const { setPage, sort, sortDirection, setSort, setFilters } = useContext(UsersContext);
@@ -54,29 +57,29 @@ function UsersContainer() {
 
     return (
         <AdminContentBlock title={'User Accounts'}>
-            <div css={tw`w-full flex flex-row items-center mb-8`}>
-                <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>User Accounts</h2>
+            <div css={tw`w-full flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-0 mb-8`}>
+                <div css={tw`flex flex-col flex-shrink w-full sm:w-auto`} style={{ minWidth: '0' }}>
+                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>{t('admin.users.title')}</h2>
                     <p
                         css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
                     >
-                        All users that have access to the system.
+                        {t('admin.users.description')}
                     </p>
                 </div>
 
-                <div css={tw`flex ml-auto pl-4`}>
-                    <Link to={'/admin/users/new'}>
-                        <Button>
-                            <FontAwesomeIcon icon={faPlus} className={'mr-2 my-auto'} /> New User
+                <div css={tw`w-full sm:w-auto sm:ml-auto sm:pl-4`}>
+                    <Link to={'/admin/users/new'} className={'block w-full sm:w-auto'}>
+                        <Button className={'w-full sm:w-auto'}>
+                            <FontAwesomeIcon icon={faPlus} className={'mr-2 my-auto'} /> {t('admin.users.new_user')}
                         </Button>
                     </Link>
                 </div>
             </div>
             <SubNavigation>
-                <SubNavigationLink to={`/admin/users`} name={'Users'} base>
+                <SubNavigationLink to={`/admin/users`} name={t('admin.users.users')} base>
                     <UsersIcon />
                 </SubNavigationLink>
-                <SubNavigationLink to={`/admin/users/roles`} name={'Administrator Roles'}>
+                <SubNavigationLink to={`/admin/users/roles`} name={t('admin.users.admin_roles')}>
                     <UserAddIcon />
                 </SubNavigationLink>
             </SubNavigation>
@@ -100,11 +103,13 @@ function UsersContainer() {
                                         name={'Email Address'}
                                         direction={sort === 'email' ? (sortDirection ? 1 : 2) : null}
                                         onClick={() => setSort('email')}
+                                        className={'hidden md:table-cell'}
                                     />
                                     <TableHeader
                                         name={'2FA Enabled'}
                                         direction={sort === 'use_totp' ? (sortDirection ? 1 : 2) : null}
                                         onClick={() => setSort('use_totp')}
+                                        className={'hidden lg:table-cell'}
                                     />
                                     <TableHeader
                                         name={'State'}
@@ -136,10 +141,14 @@ function UsersContainer() {
                                                 >
                                                     <NavLink to={`/admin/users/${user.id}`}>{user.username}</NavLink>
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
-                                                    {user.email}
+                                                <td
+                                                    css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap hidden md:table-cell`}
+                                                >
+                                                    {isPrivacyModeEnabled() ? maskEmail(user.email) : user.email}
                                                 </td>
-                                                <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                                <td
+                                                    css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap hidden lg:table-cell`}
+                                                >
                                                     {user.isUsingTwoFactor ? (
                                                         <Pill type={'success'}>
                                                             <FontAwesomeIcon

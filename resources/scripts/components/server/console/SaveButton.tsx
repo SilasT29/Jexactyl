@@ -6,8 +6,10 @@ import { SocketEvent } from '@server/events';
 import { saveFileContents } from '@/api/routes/server/files';
 import classNames from 'classnames';
 import { DownloadIcon } from '@heroicons/react/outline';
+import { useTranslation } from 'react-i18next';
 
 export default () => {
+    const { t } = useTranslation();
     const [log, setLog] = useState<string[]>([]);
 
     const { addFlash, clearFlashes, clearAndAddHttpError } = useFlash();
@@ -28,7 +30,7 @@ export default () => {
                 addFlash({
                     key: 'console:share',
                     type: 'success',
-                    message: 'Your server logs have been saved to the .console-logs folder.',
+                    message: t('console.logs_saved'),
                 });
             })
             .catch(error => {
@@ -54,7 +56,7 @@ export default () => {
             )}
             onClick={submit}
         >
-            <DownloadIcon className={'w-5 mr-1'} /> Save
+            <DownloadIcon className={'w-5 mr-1'} /> {t('console.save_logs')}
         </div>
     );
 };

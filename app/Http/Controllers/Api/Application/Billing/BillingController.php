@@ -9,7 +9,6 @@ use Everest\Models\Billing\Order;
 use Everest\Models\Billing\Product;
 use Everest\Models\Billing\Category;
 use Everest\Http\Controllers\Api\Application\ApplicationApiController;
-use Everest\Http\Requests\Api\Application\Billing\DeleteStripeKeysRequest;
 use Everest\Http\Requests\Api\Application\Billing\GetBillingAnalyticsRequest;
 use Everest\Http\Requests\Api\Application\Billing\UpdateBillingSettingsRequest;
 
@@ -55,17 +54,4 @@ class BillingController extends ApplicationApiController
         ];
     }
 
-    /**
-     * Delete all Stripe API keys saved to the Panel.
-     */
-    public function resetKeys(DeleteStripeKeysRequest $request): Response
-    {
-        Setting::forget('settings::modules:billing:keys:secret');
-
-        Activity::event('admin:billing:reset-keys')
-            ->description('Stripe API keys for billing were reset')
-            ->log();
-
-        return $this->returnNoContent();
-    }
 }

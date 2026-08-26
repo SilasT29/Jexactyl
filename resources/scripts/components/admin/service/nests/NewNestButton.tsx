@@ -117,7 +117,7 @@ export default () => {
             <Button
                 type="button"
                 size={Size.Large}
-                className="h-10 whitespace-nowrap px-4 py-0"
+                className="h-10 whitespace-nowrap px-4 py-0 w-full sm:w-auto"
                 onClick={() => setVisible(true)}
             >
                 New Nest

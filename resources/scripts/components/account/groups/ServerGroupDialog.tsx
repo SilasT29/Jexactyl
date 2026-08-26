@@ -1,7 +1,7 @@
 import { Dialog } from '@/elements/dialog';
 import { Button } from '@/elements/button';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { faPlus, faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPlusCircle, faTrash, faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { addServerToGroup, deleteServerGroup, getServerGroups } from '@/api/routes/server/groups';
 import { type ServerGroup } from '@definitions/server';
@@ -63,13 +63,13 @@ export default ({ open, setOpen, groups, setGroups }: Props) => {
             <ModifyServerGroup open={open.open === 'modify'} group={group} setOpen={setOpen} />
             <Dialog open={open.open === 'add'} onClose={() => setOpen({ open: 'none' })} title={'Add group to server'}>
                 {groups ? (
-                    <div className={'my-3 grid grid-cols-2 lg:grid-cols-3 gap-4 cursor-pointer'}>
+                    <div className={'my-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 cursor-pointer'}>
                         {groups?.map(group => (
                             <Pill size={'large'} type={'unknown'} key={group.id}>
                                 <span style={{ color: group.color }}>{group.name}</span>
                                 <div
                                     className={
-                                        'absolute right-4 my-auto text-green-500/75 hover:text-green-400 transition duration-250'
+                                        'absolute right-2 top-1/2 -translate-y-1/2 p-2 text-green-500/75 hover:text-green-400 transition duration-250'
                                     }
                                     onClick={() => {
                                         setGroup(group);
@@ -91,14 +91,31 @@ export default ({ open, setOpen, groups, setGroups }: Props) => {
                 open={open.open === 'index'}
                 onClose={() => setOpen({ open: 'none' })}
                 title={'Server Group Configuration'}
+                size={'md'}
+                hideCloseIcon
             >
-                <div className={'absolute top-4 right-16'}>
-                    <Button size={Button.Sizes.Small} onClick={() => setOpen({ open: 'modify' })}>
-                        <FontAwesomeIcon icon={faPlus} className={'mr-1'} /> Create
-                    </Button>
+                <div
+                    className={
+                        'flex flex-col-reverse sm:flex-row sm:items-center gap-2 sm:gap-3 mt-2 sm:mt-0 mb-4 px-1 sm:px-0'
+                    }
+                >
+                    <p className={'text-gray-400 text-sm'}>Manage your server groups below.</p>
+                    <div className={'sm:ml-auto flex items-center gap-2'}>
+                        <Button size={Button.Sizes.Small} onClick={() => setOpen({ open: 'modify' })}>
+                            <FontAwesomeIcon icon={faPlus} className={'mr-1'} /> Create
+                        </Button>
+                        <Button.Text
+                            size={Button.Sizes.Small}
+                            shape={Button.Shapes.IconSquare}
+                            onClick={() => setOpen({ open: 'none' })}
+                            className={'group !h-8 !w-8'}
+                        >
+                            <FontAwesomeIcon icon={faXmarkCircle} size={'sm'} />
+                        </Button.Text>
+                    </div>
                 </div>
                 {groups ? (
-                    <div className={'my-3 grid grid-cols-2 lg:grid-cols-3 gap-4 cursor-pointer'}>
+                    <div className={'my-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 cursor-pointer'}>
                         {groups?.map(group => (
                             <Pill size={'large'} key={group.id} type={'unknown'}>
                                 <div
@@ -113,7 +130,7 @@ export default ({ open, setOpen, groups, setGroups }: Props) => {
                                 <div
                                     onClick={() => onDelete(group.id)}
                                     className={
-                                        'absolute right-4 my-auto text-red-500/75 hover:text-red-400 transition duration-250'
+                                        'absolute right-2 top-1/2 -translate-y-1/2 p-2 text-red-500/75 hover:text-red-400 transition duration-250'
                                     }
                                 >
                                     <FontAwesomeIcon icon={faTrash} size={'sm'} />

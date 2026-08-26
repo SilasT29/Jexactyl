@@ -21,7 +21,9 @@ import { Button } from '@/elements/button';
 import CopyOnClick from '@/elements/CopyOnClick';
 import { bytesToString, mbToBytes } from '@/lib/formatters';
 import { useStoreState } from '@/state/hooks';
+import { useTranslation } from 'react-i18next';
 const NodesContainer = () => {
+    const { t } = useTranslation();
     const { colors } = useStoreState(state => state.theme.data!);
     const { setPage, setFilters, sort, setSort, sortDirection } = useContext(NodesContext);
     const { clearFlashes, clearAndAddHttpError } = useFlash();
@@ -50,20 +52,20 @@ const NodesContainer = () => {
     };
 
     return (
-        <AdminContentBlock title={'Nodes'}>
-            <div css={tw`w-full flex flex-row items-center mb-8`}>
-                <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
-                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Nodes</h2>
+        <AdminContentBlock title={t('admin.nodes.title')}>
+            <div css={tw`w-full flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-0 mb-8`}>
+                <div css={tw`flex flex-col flex-shrink w-full sm:w-auto`} style={{ minWidth: '0' }}>
+                    <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>{t('admin.nodes.title')}</h2>
                     <p
                         css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
                     >
-                        All nodes available on the system.
+                        {t('admin.nodes.subtitle')}
                     </p>
                 </div>
 
-                <Link to={'/admin/nodes/new'} css={tw`flex ml-auto pl-4`}>
-                    <Button type={'button'} css={tw`h-10 px-4 py-0 whitespace-nowrap`}>
-                        New Node
+                <Link to={'/admin/nodes/new'} className={'w-full sm:w-auto sm:ml-auto sm:pl-4'} css={tw`block sm:inline-block`}>
+                    <Button type={'button'} css={tw`h-10 px-4 py-0 whitespace-nowrap w-full sm:w-auto`}>
+                        {t('admin.nodes.new')}
                     </Button>
                 </Link>
             </div>
@@ -77,27 +79,27 @@ const NodesContainer = () => {
                             <table css={tw`w-full table-auto`}>
                                 <TableHead>
                                     <TableHeader
-                                        name={'ID'}
+                                        name={t('admin.nodes.id')}
                                         direction={sort === 'id' ? (sortDirection ? 1 : 2) : null}
                                         onClick={() => setSort('id')}
                                     />
                                     <TableHeader
-                                        name={'Name'}
+                                        name={t('admin.nodes.name')}
                                         direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
                                         onClick={() => setSort('name')}
                                     />
                                     <TableHeader
-                                        name={'FQDN'}
+                                        name={t('admin.nodes.fqdn')}
                                         direction={sort === 'fqdn' ? (sortDirection ? 1 : 2) : null}
                                         onClick={() => setSort('fqdn')}
                                     />
                                     <TableHeader
-                                        name={'Total Memory'}
+                                        name={t('admin.nodes.total_memory')}
                                         direction={sort === 'memory' ? (sortDirection ? 1 : 2) : null}
                                         onClick={() => setSort('memory')}
                                     />
                                     <TableHeader
-                                        name={'Total Disk'}
+                                        name={t('admin.nodes.total_disk')}
                                         direction={sort === 'disk' ? (sortDirection ? 1 : 2) : null}
                                         onClick={() => setSort('disk')}
                                     />
@@ -148,13 +150,13 @@ const NodesContainer = () => {
                                                         <span
                                                             css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-green-100 text-green-800`}
                                                         >
-                                                            Secure
+                                                            {t('admin.nodes.secure')}
                                                         </span>
                                                     ) : (
                                                         <span
                                                             css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-red-200 text-red-800`}
                                                         >
-                                                            Non-Secure
+                                                            {t('admin.nodes.non_secure')}
                                                         </span>
                                                     )}
                                                 </td>

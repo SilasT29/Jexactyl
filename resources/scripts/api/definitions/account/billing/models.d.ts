@@ -73,7 +73,3 @@ interface Egg extends Model {
     name: string;
 }
 
-interface StripeIntent extends Model {
-    id: string;
-    secret: string;
-}

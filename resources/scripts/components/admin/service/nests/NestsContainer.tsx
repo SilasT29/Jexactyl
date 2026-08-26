@@ -53,8 +53,8 @@ const NestsContainer = () => {
 
     return (
         <AdminContentBlock title={'Nests'}>
-            <div css={tw`w-full flex flex-row items-center mb-8`}>
-                <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+            <div css={tw`w-full flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-0 mb-8`}>
+                <div css={tw`flex flex-col flex-shrink w-full sm:w-auto`} style={{ minWidth: '0' }}>
                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Nests</h2>
                     <p
                         css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
@@ -63,8 +63,10 @@ const NestsContainer = () => {
                     </p>
                 </div>
 
-                <div css={tw`flex ml-auto pl-4`}>
-                    <NewNestButton />
+                <div css={tw`w-full sm:w-auto sm:ml-auto sm:pl-4`}>
+                    <div className={'w-full sm:w-auto'}>
+                        <NewNestButton />
+                    </div>
                 </div>
             </div>
 

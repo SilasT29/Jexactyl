@@ -23,12 +23,14 @@ import Checkbox from '@/elements/inputs/Checkbox';
 import CopyOnClick from '@/elements/CopyOnClick';
 import useFlash from '@/plugins/useFlash';
 import { useStoreState } from '@/state/hooks';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     filters?: Filters;
 }
 
 function ServersTable({ filters }: Props) {
+    const { t } = useTranslation();
     const { colors } = useStoreState(state => state.theme.data!);
     const { clearFlashes, clearAndAddHttpError, addFlash } = useFlash();
 
@@ -106,180 +108,184 @@ function ServersTable({ filters }: Props) {
         <AdminTable>
             <ContentWrapper onSearch={onSearch}>
                 {selected.length > 0 && (
-                    <div css={tw`flex flex-row items-center h-12 px-6 border-b border-neutral-500`}>
-                        <p css={tw`text-sm text-neutral-300 mr-4`}>{selected.length} selected</p>
+                <div css={tw`flex flex-row items-center h-12 px-6 border-b border-neutral-500`}>
+                    <p css={tw`text-sm text-neutral-300 mr-4`}>
+                        {t('admin.servers.table.selected', { count: selected.length })}
+                    </p>
 
-                        <div css={tw`flex flex-row ml-auto gap-2`}>
-                            <Button.Success
-                                size={Button.Sizes.Small}
-                                disabled={submitting}
-                                onClick={() => doBulkPowerAction('start')}
-                            >
-                                Start
-                            </Button.Success>
-                            <Button.Warn
-                                size={Button.Sizes.Small}
-                                disabled={submitting}
-                                onClick={() => doBulkPowerAction('restart')}
-                            >
-                                Restart
-                            </Button.Warn>
-                            <Button.Text
-                                size={Button.Sizes.Small}
-                                disabled={submitting}
-                                onClick={() => doBulkPowerAction('stop')}
-                            >
-                                Stop
-                            </Button.Text>
-                            <Button.Danger
-                                size={Button.Sizes.Small}
-                                disabled={submitting}
-                                onClick={() => doBulkPowerAction('kill')}
-                            >
-                                Kill
-                            </Button.Danger>
-                        </div>
+                    <div css={tw`flex flex-row ml-auto gap-2`}>
+                        <Button.Success
+                            size={Button.Sizes.Small}
+                            disabled={submitting}
+                            onClick={() => doBulkPowerAction('start')}
+                        >
+                            {t('admin.servers.table.start')}
+                        </Button.Success>
+                        <Button.Warn
+                            size={Button.Sizes.Small}
+                            disabled={submitting}
+                            onClick={() => doBulkPowerAction('restart')}
+                        >
+                            {t('admin.servers.table.restart')}
+                        </Button.Warn>
+                        <Button.Text
+                            size={Button.Sizes.Small}
+                            disabled={submitting}
+                            onClick={() => doBulkPowerAction('stop')}
+                        >
+                            {t('admin.servers.table.stop')}
+                        </Button.Text>
+                        <Button.Danger
+                            size={Button.Sizes.Small}
+                            disabled={submitting}
+                            onClick={() => doBulkPowerAction('kill')}
+                        >
+                            {t('admin.servers.table.kill')}
+                        </Button.Danger>
                     </div>
-                )}
-                <Pagination data={servers} onPageSelect={setPage}>
-                    <div css={tw`overflow-x-auto`}>
-                        <table css={tw`w-full table-auto`}>
-                            <TableHead>
-                                <th css={tw`px-6 py-2 w-px`}>
-                                    <Checkbox
-                                        checked={allSelected}
-                                        indeterminate={someSelected}
-                                        onChange={toggleSelectAll}
-                                    />
-                                </th>
-                                <TableHeader
-                                    name={'Identifier'}
-                                    direction={sort === 'uuidShort' ? (sortDirection ? 1 : 2) : null}
-                                    onClick={() => setSort('uuidShort')}
+                </div>
+            )}
+            <Pagination data={servers} onPageSelect={setPage}>
+                <div css={tw`overflow-x-auto`}>
+                    <table css={tw`w-full table-auto`}>
+                        <TableHead>
+                            <th css={tw`px-6 py-2 w-px`}>
+                                <Checkbox
+                                    checked={allSelected}
+                                    indeterminate={someSelected}
+                                    onChange={toggleSelectAll}
                                 />
-                                <TableHeader
-                                    name={'Name'}
-                                    direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
-                                    onClick={() => setSort('name')}
-                                />
-                                <TableHeader
-                                    name={'Owner'}
-                                    direction={sort === 'owner_id' ? (sortDirection ? 1 : 2) : null}
-                                    onClick={() => setSort('owner_id')}
-                                />
-                                <TableHeader
-                                    name={'Node'}
-                                    direction={sort === 'node_id' ? (sortDirection ? 1 : 2) : null}
-                                    onClick={() => setSort('node_id')}
-                                />
-                                <TableHeader
-                                    name={'Status'}
-                                    direction={sort === 'status' ? (sortDirection ? 1 : 2) : null}
-                                    onClick={() => setSort('status')}
-                                />
-                            </TableHead>
+                            </th>
+                            <TableHeader
+                                name={t('admin.servers.table.identifier')}
+                                direction={sort === 'uuidShort' ? (sortDirection ? 1 : 2) : null}
+                                onClick={() => setSort('uuidShort')}
+                            />
+                            <TableHeader
+                                name={t('admin.servers.table.name')}
+                                direction={sort === 'name' ? (sortDirection ? 1 : 2) : null}
+                                onClick={() => setSort('name')}
+                            />
+                            <TableHeader
+                                name={t('admin.servers.table.owner')}
+                                direction={sort === 'owner_id' ? (sortDirection ? 1 : 2) : null}
+                                onClick={() => setSort('owner_id')}
+                                className={'hidden lg:table-cell'}
+                            />
+                            <TableHeader
+                                name={t('admin.servers.table.node')}
+                                direction={sort === 'node_id' ? (sortDirection ? 1 : 2) : null}
+                                onClick={() => setSort('node_id')}
+                                className={'hidden lg:table-cell'}
+                            />
+                            <TableHeader
+                                name={t('admin.servers.table.status')}
+                                direction={sort === 'status' ? (sortDirection ? 1 : 2) : null}
+                                onClick={() => setSort('status')}
+                            />
+                        </TableHead>
 
-                            <TableBody>
-                                {servers !== undefined &&
-                                    !error &&
-                                    !isValidating &&
-                                    length > 0 &&
-                                    servers.items.map(server => (
-                                        <tr key={server.id} css={tw`h-14 hover:bg-neutral-600`}>
-                                            <td css={tw`px-6 w-px`}>
-                                                <Checkbox
-                                                    checked={selected.includes(server.id)}
-                                                    onChange={() => toggleSelected(server.id)}
-                                                />
-                                            </td>
-                                            <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
-                                                <CopyOnClick text={server.identifier}>
-                                                    <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
-                                                        {server.identifier}
-                                                    </code>
-                                                </CopyOnClick>
-                                            </td>
+                        <TableBody>
+                            {servers !== undefined &&
+                                !error &&
+                                !isValidating &&
+                                length > 0 &&
+                                servers.items.map(server => (
+                                    <tr key={server.id} css={tw`h-14 hover:bg-neutral-600`}>
+                                        <td css={tw`px-6 w-px`}>
+                                            <Checkbox
+                                                checked={selected.includes(server.id)}
+                                                onChange={() => toggleSelected(server.id)}
+                                            />
+                                        </td>
+                                        <td css={tw`px-6 text-sm text-neutral-200 text-left whitespace-nowrap`}>
+                                            <CopyOnClick text={server.identifier}>
+                                                <code css={tw`font-mono bg-neutral-900 rounded py-1 px-2`}>
+                                                    {server.identifier}
+                                                </code>
+                                            </CopyOnClick>
+                                        </td>
 
-                                            <td css={tw`px-6 text-sm text-left whitespace-nowrap`}>
-                                                <NavLink
-                                                    to={`/admin/servers/${server.id}`}
-                                                    style={{ color: colors.primary }}
-                                                    className={'hover:brightness-125 duration-300'}
+                                        <td css={tw`px-6 text-sm text-left whitespace-nowrap`}>
+                                            <NavLink
+                                                to={`/admin/servers/${server.id}`}
+                                                style={{ color: colors.primary }}
+                                                className={'hover:brightness-125 duration-300'}
+                                            >
+                                                {server.name}
+                                            </NavLink>
+                                        </td>
+
+                                        {/* TODO: Have permission check for displaying user information. */}
+                                        <td css={tw`px-6 text-sm text-left whitespace-nowrap hidden lg:table-cell`}>
+                                            <NavLink
+                                                to={`/admin/users/${server.relations.user?.id}`}
+                                                css={tw`text-primary-400 hover:text-primary-300`}
+                                            >
+                                                <div css={tw`text-sm text-neutral-200`}>
+                                                    {server.relations.user?.email}
+                                                </div>
+
+                                                <div css={tw`text-sm text-neutral-400`}>
+                                                    {server.relations.user?.uuid.split('-')[0]}
+                                                </div>
+                                            </NavLink>
+                                        </td>
+
+                                        {/* TODO: Have permission check for displaying node information. */}
+                                        <td css={tw`px-6 text-sm text-left whitespace-nowrap hidden lg:table-cell`}>
+                                            <NavLink to={`/admin/nodes/${server.relations.node?.id}`}>
+                                                <div css={tw`text-sm text-neutral-200`}>
+                                                    {server.relations.node?.name}
+                                                </div>
+
+                                                <div css={tw`text-sm text-neutral-400`}>
+                                                    {server.relations.node?.fqdn}
+                                                </div>
+                                            </NavLink>
+                                        </td>
+
+                                        <td css={tw`px-6 whitespace-nowrap`}>
+                                            {server.status === 'installing' ? (
+                                                <span
+                                                    css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-yellow-200 text-yellow-800`}
                                                 >
-                                                    {server.name}
-                                                </NavLink>
-                                            </td>
-
-                                            {/* TODO: Have permission check for displaying user information. */}
-                                            <td css={tw`px-6 text-sm text-left whitespace-nowrap`}>
-                                                <NavLink
-                                                    to={`/admin/users/${server.relations.user?.id}`}
-                                                    css={tw`text-primary-400 hover:text-primary-300`}
+                                                    {t('admin.servers.status.installing')}
+                                                </span>
+                                            ) : server.status === 'transferring' ? (
+                                                <span
+                                                    css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-yellow-200 text-yellow-800`}
                                                 >
-                                                    <div css={tw`text-sm text-neutral-200`}>
-                                                        {server.relations.user?.email}
-                                                    </div>
+                                                    {t('admin.servers.status.transferring')}
+                                                </span>
+                                            ) : server.status === 'suspended' ? (
+                                                <span
+                                                    css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-red-200 text-red-800`}
+                                                >
+                                                    {t('admin.servers.status.suspended')}
+                                                </span>
+                                            ) : (
+                                                <span
+                                                    css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-green-100 text-green-800`}
+                                                >
+                                                    {t('admin.servers.status.active')}
+                                                </span>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                        </TableBody>
+                    </table>
 
-                                                    <div css={tw`text-sm text-neutral-400`}>
-                                                        {server.relations.user?.uuid.split('-')[0]}
-                                                    </div>
-                                                </NavLink>
-                                            </td>
-
-                                            {/* TODO: Have permission check for displaying node information. */}
-                                            <td css={tw`px-6 text-sm text-left whitespace-nowrap`}>
-                                                <NavLink to={`/admin/nodes/${server.relations.node?.id}`}>
-                                                    <div css={tw`text-sm text-neutral-200`}>
-                                                        {server.relations.node?.name}
-                                                    </div>
-
-                                                    <div css={tw`text-sm text-neutral-400`}>
-                                                        {server.relations.node?.fqdn}
-                                                    </div>
-                                                </NavLink>
-                                            </td>
-
-                                            <td css={tw`px-6 whitespace-nowrap`}>
-                                                {server.status === 'installing' ? (
-                                                    <span
-                                                        css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-yellow-200 text-yellow-800`}
-                                                    >
-                                                        Installing
-                                                    </span>
-                                                ) : server.status === 'transferring' ? (
-                                                    <span
-                                                        css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-yellow-200 text-yellow-800`}
-                                                    >
-                                                        Transferring
-                                                    </span>
-                                                ) : server.status === 'suspended' ? (
-                                                    <span
-                                                        css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-red-200 text-red-800`}
-                                                    >
-                                                        Suspended
-                                                    </span>
-                                                ) : (
-                                                    <span
-                                                        css={tw`px-2 inline-flex text-xs leading-5 font-medium rounded-full bg-green-100 text-green-800`}
-                                                    >
-                                                        Active
-                                                    </span>
-                                                )}
-                                            </td>
-                                        </tr>
-                                    ))}
-                            </TableBody>
-                        </table>
-
-                        {servers === undefined || (error && isValidating) ? (
-                            <Loading />
-                        ) : length < 1 ? (
-                            <NoItems />
-                        ) : null}
-                    </div>
-                </Pagination>
-            </ContentWrapper>
-        </AdminTable>
+                    {servers === undefined || (error && isValidating) ? (
+                        <Loading />
+                    ) : length < 1 ? (
+                        <NoItems />
+                    ) : null}
+                </div>
+            </Pagination>
+        </ContentWrapper>
+    </AdminTable>
     );
 }
 

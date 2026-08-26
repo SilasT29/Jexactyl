@@ -15,8 +15,8 @@ export default () => {
                     <CancelSvg color={colors.primary} />
                     <h2 className={'mt-10 text-white font-bold text-4xl'}>Order Cancelled</h2>
                     <p className={'text-sm text-neutral-400 mt-2'}>
-                        Your order was cancelled due to payment not being submitted to Stripe. You have not been
-                        charged. If you&apos;d like to retry this order, please click &apos;Order&apos; above.
+                        Your order request was cancelled or could not be completed. No server has been created. If you
+                        would like to retry this order, please click &apos;Order&apos; above.
                     </p>
                 </div>
             </div>

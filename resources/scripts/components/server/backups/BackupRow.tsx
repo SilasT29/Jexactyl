@@ -12,6 +12,7 @@ import { getBackups } from '@/api/routes/server/backups';
 import { type Backup } from '@definitions/server';
 import { SocketEvent } from '@server/events';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     backup: Backup;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export default ({ backup }: Props) => {
+    const { t } = useTranslation();
     const { mutate } = getBackups();
     const [visible, setVisible] = useState<boolean>(false);
 
@@ -68,7 +70,7 @@ export default ({ backup }: Props) => {
                             <span
                                 css={tw`bg-red-500 py-px px-2 rounded-full text-white text-xs uppercase border border-red-600 mr-2`}
                             >
-                                Failed
+                                {t('backups.failed')}
                             </span>
                         )}
                         <p css={tw`break-words truncate font-semibold`}>{backup.name}</p>
@@ -85,7 +87,7 @@ export default ({ backup }: Props) => {
                 <p title={format(backup.createdAt, 'ddd, MMMM do, yyyy HH:mm:ss')} css={tw`text-sm`}>
                     {formatDistanceToNow(backup.createdAt, { includeSeconds: true, addSuffix: true })}
                 </p>
-                <p css={tw`text-2xs text-neutral-500 uppercase mt-1`}>Created</p>
+                <p css={tw`text-2xs text-neutral-500 uppercase mt-1`}>{t('backups.created')}</p>
             </div>
             <Can action={['backup.download', 'backup.restore', 'backup.delete']} matchAny>
                 <div css={tw`mr-3 text-gray-400 hover:text-white duration-300`}>

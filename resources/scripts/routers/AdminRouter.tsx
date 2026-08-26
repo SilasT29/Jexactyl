@@ -17,8 +17,10 @@ import { NotFound } from '@/elements/ScreenBlock';
 import { PuzzleIcon, ReplyIcon } from '@heroicons/react/outline';
 import { Fragment } from 'react';
 import PageTransition from '@/elements/transitions/PageTransition';
+import { useTranslation } from 'react-i18next';
 
 function AdminRouter() {
+    const { t } = useTranslation();
     const location = useLocation();
     const theme = useStoreState(state => state.theme.data!);
     const user = useStoreState(state => state.user.data!);
@@ -75,7 +77,7 @@ function AdminRouter() {
                 <Sidebar.Wrapper theme={theme} $admin>
                     <NavLink to="/" className={'mb-[18px]'}>
                         <Sidebar.Icon icon={ReplyIcon} />
-                        <span>Return</span>
+                        <span>{t('admin.sidebar.return')}</span>
                     </NavLink>
                     {categories.map(category => {
                         const categoryRoutes = routes.admin.filter(
@@ -89,7 +91,7 @@ function AdminRouter() {
 
                         return (
                             <Fragment key={category}>
-                                <Sidebar.Section>{category[0]!.toUpperCase() + category.slice(1)}</Sidebar.Section>
+                                <Sidebar.Section>{t(`admin.sidebar.${category}`)}</Sidebar.Section>
                                 {categoryRoutes.map(route => (
                                     <NavLink to={route.path} key={route.path} end={route.end}>
                                         <Sidebar.Icon icon={route.icon ?? PuzzleIcon} />
@@ -107,9 +109,9 @@ function AdminRouter() {
                     <div className={'flex flex-col ml-3'}>
                         <span className={'font-sans font-normal text-xs text-gray-300 leading-tight select-none'}>
                             <div className={'w-full flex justify-between mb-1'}>
-                                <p className={'text-sm text-gray-400'}>Welcome,</p>
+                                <p className={'text-sm text-gray-400'}>{t('admin.sidebar.welcome')}</p>
                                 <Pill size={'xsmall'} type={'info'}>
-                                    {user.roleName === 'None' ? 'Root Admin' : user.roleName}
+                                    {user.roleName === 'None' ? t('admin.sidebar.root_admin') : user.roleName}
                                 </Pill>
                             </div>
                             {user.email}
@@ -117,8 +119,10 @@ function AdminRouter() {
                     </div>
                 </Sidebar.User>
             </Sidebar>
-            <div className={'flex-1 overflow-x-hidden px-6 pt-6 lg:px-10 lg:pt-8 xl:px-16 xl:pt-12'}>
-                <div className={'w-full flex flex-col mx-auto'} style={{ maxWidth: '86rem' }}>
+            <div
+                className={'flex-1 overflow-x-hidden px-6 pt-6 pb-24 md:pb-10 lg:px-10 lg:pt-8 xl:px-16 xl:pt-12'}
+            >
+                <div className={'w-full max-w-full overflow-x-hidden flex flex-col mx-auto'} style={{ maxWidth: '86rem' }}>
                     <ErrorBoundary>
                         <AnimatePresence mode={'wait'} initial={false}>
                             <Routes

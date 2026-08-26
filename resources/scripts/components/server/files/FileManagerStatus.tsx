@@ -7,6 +7,7 @@ import Tooltip from '@/elements/tooltip/Tooltip';
 import Code from '@/elements/Code';
 import asDialog from '@/hoc/asDialog';
 import { ServerContext } from '@/state/server';
+import { useTranslation } from 'react-i18next';
 
 const svgProps = {
     cx: 16,
@@ -31,6 +32,7 @@ const Spinner = ({ progress, className }: { progress: number; className?: string
 );
 
 const FileUploadList = () => {
+    const { t } = useTranslation();
     const { close } = useContext(DialogWrapperContext);
     const cancelFileUpload = ServerContext.useStoreActions(actions => actions.files.cancelFileUpload);
     const clearFileUploads = ServerContext.useStoreActions(actions => actions.files.clearFileUploads);
@@ -58,9 +60,9 @@ const FileUploadList = () => {
             ))}
             <Dialog.Footer>
                 <Button.Danger variant={Button.Variants.Secondary} onClick={() => clearFileUploads()}>
-                    Cancel Uploads
+                    {t('files.cancel_uploads')}
                 </Button.Danger>
-                <Button.Text onClick={close}>Close</Button.Text>
+                <Button.Text onClick={close}>{t('files.close')}</Button.Text>
             </Dialog.Footer>
         </div>
     );
@@ -72,6 +74,7 @@ const FileUploadListDialog = asDialog({
 })(FileUploadList);
 
 export default () => {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
 
     const count = ServerContext.useStoreState(state => Object.keys(state.files.uploads).length);
@@ -89,7 +92,7 @@ export default () => {
     return (
         <>
             {count > 0 && (
-                <Tooltip content={`${count} files are uploading, click to view`}>
+                <Tooltip content={t('files.uploads_tooltip', { count })}>
                     <button className={'flex h-10 w-10 items-center justify-center'} onClick={() => setOpen(true)}>
                         <Spinner progress={(progress.uploaded / progress.total) * 100} className={'h-8 w-8'} />
                         <CloudUploadIcon className={'absolute mx-auto h-3 animate-pulse'} />

@@ -2,12 +2,10 @@
 
 namespace Everest\Http\Controllers\Api\Client\Billing;
 
-use Stripe\StripeClient;
 use Everest\Models\Server;
 use Everest\Models\Billing\Order;
 use Everest\Models\Billing\Product;
 use Everest\Exceptions\DisplayException;
-use Everest\Services\Billing\PaymentService;
 use Everest\Services\Billing\UpgradeService;
 use Everest\Services\Billing\CreateOrderService;
 use Everest\Transformers\Api\Client\ProductTransformer;
@@ -18,16 +16,11 @@ use Everest\Http\Requests\Api\Client\Billing\GetUpgradeOptionsRequest;
 
 class UpgradeController extends ClientApiController
 {
-    private StripeClient $stripe;
-
     public function __construct(
         private UpgradeService $upgradeService,
-        private PaymentService $paymentService,
         private CreateOrderService $orderService,
     ) {
         parent::__construct();
-
-        $this->stripe = new StripeClient(config('modules.billing.keys.secret'));
     }
 
     /**
@@ -62,10 +55,10 @@ class UpgradeController extends ClientApiController
     }
 
     /**
-     * Process a one-time upgrade fee through payment gateway and
-     * update the server with new resources according to new package.
+     * Process a one-time upgrade request and create a pending order ticket.
+     * No money is charged until staff review the ticket.
      */
-    public function create(ProcessUpgradeRequest $request, Server $server): string
+    public function create(ProcessUpgradeRequest $request, Server $server)
     {
         $validated = $this->upgradeService->validate($request->user());
 
@@ -81,27 +74,18 @@ class UpgradeController extends ClientApiController
             throw new DisplayException('You cannot upgrade to a cheaper plan.');
         }
 
-        $metadata = [
-            'user_id' => (string) $request->user()->id,
-            'customer_email' => $request->user()->email,
-            'product_id' => (string) $new_product->id,
-            'server_id' => (string) $server->id,
-            'order_type' => Order::TYPE_UPGRADE,
-        ];
-
-        $transaction = $this->paymentService->create($this->stripe, $request->user(), $new_product, $metadata, $price);
-
         $order = $this->orderService->create(
-            $transaction->id,
+            null,
             $request->user(),
             $new_product,
-            Order::STATUS_PENDING,
+            Order::STATUS_PENDING_PAYMENT,
             Order::TYPE_UPGRADE,
             $price,
+            ['server_id' => $server->id, 'subtotal' => $new_product->price],
         );
 
         $order->assignServer($server);
 
-        return $transaction->url;
+        return $this->transform($order, \Everest\Transformers\Api\Client\OrderTransformer::class);
     }
 }

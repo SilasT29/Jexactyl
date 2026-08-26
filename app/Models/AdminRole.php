@@ -84,14 +84,13 @@ class AdminRole extends Model
     public const BILLING_UPDATE = 'billing.update';
     public const BILLING_EXPORT = 'billing.export';
     public const BILLING_IMPORT = 'billing.import';
-    public const BILLING_DELETE_KEYS = 'billing.delete-keys';
     public const BILLING_DISCOUNT_CODES = 'billing.discount-codes';
-
     public const TICKETS_READ = 'tickets.read';
     public const TICKETS_CREATE = 'tickets.create';
     public const TICKETS_UPDATE = 'tickets.update';
     public const TICKETS_DELETE = 'tickets.delete';
     public const TICKETS_MESSAGE = 'tickets.message';
+    public const TICKETS_CREATE_SERVER = 'tickets.create-server';
 
     public const AI_READ = 'ai.read';
     public const AI_UPDATE = 'ai.update';
@@ -216,7 +215,6 @@ class AdminRole extends Model
                 'update' => 'Update billing settings.',
                 'export' => 'Export current billing configuration to JSON.',
                 'import' => 'Import current billing configuration from JSON.',
-                'delete-keys' => 'Delete Stripe API billing keys used for payment.',
                 'discount-codes' => 'Create, update and delete discount codes for checkout.',
             ],
         ],
@@ -228,6 +226,7 @@ class AdminRole extends Model
                 'update' => 'Update an existing ticket.',
                 'delete' => 'Delete an existing ticket.',
                 'message' => 'Send a message in a ticket.',
+                'create-server' => 'Create a server from a pending order ticket.',
             ],
         ],
         'ai' => [

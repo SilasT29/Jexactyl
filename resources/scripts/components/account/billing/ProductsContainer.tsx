@@ -17,7 +17,6 @@ import {
     faShoppingBag,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { Alert } from '@/elements/alert';
 import { getProducts } from '@/api/routes/account/billing/products';
 import { getCategories } from '@/api/routes/account/billing/categories';
 import { Category, Product } from '@definitions/account/billing';
@@ -30,7 +29,6 @@ export default () => {
     const [products, setProducts] = useState<Product[] | undefined>();
     const [categories, setCategories] = useState<Category[] | undefined>();
 
-    const settings = useStoreState(s => s.everest.data!.billing);
     const { colors } = useStoreState(state => state.theme.data!);
 
     useEffect(() => {
@@ -49,15 +47,6 @@ export default () => {
             setProducts(data);
         });
     }, [category]);
-
-    if (!settings.keys.secret) {
-        return (
-            <Alert type={'danger'}>
-                Due to a configuration error, the store is currently unavailable. Please try again later, or refresh the
-                page.
-            </Alert>
-        );
-    }
 
     return (
         <PageContentBlock title={'Available Products'}>

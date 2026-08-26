@@ -19,14 +19,14 @@ const ContentBox = ({ title, borderColor, showFlashes, showLoadingOverlay, child
 
     return (
         <div {...props}>
-            {title && <h2 css={tw`text-neutral-300 mb-4 px-4 text-2xl font-header`}>{title}</h2>}
+            {title && <h2 css={tw`text-neutral-300 mb-4 px-0 text-lg sm:text-2xl font-header`}>{title}</h2>}
             {showFlashes && (
                 <FlashMessageRender byKey={typeof showFlashes === 'string' ? showFlashes : undefined} css={tw`mb-4`} />
             )}
             <div
                 style={{ backgroundColor: secondary }}
                 css={[
-                    tw`p-4 rounded-xl shadow-lg ring-1 ring-white/5 relative transition-shadow duration-300`,
+                    tw`px-4 py-4 sm:p-6 rounded-xl shadow-lg ring-1 ring-white/5 relative transition-shadow duration-300 w-full min-w-0`,
                     !!borderColor && tw`border-t-4`,
                 ]}
             >

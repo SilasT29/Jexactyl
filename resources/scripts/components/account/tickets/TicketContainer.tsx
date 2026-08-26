@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import tw from 'twin.macro';
 import { useFlashKey } from '@/plugins/useFlash';
 import { useTickets } from '@/api/routes/account/tickets';
 import ContentBox from '@/elements/ContentBox';
@@ -27,6 +29,7 @@ export const statusToColor = (status: string): string => {
 export default () => {
     const { clearAndAddHttpError } = useFlashKey('account');
     const { colors } = useStoreState(state => state.theme.data!);
+    const { t } = useTranslation();
     const {
         data: tickets,
         isValidating,
@@ -41,38 +44,41 @@ export default () => {
     }, [error]);
 
     return (
-        <PageContentBlock title={'Support Tickets'}>
+        <PageContentBlock title={String(t('tickets.support_tickets'))}>
             <FlashMessageRender byKey={'account:tickets'} />
-            <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
-                Your Support Tickets
-                <p className={'text-gray-400 font-normal text-sm mt-1'}>
-                    Create a ticket to gain support from an administrator.
-                </p>
+            <div css={tw`text-3xl lg:text-5xl font-bold mt-8 mb-12`}>
+                {String(t('tickets.your_tickets'))}
+                <p css={tw`text-gray-400 font-normal text-sm mt-1`}>{String(t('tickets.create_description'))}</p>
             </div>
-            <div className={'grid lg:grid-cols-3 gap-4'}>
-                <div className={'lg:col-span-2'}>
-                    <ContentBox title={'Support Tickets'}>
+            <div css={tw`grid lg:grid-cols-3 gap-4 pb-20`}>
+                <div css={tw`lg:col-span-2`}>
+                    <ContentBox title={String(t('tickets.support_tickets'))}>
                         <SpinnerOverlay visible={!tickets && isValidating} />
                         {!tickets || !tickets.length ? (
-                            <p className={'text-center text-sm'}>
-                                {!tickets ? 'Loading...' : 'No tickets exist for this account.'}
+                            <p css={tw`text-center text-sm`}>
+                                {!tickets ? String(t('common.loading')) : String(t('tickets.no_tickets'))}
                             </p>
                         ) : (
                             tickets.map((ticket, index) => (
                                 <Link to={`/account/tickets/${ticket.id}`} key={ticket.id}>
                                     <div
                                         style={{ backgroundColor: colors.headers }}
-                                        className={classNames(index > 0 ? 'mt-4' : 'mt-0', 'flex p-4 rounded-lg')}
+                                        css={[
+                                            tw`w-full min-w-0 rounded-lg`,
+                                            tw`flex flex-col md:flex-row gap-2 md:gap-0`,
+                                            tw`px-4 py-4`,
+                                            index > 0 ? tw`mt-4` : tw`mt-0`,
+                                        ]}
                                     >
-                                        <div className={'flex items-center truncate w-full md:flex-1'}>
-                                            <p className={'mr-4 text-xl font-bold'}>#{ticket.id}</p>
-                                            <div className={'flex flex-col truncate'}>
-                                                <div className={'flex items-center mb-1'}>
-                                                    <p className={'break-words truncate text-lg'}>{ticket.title}</p>
+                                        <div css={tw`flex items-center truncate w-full md:flex-1 min-w-0`}>
+                                            <p css={tw`mr-4 text-xl font-bold`}>#{ticket.id}</p>
+                                            <div css={tw`flex flex-col truncate min-w-0`}>
+                                                <div css={tw`flex flex-col sm:flex-row sm:items-center mb-1`}>
+                                                    <p css={tw`break-words truncate text-lg`}>{ticket.title}</p>
                                                     <span
                                                         className={classNames(
                                                             statusToColor(ticket.status),
-                                                            'capitalize px-2 ml-4 inline-flex text-xs leading-5 font-medium rounded-full hidden sm:inline',
+                                                            'capitalize px-2 mt-1 sm:mt-0 sm:ml-4 inline-flex text-xs leading-5 font-medium rounded-full self-start sm:self-auto',
                                                         )}
                                                     >
                                                         {ticket.status}
@@ -81,14 +87,10 @@ export default () => {
                                             </div>
                                         </div>
                                         {ticket.createdAt && (
-                                            <div
-                                                className={
-                                                    'flex-1 md:flex-none md:w-48 mt-4 md:mt-0 md:ml-8 md:text-center'
-                                                }
-                                            >
-                                                <p className={'text-sm'}>{format(ticket.createdAt, 'MMMM do, yyyy')}</p>
-                                                <p className={'text-2xs text-gray-300 uppercase mt-1'}>
-                                                    Created{' '}
+                                            <div css={tw`flex-none md:w-48 mt-2 md:mt-0 md:ml-8 md:text-center`}>
+                                                <p css={tw`text-sm`}>{format(ticket.createdAt, 'MMMM do, yyyy')}</p>
+                                                <p css={tw`text-2xs text-gray-300 uppercase mt-1`}>
+                                                    {String(t('tickets.created'))}{' '}
                                                     {formatDistanceToNow(ticket.createdAt, {
                                                         includeSeconds: true,
                                                         addSuffix: true,
@@ -102,7 +104,7 @@ export default () => {
                         )}
                     </ContentBox>
                 </div>
-                <ContentBox title={'Create Ticket'}>
+                <ContentBox title={String(t('tickets.create_ticket'))}>
                     <CreateTicketForm />
                 </ContentBox>
             </div>

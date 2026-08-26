@@ -31,12 +31,12 @@ export const ModalMask = styled.div`
 `;
 
 const ModalContainer = styled.div<{ alignTop?: boolean }>`
-    max-width: 95%;
-    max-height: calc(100vh - 8rem);
+    max-width: 100%;
+    max-height: calc(100vh - 4rem);
     ${breakpoint('md')`max-width: 75%`};
     ${breakpoint('lg')`max-width: 50%`};
 
-    ${tw`relative flex flex-col w-full m-auto`};
+    ${tw`relative flex flex-col w-full mx-4 md:m-auto`};
     ${props =>
         props.alignTop &&
         css`
@@ -47,8 +47,7 @@ const ModalContainer = styled.div<{ alignTop?: boolean }>`
     margin-bottom: auto;
 
     & > .close-icon {
-        ${tw`absolute right-0 p-2 text-white cursor-pointer opacity-50 transition-all duration-150 ease-linear hover:opacity-100`};
-        top: -2.5rem;
+        ${tw`absolute right-0 -top-11 p-3 flex items-center justify-center text-white cursor-pointer opacity-70 transition-all duration-150 ease-linear hover:opacity-100`};
 
         &:hover {
             ${tw`transform rotate-90`}

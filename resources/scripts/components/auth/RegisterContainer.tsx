@@ -1,11 +1,12 @@
 import { useStoreState } from 'easy-peasy';
 import type { FormikHelpers } from 'formik';
-import { Formik } from 'formik';
+import { Formik, Field as FormikField } from 'formik';
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Reaptcha from 'reaptcha';
 import tw from 'twin.macro';
-import { object, string } from 'yup';
+import { object, string, boolean } from 'yup';
 
 import LoginFormContainer from '@/components/auth/LoginFormContainer';
 import Field from '@/elements/Field';
@@ -20,9 +21,11 @@ interface Values {
     email: string;
     password: string;
     confirm_password: string;
+    accept_privacy: boolean;
 }
 
 function RegisterContainer() {
+    const { t } = useTranslation();
     const ref = useRef<Reaptcha>(null);
     const token = useRef('');
 
@@ -70,19 +73,20 @@ function RegisterContainer() {
     return (
         <Formik
             onSubmit={onSubmit}
-            initialValues={{ username: '', email: '', password: '', confirm_password: '' }}
+            initialValues={{ username: '', email: '', password: '', confirm_password: '', accept_privacy: false }}
             validationSchema={object().shape({
                 username: string().required('A username must be provided.'),
                 email: string().email().required('You must provide a valid email.'),
                 password: string().required('Please enter your account password.'),
                 confirm_password: string().required('Please enter the password confirmation.'),
+                accept_privacy: boolean().oneOf([true], 'Du musst die Datenschutzerklärung akzeptieren.'),
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={`Create an Account`}>
+                <LoginFormContainer title={String(t('auth.register.title'))}>
                     <Field
                         type={'text'}
-                        label={'Username'}
+                        label={String(t('auth.register.username'))}
                         icon={faIdBadge}
                         name={'username'}
                         placeholder={'user_account'}
@@ -91,17 +95,17 @@ function RegisterContainer() {
                     <div css={tw`mt-6`}>
                         <Field
                             type={'text'}
-                            label={'Email Address'}
+                            label={String(t('auth.register.email'))}
                             icon={faAt}
                             name={'email'}
-                            placeholder={'user@jexpanel.com'}
+                            placeholder={'user@silast29.de'}
                             disabled={isSubmitting}
                         />
                     </div>
                     <div css={tw`mt-6`}>
                         <Field
                             type={'password'}
-                            label={'Password'}
+                            label={String(t('auth.register.password'))}
                             icon={faKey}
                             name={'password'}
                             placeholder={'••••••••••••'}
@@ -111,12 +115,42 @@ function RegisterContainer() {
                     <div css={tw`mt-6`}>
                         <Field
                             type={'password'}
-                            label={'Confirm Password'}
+                            label={String(t('auth.register.confirm_password'))}
                             icon={faUnlockKeyhole}
                             name={'confirm_password'}
                             placeholder={'••••••••••••'}
                             disabled={isSubmitting}
                         />
+                    </div>
+                    <div css={tw`mt-6`}>
+                        <label css={tw`flex items-start gap-3 cursor-pointer text-sm text-neutral-200 select-none`}>
+                            <FormikField
+                                type={'checkbox'}
+                                name={'accept_privacy'}
+                                disabled={isSubmitting}
+                                style={{ accentColor: '#22c55e' }}
+                                css={tw`mt-0.5 w-5 h-5 flex-none cursor-pointer`}
+                            />
+                            <span>
+                                {String(t('auth.register.accept_privacy'))}{' '}
+                                <a
+                                    href={'https://silast29.de/datenschutz'}
+                                    target={'_blank'}
+                                    rel={'noopener noreferrer'}
+                                    css={tw`text-green-400 hover:text-green-200 underline`}
+                                >
+                                    {String(t('auth.register.privacy_link'))}
+                                </a>{' '}
+                                gelesen und stimme ihr zu.
+                            </span>
+                        </label>
+                        <FormikField name={'accept_privacy'}>
+                            {({ meta }: any) =>
+                                meta.touched && meta.error ? (
+                                    <p css={tw`mt-2 text-xs text-red-400`}>{meta.error}</p>
+                                ) : null
+                            }
+                        </FormikField>
                     </div>
                     <div css={tw`mt-6`}>
                         <Button
@@ -126,7 +160,7 @@ function RegisterContainer() {
                             size={Button.Sizes.Large}
                             disabled={isSubmitting}
                         >
-                            Register
+                            {String(t('auth.register.button'))}
                         </Button>
                     </div>
                     {recaptchaEnabled && (
@@ -149,7 +183,7 @@ function RegisterContainer() {
                             to={'/auth/login'}
                             css={tw`text-xs text-neutral-300 tracking-wide no-underline uppercase font-medium hover:text-neutral-600`}
                         >
-                            Return to Login
+                            {String(t('auth.register.return_to_login'))}
                         </Link>
                     </div>
                 </LoginFormContainer>

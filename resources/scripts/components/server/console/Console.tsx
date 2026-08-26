@@ -24,6 +24,7 @@ import styles from './style.module.css';
 import { useStoreState } from '@/state/hooks';
 import { ArrowsExpandIcon } from '@heroicons/react/outline';
 import IntelligenceButton from './IntelligenceButton';
+import { useTranslation } from 'react-i18next';
 
 const theme: ITheme = {
     background: '#000000',
@@ -63,6 +64,7 @@ interface Props {
 }
 
 export default ({ expand, setExpand }: Props) => {
+    const { t } = useTranslation();
     const terminalInitOnlyProps: ITerminalInitOnlyOptions = {
         rows: expand ? 45 : 30,
     };
@@ -252,8 +254,8 @@ export default ({ expand, setExpand }: Props) => {
                     <input
                         className={classNames('peer', styles.command_input)}
                         type={'text'}
-                        placeholder={'Type a command...'}
-                        aria-label={'Console command input.'}
+                        placeholder={t('console.command_placeholder')}
+                        aria-label={t('console.command_placeholder')}
                         disabled={!instance || !connected}
                         onKeyDown={handleCommandKeyDown}
                         autoCorrect={'off'}

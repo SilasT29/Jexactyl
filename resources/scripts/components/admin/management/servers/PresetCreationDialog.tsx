@@ -6,12 +6,17 @@ import { createServerFromPreset, getServerPresets } from '@/api/routes/admin/ser
 import Select from '@/elements/Select';
 import { ServerPreset } from '@/api/definitions/admin';
 import { useNodeEntries as getNodes } from '@/api/routes/admin/nodes';
+import classNames from 'classnames';
 import type { NodeEntry as Node } from '@definitions/admin';
 import { Alert } from '@/elements/alert';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 
-export default () => {
+interface Props {
+    className?: string;
+}
+
+export default ({ className }: Props) => {
     const { clearFlashes, clearAndAddHttpError } = useFlash();
 
     const [selectedPreset, setSelectedPreset] = useState<ServerPreset | null>(null);
@@ -72,7 +77,7 @@ export default () => {
                         <div className="font-bold">
                             Deploying using {selectedPreset.name} onto {selectedNode?.name ?? '...'}
                         </div>
-                        <div className="grid grid-cols-3 gap-4 text-sm text-neutral-400">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 text-sm text-neutral-400">
                             <div>CPU: {selectedPreset.cpu}%</div>
                             <div>Memory: {selectedPreset.memory} MB</div>
                             <div>Disk: {selectedPreset.disk} MB</div>
@@ -100,7 +105,7 @@ export default () => {
                 onClick={() => setOpen(true)}
                 type="button"
                 size={Button.Sizes.Large}
-                className="h-10 px-4 py-0 whitespace-nowrap"
+                className={classNames('h-10 px-4 py-0 whitespace-nowrap', className)}
             >
                 <SparklesIcon className="w-5 h-5 mr-2" /> Create from Preset
             </Button>

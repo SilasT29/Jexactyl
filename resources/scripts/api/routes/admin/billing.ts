@@ -97,14 +97,6 @@ export const getBillingAnalytics = (): Promise<BillingAnalytics> => {
     });
 };
 
-export const deleteStripeKeys = (): Promise<void> => {
-    return new Promise((resolve, reject) => {
-        http.delete(`/api/application/billing/keys`)
-            .then(() => resolve())
-            .catch(reject);
-    });
-};
-
 export const updateSettings = (key: string, value: any): Promise<void> => {
     return new Promise((resolve, reject) => {
         http.put(`/api/application/billing/settings`, { key, value })

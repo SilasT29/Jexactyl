@@ -8,7 +8,8 @@
 }
 
 .title {
-    @apply font-header text-xl font-medium text-slate-50 pr-4;
+    @apply font-header text-lg sm:text-xl font-medium text-slate-50 pr-8 sm:pr-4;
+    @apply break-words;
 }
 
 .close_icon {

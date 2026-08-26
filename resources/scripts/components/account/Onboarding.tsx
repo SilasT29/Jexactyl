@@ -73,12 +73,14 @@ export default () => {
                             page.
                         </Alert>
                     )}
-                    <div className={'flex w-full justify-between'}>
+                    <div className={'flex flex-col sm:flex-row w-full sm:justify-between gap-3'}>
                         <p className={'my-auto text-xs text-gray-400'}>
                             <FontAwesomeIcon icon={faExclamationTriangle} className={'mr-1 text-yellow-600'} />
                             This action will cause your account to logout.
                         </p>
-                        <Button type={'submit'}>Save Changes</Button>
+                        <Button type={'submit'} className={'flex-shrink-0'}>
+                            Save Changes
+                        </Button>
                     </div>
                 </Form>
             </Formik>

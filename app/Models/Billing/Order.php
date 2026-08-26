@@ -33,6 +33,7 @@ class Order extends Model
     public const STATUS_FAILED = 'failed';
     public const STATUS_EXPIRED = 'expired';
     public const STATUS_PENDING = 'pending';
+    public const STATUS_PENDING_PAYMENT = 'pending_payment';
     public const STATUS_PROCESSING = 'processing';
     public const STATUS_PROCESSED = 'processed';
 
@@ -75,7 +76,7 @@ class Order extends Model
         'user_id' => 'required|exists:users,id',
         'description' => 'required|string|min:3',
         'total' => 'required|min:0',
-        'status' => 'required|in:expired,pending,processing,failed,processed',
+        'status' => 'required|in:expired,pending,pending_payment,processing,failed,processed',
         'product_id' => 'exists:products,id',
         'type' => 'required|in:new,upgrade,renewal',
         'threat_index' => 'nullable|int|min:-1|max:100',
@@ -120,12 +121,19 @@ class Order extends Model
      */
     public function requiresPayment(): bool
     {
-        if ($this->total > 0.0) {
+        if ($this->status === self::STATUS_PENDING_PAYMENT) {
             return true;
         }
 
-        return false;
+        return $this->total > 0.0 && $this->status !== self::STATUS_PROCESSED;
+    }
 
+    /**
+     * Return whether this order is awaiting manual payment review.
+     */
+    public function isPendingPayment(): bool
+    {
+        return $this->status === self::STATUS_PENDING_PAYMENT;
     }
 
     /**

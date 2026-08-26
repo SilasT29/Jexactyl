@@ -11,6 +11,7 @@ import useEventListener from '@/plugins/useEventListener';
 import { useFlashKey } from '@/plugins/useFlash';
 import useFileManagerSwr from '@/plugins/useFileManagerSwr';
 import { ServerContext } from '@/state/server';
+import { useTranslation } from 'react-i18next';
 
 function isFileOrDirectory(event: DragEvent): boolean {
     if (!event.dataTransfer?.types) {
@@ -21,6 +22,7 @@ function isFileOrDirectory(event: DragEvent): boolean {
 }
 
 export default ({ className }: { className?: string }) => {
+    const { t } = useTranslation();
     const fileUploadInput = useRef<HTMLInputElement>(null);
 
     const [visible, setVisible] = useState(false);
@@ -63,7 +65,7 @@ export default ({ className }: { className?: string }) => {
         clearAndAddHttpError();
         const list = Array.from(files);
         if (list.some(file => !file.type && (!file.size || file.size === 4096))) {
-            return addError('Folder uploads are not supported.', 'Error');
+            return addError(t('files.folder_upload_error'), 'Error');
         }
 
         const uploads = list.map(file => {
@@ -126,7 +128,7 @@ export default ({ className }: { className?: string }) => {
                             >
                                 <CloudUploadIcon className={'h-10 w-10 flex-shrink-0'} />
                                 <p className={'flex-1 text-center font-header text-lg text-neutral-100'}>
-                                    Drag and drop files to upload.
+                                    {t('files.upload_drag')}
                                 </p>
                             </div>
                         </div>
@@ -148,7 +150,7 @@ export default ({ className }: { className?: string }) => {
                 multiple
             />
             <Button className={className} onClick={() => fileUploadInput.current && fileUploadInput.current.click()}>
-                Upload
+                {t('files.upload')}
             </Button>
         </>
     );

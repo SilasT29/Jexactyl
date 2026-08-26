@@ -62,7 +62,11 @@ const ConfigureTwoFactorForm = ({ onTokens }: Props) => {
     return (
         <form id={'enable-totp-form'} onSubmit={submit}>
             <FlashMessageRender byKey={'account:two-step'} className={'mt-4'} />
-            <div className={'mx-auto mt-6 flex h-56 w-56 items-center justify-center bg-slate-50 p-2 shadow'}>
+            <div
+                className={
+                    'mx-auto mt-6 flex h-48 w-48 sm:h-56 sm:w-56 items-center justify-center bg-slate-50 p-2 shadow'
+                }
+            >
                 {!token ? (
                     <Spinner />
                 ) : (

@@ -65,8 +65,6 @@ Route::middleware([AdminSubject::class])->group(function () {
         Route::get('/analytics', [Application\Billing\BillingController::class, 'analytics']);
         Route::put('/settings', [Application\Billing\BillingController::class, 'settings']);
 
-        Route::delete('/keys', [Application\Billing\BillingController::class, 'resetKeys']);
-
         Route::get('/products/{product:id}', [Application\Billing\ProductController::class, 'view']);
 
         Route::group(['prefix' => '/categories'], function () {
@@ -178,6 +176,7 @@ Route::middleware([AdminSubject::class])->group(function () {
 
         Route::post('/message', [Application\Tickets\TicketMessageController::class, 'store']);
         Route::get('/{ticket:id}/messages', [Application\Tickets\TicketMessageController::class, 'index']);
+        Route::post('/{ticket:id}/create-server', [Application\Tickets\TicketServerController::class, 'create']);
     });
 
     /*

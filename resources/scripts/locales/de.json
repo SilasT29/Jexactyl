@@ -1,0 +1,741 @@
+{
+    "language": {
+        "label": "Sprache",
+        "english": "Englisch",
+        "german": "Deutsch",
+        "select": "Sprache auswählen"
+    },
+    "privacy_mode": {
+        "label": "Privatsphäre-Modus",
+        "description": "E-Mail-Adressen, IPs und andere private Daten im Panel ausblenden.",
+        "indicator": "Privatsphäre-Modus: AN"
+    },
+    "nav": {
+        "dashboard": "Dashboard",
+        "files": "Dateien",
+        "console": "Konsole",
+        "settings": "Einstellungen",
+        "account": "Konto",
+        "security": "Sicherheit",
+        "admin": "Admin",
+        "logout": "Abmelden",
+        "servers": "Server",
+        "billing": "Abrechnung",
+        "orders": "Bestellungen",
+        "tickets": "Tickets",
+        "api_keys": "API-Schlüssel",
+        "ssh_keys": "SSH-Schlüssel",
+        "passkeys": "Passkeys"
+    },
+    "user_menu": {
+        "welcome": "Willkommen zurück",
+        "profile": "Profil",
+        "settings": "Einstellungen"
+    },
+    "buttons": {
+        "save": "Speichern",
+        "cancel": "Abbrechen",
+        "delete": "Löschen",
+        "create": "Erstellen",
+        "back": "Zurück",
+        "next": "Weiter",
+        "previous": "Zurück",
+        "submit": "Absenden",
+        "close": "Schließen",
+        "edit": "Bearbeiten",
+        "confirm": "Bestätigen",
+        "continue": "Fortfahren"
+    },
+    "auth": {
+        "login": {
+            "title": "Willkommen bei {{appName}}",
+            "username_or_email": "Benutzername oder E-Mail",
+            "password": "Passwort",
+            "forgot_password": "Passwort vergessen?",
+            "button": "Anmelden",
+            "passkey": "Oder mit einem Passkey anmelden",
+            "discord_sso": "Mit Discord anmelden",
+            "google_sso": "Mit Google anmelden",
+            "register_with_email": "Mit E-Mail registrieren",
+            "or": "ODER"
+        },
+        "register": {
+            "title": "Ein Konto erstellen",
+            "username": "Benutzername",
+            "email": "E-Mail-Adresse",
+            "password": "Passwort",
+            "confirm_password": "Passwort bestätigen",
+            "button": "Registrieren",
+            "accept_privacy": "Ich habe die",
+            "privacy_link": "Datenschutzerklärung",
+            "return_to_login": "Zurück zum Login"
+        },
+        "forgot_password": {
+            "title": "Passwort zurücksetzen",
+            "email": "E-Mail-Adresse",
+            "email_description": "Gib die E-Mail-Adresse deines Kontos ein, mit der du das Panel nutzt.",
+            "recovery_code": "Wiederherstellungscode",
+            "recovery_code_description": "Gib den Wiederherstellungscode ein, den du bei der Erstellung deines Kontos erhalten hast. Du hast keinen Code? Kontaktiere unseren Support.",
+            "new_password": "Neues Passwort",
+            "new_password_description": "Gib das neue Passwort ein, das du für dieses Konto verwenden möchtest.",
+            "confirm_password": "Neues Passwort bestätigen",
+            "confirm_password_description": "Gib das obige Passwort zur Sicherheit erneut ein.",
+            "button": "Anmeldung versuchen",
+            "return_to_login": "Zurück zum Login"
+        }
+    },
+    "admin": {
+        "users": {
+            "title": "Benutzerkonten",
+            "description": "Alle Benutzer, die Zugriff auf das System haben.",
+            "users": "Benutzer",
+            "admin_roles": "Administratorrollen",
+            "new_user": "Neuer Benutzer"
+        },
+        "overview": {
+            "title": "Übersicht",
+            "subtitle": "Ein schneller Blick auf dein System.",
+            "version_info": "Versionsinformationen",
+            "debug_warning": "Jexpanel läuft im Debug-Modus. Nicht im Produktivbetrieb verwenden.",
+            "current_version": "Du verwendest aktuell Version {{current}}, die neueste Version ist {{latest}}.",
+            "beta_warning": "Du verwendest eine Beta-Version von Jexpanel v4, die mehrere Fehler oder seltsame Probleme enthalten kann. Verwende diese Software nicht im Produktivbetrieb, es sei denn, Datenverlust ist dir egal.",
+            "statistics": "Statistiken",
+            "nodes": "Nodes",
+            "servers": "Server",
+            "users": "Benutzer",
+            "pending_tickets": "Offene Tickets",
+            "databases": "Datenbanken",
+            "backups": "Backups",
+            "revenue": "Einnahmen",
+            "orders_this_month": "Bestellungen diesen Monat",
+            "pending_orders": "Ausstehende Bestellungen",
+            "products_available": "Produkte verfügbar",
+            "suspended": "gesperrt",
+            "installing": "installieren",
+            "administrators": "Administratoren",
+            "suggested_actions": "Vorgeschlagene Aktionen",
+            "auto_updates_title": "Automatische Updates aktivieren",
+            "auto_updates_description": "Mit automatischen Updates bleibt Jexpanel im Hintergrund stabil und sicher.",
+            "registration_title": "Benutzerregistrierung erlauben",
+            "registration_description": "Wenn das Authentifizierungsmodul aktiviert ist, können sich Benutzer über die Login-Seite registrieren.",
+            "first_node_title": "Füge deinen ersten Node hinzu",
+            "first_node_description": "Nodes sind physische Server, auf denen Jexactyls Server laufen.",
+            "first_server_title": "Erstelle deinen ersten Server",
+            "first_server_description": "Erstelle einen Server, um dein Lieblingsspiel oder -programm zu hosten.",
+            "tickets_title": "Kundentickets beantworten",
+            "tickets_description": "Du hast aktuell {{count}} ausstehende Tickets.",
+            "billing_orders_title": "Ausstehende Bestellungen prüfen",
+            "billing_orders_description": "Du hast aktuell {{count}} ausstehende Bestellungen.",
+            "donate_title": "An Jexactyl spenden",
+            "donate_action": "Spenden",
+            "donate_description": "Unterstütze das Projekt mit einer Spende, um uns bei Testservern und Domains zu helfen."
+        },
+        "nodes": {
+            "title": "Nodes",
+            "subtitle": "Alle verfügbaren Nodes im System.",
+            "new": "Neuer Node",
+            "id": "ID",
+            "name": "Name",
+            "fqdn": "FQDN",
+            "total_memory": "Gesamter Arbeitsspeicher",
+            "total_disk": "Gesamter Speicher",
+            "secure": "Sicher",
+            "non_secure": "Unsicher"
+        },
+        "servers": {
+            "title": "Server",
+            "subtitle": "Alle verfügbaren Server im System.",
+            "create": "Server erstellen",
+            "all_servers": "Alle Server",
+            "presets": "Vorlagen",
+            "nests": "Nests",
+            "table": {
+                "identifier": "Kennung",
+                "name": "Name",
+                "owner": "Besitzer",
+                "node": "Node",
+                "status": "Status",
+                "selected": "{{count}} ausgewählt",
+                "start": "Starten",
+                "restart": "Neustarten",
+                "stop": "Stoppen",
+                "kill": "Beenden"
+            },
+            "status": {
+                "installing": "Installieren",
+                "transferring": "Transferieren",
+                "suspended": "Gesperrt",
+                "active": "Aktiv"
+            }
+        },
+        "sidebar": {
+            "general": "Allgemein",
+            "modules": "Module",
+            "appearance": "Erscheinungsbild",
+            "management": "Verwaltung",
+            "services": "Dienste",
+            "return": "Zurück",
+            "welcome": "Willkommen,",
+            "root_admin": "Root-Admin"
+        }
+    },
+    "dashboard": {
+        "title": "Willkommen bei {{appName}}",
+        "signed_in_as": "Angemeldet als {{email}}",
+        "your_servers": "Deine Server",
+        "other_servers": "Andere Server",
+        "show_all_servers": "Alle Server anzeigen",
+        "server_offline": "Server ist offline",
+        "server_suspended": "Dieser Server ist gesperrt",
+        "transfer_in_progress": "Transfer läuft …",
+        "manage": "Verwalten",
+        "account_activity": "Kontoaktivität",
+        "status": {
+            "online": "Online",
+            "offline": "Offline",
+            "starting": "Startet",
+            "stopping": "Stoppt"
+        },
+        "no_servers": "Keine Server gefunden.",
+        "deploy_title": "Bereitstelle deinen ersten Server",
+        "deploy_description_billing": "Mit unserem Abrechnungsportal kannst du einen neuen Server-Plan konfigurieren und kaufen und Optionen wie CPU, Arbeitsspeicher und das Spiel auswählen, das du hosten möchtest.",
+        "deploy_description_support": "Glaubst du, dass das ein Fehler ist? Bitte kontaktiere unser Support-Team.",
+        "view_options": "Optionen anzeigen",
+        "add_group": "+ Gruppe",
+        "remove_from_group": "Aus Gruppe entfernen"
+    },
+    "account": {
+        "title": "Konto",
+        "description": "Eine Übersicht über die Details deines Kontos.",
+        "avatar": "Avatar",
+        "account_information": "Kontoinformationen",
+        "username": "Benutzername",
+        "email_address": "E-Mail-Adresse",
+        "account_id": "Konto-ID",
+        "role": "Rolle",
+        "member_since": "Mitglied seit",
+        "security_note": "E-Mail, Passwort und Anmeldemethoden werden unter",
+        "security_link": "Sicherheit"
+    },
+    "common": {
+        "yes": "Ja",
+        "no": "Nein",
+        "enabled": "Aktiviert",
+        "disabled": "Deaktiviert",
+        "active": "Aktiv",
+        "suspended": "Gesperrt",
+        "admin": "Admin",
+        "standard": "Standard",
+        "loading": "Laden",
+        "search": "Suchen",
+        "saved": "Gespeichert.",
+        "server_started": "Server gestartet",
+        "server_stopped": "Server gestoppt",
+        "server_restarted": "Server neugestartet",
+        "server_killed": "Server beendet"
+    },
+    "console": {
+        "title": "Server-Konsole",
+        "command_placeholder": "Befehl eingeben...",
+        "power_buttons": {
+            "start": "Starten",
+            "stop": "Stoppen",
+            "restart": "Neustarten",
+            "kill": "Beenden"
+        },
+        "kill_dialog": {
+            "title": "Prozess forcieren",
+            "confirm": "Fortfahren",
+            "message": "Ein forcierenes Stoppen kann zu Datenverlust führen."
+        },
+        "save_logs": "Speichern",
+        "logs_saved": "Server-Logs wurden im Ordner .console-logs gespeichert.",
+        "stat_block": {
+            "address": "Adresse",
+            "uptime": "Laufzeit",
+            "cpu_load": "CPU-Last",
+            "memory": "Arbeitsspeicher",
+            "disk": "Speicher"
+        },
+        "chart_block": {
+            "cpu": "CPU",
+            "memory": "Arbeitsspeicher",
+            "network": "Netzwerk",
+            "inbound": "Eingehend",
+            "outbound": "Ausgehend"
+        },
+        "status": {
+            "offline": "Offline",
+            "installing": "Installieren",
+            "transferring": "Transferieren"
+        },
+        "renewal_warning": "Dein Server ist {{days}} Tag{{days_plural}} überfällig zur Erneuerung. Bitte erneuere innerhalb von {{graceDays}} Tagen, um eine dauerhafte Sperre zu vermeiden. Deine Server-Dateien und Daten bleiben erhalten.",
+        "maintenance": "Der Node dieses Servers wird aktuell gewartet; alle Aktionen sind nicht verfügbar.",
+        "installing_message": "Dieser Server führt aktuell die Installation aus; die meisten Aktionen sind nicht verfügbar.",
+        "transferring_message": "Dieser Server wird aktuell auf einen anderen Node übertragen; alle Aktionen sind nicht verfügbar.",
+        "days_until_renewal": "{{days}} Tage bis zur Erneuerung"
+    },
+    "files": {
+        "title": "Dateimanager",
+        "description": "Verwalte Dateien und Ordner über die Benutzeroberfläche.",
+        "new_file": "Neue Datei",
+        "upload": "Hochladen",
+        "upload_drag": "Dateien zum Hochladen hierhin ziehen.",
+        "folder_upload_error": "Ordner-Uploads werden nicht unterstützt.",
+        "create_directory": "Verzeichnis erstellen",
+        "directory_name": "Name",
+        "directory_dialog_title": "Verzeichnis erstellen",
+        "directory_path_preview": "Dieses Verzeichnis wird erstellt als",
+        "cancel": "Abbrechen",
+        "create": "Erstellen",
+        "search_placeholder": "Dateien suchen...",
+        "sort_label": "Sortieren:",
+        "sort": "Sortieren",
+        "sort_options": {
+            "name": "Name",
+            "modified": "Geändert",
+            "size": "Größe",
+            "type": "Typ",
+            "name_tooltip": "Nach Datei-/Ordnername sortieren",
+            "modified_tooltip": "Nach letztem Änderungsdatum sortieren",
+            "size_tooltip": "Nach Dateigröße sortieren",
+            "type_tooltip": "Nach Dateityp/-endung sortieren"
+        },
+        "empty_directory": "Dieses Verzeichnis scheint leer zu sein.",
+        "no_search_results": "Keine Dateien passend zur Suche gefunden.",
+        "search_too_many": "Dieses Verzeichnis ist zu groß für die Browser-Anzeige; es werden nur die ersten 250 Dateien angezeigt.",
+        "search_match_count": "{{count}} {{count_plural}} passen zu \"{{term}}\"",
+        "file": "Datei",
+        "files": "Dateien",
+        "sftp_details": "SFTP-Details",
+        "server_address": "Server-Adresse",
+        "username": "Benutzername",
+        "sftp_password_note": "Dein SFTP-Passwort ist identisch mit dem Passwort für dieses Panel.",
+        "launch_sftp": "SFTP starten",
+        "uploads_title": "Datei-Uploads",
+        "uploads_description": "Folgende Dateien werden auf deinen Server hochgeladen.",
+        "cancel_uploads": "Uploads abbrechen",
+        "uploads_tooltip": "{{count}} Dateien werden hochgeladen, klicke zum Anzeigen",
+        "close": "Schließen",
+        "mass_actions": {
+            "move": "Verschieben",
+            "archive": "Archivieren",
+            "delete": "Löschen",
+            "archiving": "Dateien archivieren...",
+            "deleting": "Dateien löschen...",
+            "delete_title": "Dateien löschen",
+            "delete_confirm": "Löschen",
+            "delete_message": "Bist du sicher, dass du {{count}} Dateien löschen möchtest? Dies ist endgültig und die Dateien können nicht wiederhergestellt werden.",
+            "delete_others": "und {{count}} weitere"
+        },
+        "dropdown": {
+            "title": "Dateioptionen",
+            "rename": "Umbenennen",
+            "move": "Verschieben",
+            "permissions": "Rechte",
+            "copy": "Kopieren",
+            "extract": "Entpacken",
+            "archive": "Archivieren",
+            "download": "Herunterladen",
+            "delete": "Löschen",
+            "delete_file_title": "Datei löschen",
+            "delete_directory_title": "Verzeichnis löschen",
+            "delete_message": "Du kannst den Inhalt von {{name}} nach dem Löschen nicht wiederherstellen."
+        }
+    },
+    "schedules": {
+        "title": "Zeitpläne",
+        "description": "Erstelle und bearbeite automatische Aufgaben für deinen Server.",
+        "new": "Neuer Zeitplan",
+        "new_button": "Zeitplan erstellen",
+        "empty": "Es sind keine Zeitpläne für diesen Server konfiguriert.",
+        "last_run": "Zuletzt ausgeführt: {{time}}",
+        "never": "nie",
+        "active": "Aktiv",
+        "inactive": "Inaktiv",
+        "processing": "In Bearbeitung",
+        "modal": {
+            "edit_title": "Zeitplan bearbeiten",
+            "create_title": "Neuen Zeitplan erstellen",
+            "name": "Zeitplan-Name",
+            "name_description": "Ein menschlich lesbarer Name für diesen Zeitplan.",
+            "minute": "Minute",
+            "hour": "Stunde",
+            "day_of_month": "Tag des Monats",
+            "month": "Monat",
+            "day_of_week": "Wochentag",
+            "cron_help": "Das Zeitplan-System unterstützt Cronjob-Syntax zur Definition von Ausführungszeiten. Verwende die Felder oben, um festzulegen, wann diese Aufgaben beginnen sollen.",
+            "show_cheatsheet": "Spickzettel anzeigen",
+            "cheatsheet_description": "Zeige den Cron-Spickzettel mit Beispielen.",
+            "only_when_online": "Nur wenn Server online ist",
+            "only_when_online_description": "Führe diesen Zeitplan nur aus, wenn der Server läuft.",
+            "enabled": "Zeitplan aktiviert",
+            "enabled_description": "Dieser Zeitplan wird automatisch ausgeführt, wenn aktiviert.",
+            "save": "Änderungen speichern",
+            "create": "Zeitplan erstellen"
+        },
+        "task": {
+            "new": "Neue Aufgabe",
+            "edit_title": "Aufgabe bearbeiten",
+            "create_title": "Aufgabe erstellen",
+            "action": "Aktion",
+            "options": {
+                "command": "Befehl senden",
+                "power": "Power-Aktion senden",
+                "backup": "Backup erstellen"
+            },
+            "power_options": {
+                "start": "Server starten",
+                "restart": "Server neustarten",
+                "stop": "Server stoppen",
+                "kill": "Server terminieren"
+            },
+            "time_offset": "Zeitversatz (in Sekunden)",
+            "time_offset_description": "Die Wartezeit nach Ausführung der vorherigen Aufgabe, bevor diese läuft. Wird bei der ersten Aufgabe eines Zeitplans nicht angewendet.",
+            "payload": "Payload",
+            "ignored_files": "Ignorierte Dateien",
+            "ignored_files_description": "Optional. Dateien und Ordner, die vom Backup ausgeschlossen werden sollen. Standardmäßig wird der Inhalt der .pteroignore-Datei im Server-Verzeichnis verwendet. Wenn das Backup-Limit erreicht ist, wird das älteste Backup rotiert.",
+            "continue_on_failure": "Bei Fehler fortsetzen",
+            "continue_on_failure_description": "Zukünftige Aufgaben werden auch ausgeführt, wenn diese fehlschlägt.",
+            "save": "Änderungen speichern",
+            "create": "Aufgabe erstellen",
+            "delete_title": "Aufgabenlöschung bestätigen",
+            "delete_button": "Aufgabe löschen",
+            "delete_message": "Bist du sicher, dass du diese Aufgabe löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden.",
+            "continues_on_failure": "Fährt bei Fehler fort",
+            "seconds_later": "{{seconds}}s später",
+            "action_labels": {
+                "command": "Befehl senden",
+                "power": "Power-Aktion senden",
+                "backup": "Backup erstellen",
+                "unknown": "Unbekannte Aktion"
+            },
+            "ignoring_files": "Ignoriert Dateien & Ordner:"
+        },
+        "backup_limit_error": "Eine Backup-Aufgabe kann nicht erstellt werden, wenn das Backup-Limit des Servers auf 0 gesetzt ist."
+    },
+    "backups": {
+        "title": "Backups",
+        "description": "Bewahre deine Daten mit Backups auf.",
+        "create": "Backup erstellen",
+        "create_button": "Backup erstellen",
+        "start_backup": "Backup starten",
+        "modal": {
+            "title": "Server-Backup erstellen",
+            "name": "Backup-Name",
+            "name_description": "Falls angegeben, der Name, unter dem dieses Backup referenziert werden soll.",
+            "ignored": "Ignorierte Dateien & Ordner",
+            "ignored_description": "Dateien oder Ordner, die beim Erstellen dieses Backups ignoriert werden sollen. Leer lassen, um den Inhalt der .pteroignore-Datei im Wurzelverzeichnis des Servers zu verwenden. Wildcard-Matching wird unterstützt; Regeln können durch ein vorangestelltes Ausrufezeichen negiert werden.",
+            "locked": "Gesperrt",
+            "locked_description": "Verhindert, dass dieses Backup gelöscht wird, bis es explizit entsperrt wird."
+        },
+        "empty": "Es sind aktuell keine Backups für diesen Server gespeichert.",
+        "no_more": "Es gibt keine weiteren Backups, die angezeigt werden können. Gehe eine Seite zurück.",
+        "limit_zero": "Backups können für diesen Server nicht erstellt werden, da das Backup-Limit auf 0 gesetzt ist.",
+        "count_status": "{{count}} von {{limit}} Backups wurden für diesen Server erstellt.",
+        "failed": "Fehlgeschlagen",
+        "created": "Erstellt"
+    },
+    "databases": {
+        "title": "Datenbanken",
+        "description": "Weise deinem Server direkt Datenbanken zu.",
+        "new": "Neue Datenbank",
+        "create": "Datenbank erstellen",
+        "modal": {
+            "title": "Neue Datenbank erstellen",
+            "name": "Datenbank-Name",
+            "name_description": "Ein beschreibender Name für deine Datenbank-Instanz.",
+            "connections_from": "Verbindungen von",
+            "connections_from_description": "Von wo Verbindungen erlaubt sein sollen. Leer lassen, um Verbindungen von überall zu erlauben.",
+            "cancel": "Abbrechen"
+        },
+        "empty": "Es sieht so aus, als hättest du keine Datenbanken.",
+        "limit_zero": "Für diesen Server können keine Datenbanken erstellt werden.",
+        "count_status": "{{count}} von {{limit}} Datenbanken wurden diesem Server zugewiesen.",
+        "connection": {
+            "title": "Datenbank-Verbindungsdetails",
+            "endpoint": "Endpunkt",
+            "connections_from": "Verbindungen von",
+            "username": "Benutzername",
+            "password": "Passwort",
+            "jdbc": "JDBC-Verbindungszeichenkette"
+        },
+        "delete": {
+            "title": "Löschung der Datenbank bestätigen",
+            "message": "Das Löschen einer Datenbank ist endgültig und kann nicht rückgängig gemacht werden. Dies löscht die Datenbank {{name}} dauerhaft und entfernt alle zugehörigen Daten.",
+            "confirm_label": "Datenbank-Namen bestätigen",
+            "confirm_description": "Gib den Datenbank-Namen zur Bestätigung ein.",
+            "cancel": "Abbrechen",
+            "delete": "Datenbank löschen"
+        },
+        "close": "Schließen"
+    },
+    "security": {
+        "title": "Sicherheit",
+        "description": "Aktualisiere E-Mail-Adresse, Passwort und Zwei-Schritt-Verifizierung deines Kontos.",
+        "tabs": {
+            "credentials": "Anmeldedaten",
+            "passkeys": "Passkeys",
+            "ssh_keys": "SSH-Schlüssel",
+            "api_credentials": "API-Zugangsdaten"
+        },
+        "two_factor_required": "Zwei-Faktor erforderlich",
+        "two_factor_required_message": "Auf deinem Konto muss die Zwei-Faktor-Authentifizierung aktiviert sein, um fortzufahren.",
+        "update_password": "Passwort aktualisieren",
+        "current_password": "Aktuelles Passwort",
+        "new_password": "Neues Passwort",
+        "confirm_new_password": "Neues Passwort bestätigen",
+        "new_password_helper": "Dein neues Passwort sollte mindestens 8 Zeichen lang und für diese Website einzigartig sein.",
+        "update_password_button": "Passwort aktualisieren",
+        "update_email_address": "E-Mail-Adresse aktualisieren",
+        "email": "E-Mail",
+        "confirm_password": "Passwort bestätigen",
+        "update_email_button": "E-Mail aktualisieren",
+        "two_step_verification": "Zwei-Schritt-Verifizierung",
+        "two_step_enabled": "Die Zwei-Schritt-Verifizierung ist derzeit für dein Konto aktiviert.",
+        "two_step_disabled": "Du hast derzeit keine Zwei-Schritt-Verifizierung aktiviert. Klicke den Button unten, um sie einzurichten.",
+        "enable_two_step": "Zwei-Schritt aktivieren",
+        "disable_two_step": "Zwei-Schritt deaktivieren"
+    },
+    "startup": {
+        "title": "Starteinstellungen",
+        "description": "Startvariablen für deinen Server steuern.",
+        "startup_command": "Startbefehl",
+        "docker_image": "Docker-Image",
+        "docker_image_description": "Dies ist eine erweiterte Funktion, mit der du ein Docker-Image zur Ausführung dieser Server-Instanz auswählen kannst.",
+        "docker_image_custom": "Das Docker-Image dieses Servers wurde manuell von einem Administrator festgelegt und kann über diese Benutzeroberfläche nicht geändert werden.",
+        "variables": "Variablen",
+        "read_only": "Nur Lesen",
+        "var_names": {
+            "MINECRAFT_VERSION": "Minecraft-Version",
+            "MINECRAFT_VERSION_desc": "Die Minecraft-Version, die heruntergeladen werden soll. Belasse den Wert auf \"latest\", um immer die neueste Version zu erhalten. Ungültige Versionen werden auf \"latest\" zurückgesetzt.",
+            "SERVER_JARFILE": "Server-JAR-Datei",
+            "SERVER_JARFILE_desc": "Der Name der Server-JAR-Datei, mit der der Server ausgeführt wird.",
+            "BUILD_NUMBER": "Build-Nummer",
+            "BUILD_NUMBER_desc": "Die Build-Nummer des Paper-Releases. Belasse den Wert auf \"latest\", um immer die neueste Version zu erhalten. Ungültige Versionen werden auf \"latest\" zurückgesetzt.",
+            "DL_PATH": "Download-URL",
+            "DL_PATH_desc": "Optionale benutzerdefinierte Download-URL für die Server-JAR-Datei."
+        }
+    },
+    "users": {
+        "title": "Unterbenutzer",
+        "description": "Steuere den Zugriff anderer Benutzer auf diesen Server.",
+        "new": "Neuer Benutzer",
+        "empty": "Es sieht so aus, als hättest du keine Unterbenutzer.",
+        "count_status": "{{count}} von {{limit}} Unterbenutzern wurden für diesen Server erstellt.",
+        "modal": {
+            "edit_title": "{{action}} Berechtigungen für {{email}}",
+            "edit_action": "Bearbeiten",
+            "view_action": "Anzeigen",
+            "create_title": "Neuen Unterbenutzer erstellen",
+            "save": "Speichern",
+            "invite": "Benutzer einladen",
+            "email": "Benutzer-E-Mail",
+            "email_description": "Gib die E-Mail-Adresse des Benutzers ein, den du als Unterbenutzer für diesen Server einladen möchtest.",
+            "permission_note": "Nur Berechtigungen, die deinem Konto aktuell zugewiesen sind, können beim Erstellen oder Bearbeiten anderer Benutzer ausgewählt werden."
+        },
+        "permissions": {
+            "control": {
+                "title": "Steuerung"
+            },
+            "user": {
+                "title": "Benutzer"
+            },
+            "file": {
+                "title": "Datei"
+            },
+            "backup": {
+                "title": "Backup"
+            },
+            "startup": {
+                "title": "Start"
+            },
+            "schedule": {
+                "title": "Zeitplan"
+            },
+            "settings": {
+                "title": "Einstellungen"
+            },
+            "database": {
+                "title": "Datenbank"
+            },
+            "allocation": {
+                "title": "Zuweisung"
+            },
+            "websocket": {
+                "title": "Websocket"
+            }
+        }
+    },
+    "network": {
+        "title": "Netzwerk",
+        "description": "Weise diesem Server Ports zu, bearbeite und entferne sie.",
+        "allocations": "Zuweisungen",
+        "create_allocation": "Zuweisung erstellen",
+        "usage_status": "Du verwendest aktuell {{count}} von {{limit}} erlaubten Zuweisungen für diesen Server.",
+        "primary": "Primär",
+        "make_primary": "Primär setzen",
+        "delete_title": "Zuweisung entfernen",
+        "delete_message": "Diese Zuweisung wird sofort von deinem Server entfernt.",
+        "delete": "Löschen",
+        "notes_placeholder": "Notizen",
+        "hostname": "Hostname",
+        "ip_address": "IP-Adresse",
+        "port": "Port"
+    },
+    "settings": {
+        "title": "Einstellungen",
+        "description": "Allgemeine Server-Einstellungen verwalten.",
+        "server_name": "Server-Name",
+        "debug": {
+            "debug_mode": "Debug-Modus"
+        }
+    },
+    "groups": {
+        "title": "Servergruppen",
+        "bulk_power": {
+            "start_group": "Alle Server der Gruppe starten",
+            "stop_group": "Alle Server der Gruppe stoppen",
+            "restart_group": "Alle Server der Gruppe neustarten",
+            "confirm_title": "{{signal}} Gruppe: {{name}}",
+            "confirm_message": "Bist du sicher, dass du {{signal}} an {{count}} Server in der Gruppe {{name}} senden möchtest?",
+            "confirm_button": "Bestätigen",
+            "empty": "Die Gruppe {{name}} hat keine Server auf der aktuellen Seite.",
+            "signals": {
+                "start": "Start",
+                "stop": "Stop",
+                "restart": "Neustart",
+                "kill": "Beenden"
+            },
+            "result": {
+                "success": "{{signal}} an {{success}} von {{total}} Servern gesendet.",
+                "error": "{{signal}} an {{success}} von {{total}} Servern gesendet ({{failed}} fehlgeschlagen).",
+                "info": "Keine Server in der Gruppe {{name}} für diese Aktion."
+            }
+        }
+    },
+    "billing": {
+        "title": "Server-Abrechnung",
+        "description": "Verwalte die Abrechnungseinstellungen für diesen Server.",
+        "plan": "Paket",
+        "cost": "Kosten",
+        "renews_in": "Erneuert in",
+        "status": "Status",
+        "active": "Aktiv",
+        "renewing_soon": "Bald erneuern",
+        "left": "verbleibend",
+        "next_renewal": "Nächste Erneuerung fällig",
+        "your_package": "Dein Paket",
+        "unknown": "Unbekannt",
+        "plan_cost": "Paketkosten",
+        "every_days": "alle {{days}} Tage",
+        "view_order": "Bestellung anzeigen",
+        "related_orders": "Zugehörige Bestellungen",
+        "renew_server": "Server erneuern",
+        "renewing": "Erneuern...",
+        "renew_button": "Server erneuern",
+        "product_missing": "Das ursprünglich erworbene Produktpaket existiert nicht mehr, daher werden einige Details möglicherweise nicht angezeigt.",
+        "product_missing_renew": "Das Produktpaket, mit dem der Server erstellt wurde, existiert nicht mehr. Um deinen Server zu erneuern, musst du einen Administrator kontaktieren.",
+        "free_server": "Dies ist ein kostenloser Server. Du musst ihn innerhalb von {{days}} Tagen vor Ablauf erneuern, damit er nicht dauerhaft gelöscht wird.",
+        "renew_window": "Du kannst deinen Server innerhalb von 7 Tagen vor dem Ablaufdatum erneuern (in {{days}} Tagen)",
+        "upgrade_package": "Server-Paket upgraden",
+        "upgrade_description": "Wenn du mehr Ressourcen für deinen Server benötigst, kannst du unser Upgrade-System nutzen, um ein neues Paket zu wählen. Ein anteiliger Preis wird berechnet, der die Kosten bis zum nächsten Erneuerungsdatum abdeckt; die neuen Ressourcen werden nach der Zahlung hinzugefügt.",
+        "view_options": "Optionen anzeigen",
+        "no_renewal": "Es ist aktuell kein Erneuerungsdatum für deinen Server vorhanden.",
+        "summary": "Zusammenfassung",
+        "order": {
+            "title": "Deine Bestellung",
+            "subtitle": "Konfiguriere dein gewähltes Paket und sende eine Bestellanfrage zur Prüfung an unser Team.",
+            "choose_location": "Wähle einen Standort",
+            "location_description": "Wähle einen Standort aus unserer Liste, auf dem dein Server bereitgestellt werden soll.",
+            "choose_egg": "Wähle dein Egg",
+            "egg_description": "Wähle aus, welchen Server-Typ aus diesem Nest du bereitstellen möchtest.",
+            "plan_variables": "Paket-Variablen",
+            "variables_description": "Passe die Server-Variablen an, bevor der Server erstellt wird.",
+            "legal_documents": "Rechtsdokumente",
+            "legal_description": "Stimme den relevanten rechtlichen Dokumenten für deinen neuen Server zu.",
+            "terms_title": "Nutzungsbedingungen",
+            "terms_link": "Nutzungsbedingungen",
+            "terms_completed": "Nutzungsbedingungen akzeptiert",
+            "privacy_title": "Datenschutzerklärung",
+            "privacy_link": "Datenschutzerklärung",
+            "privacy_completed": "Datenschutzerklärung akzeptiert",
+            "legal_warning": "Bitte akzeptiere die oben genannten rechtlichen Dokumente, um fortzufahren.",
+            "no_nodes": "Es sind keine Nodes für die Bereitstellung verfügbar. Bitte kontaktiere einen Administrator.",
+            "no_eggs": "Es sind keine Eggs für dieses Produkt verfügbar. Bitte kontaktiere einen Administrator.",
+            "select_egg_warning": "Bitte wähle oben ein Egg aus, um fortzufahren.",
+            "due_today": "Heute fällig",
+            "per_month": "/ Mo",
+            "deployment_fee": "(inklusive einmaliger Bereitstellungsgebühr {{fee}})",
+            "discount_applied": "({{code}} Rabatt angewendet)",
+            "then_per_month": "Dann {{price}}/Monat ab dem nächsten Abrechnungszeitraum.",
+            "submit_description": "Drücke 'Bestellung absenden', um deine Anfrage zur Prüfung an unser Team zu senden.",
+            "submit_button": "Bestellung absenden",
+            "submit_success": "Deine Bestellanfrage wurde übermittelt. Unser Team prüft sie und kontaktiert dich zur Zahlung.",
+            "view_tickets": "Tickets anzeigen",
+            "free_description": "Da dieses Produkt kostenlos ist, ist kein Kauf über Zahlungsgateways erforderlich.",
+            "free_create": "Server erstellen"
+        },
+        "cancel": {
+            "title": "Bestellung abgebrochen",
+            "description": "Deine Bestellanfrage wurde abgebrochen oder konnte nicht abgeschlossen werden. Es wurde kein Server erstellt. Wenn du es erneut versuchen möchtest, klicke oben auf 'Bestellen'."
+        }
+    },
+    "tickets": {
+        "support_tickets": "Support-Tickets",
+        "your_tickets": "Deine Support-Tickets",
+        "create_description": "Erstelle ein Ticket, um Unterstützung von einem Administrator zu erhalten.",
+        "create_ticket": "Ticket erstellen",
+        "no_tickets": "Für dieses Konto existieren keine Tickets.",
+        "created": "Erstellt",
+        "form": {
+            "ticket_name": "Ticket-Name",
+            "ticket_name_description": "Gib einen benutzerfreundlichen Namen für dieses Ticket ein.",
+            "message": "Nachricht",
+            "message_description": "Gib eine Nachricht für dieses Ticket ein."
+        },
+        "create_server": "Server erstellen",
+        "create_server_success": "Der Server wurde erfolgreich erstellt und der Kunde wurde in diesem Ticket benachrichtigt."
+    },
+    "view": {
+        "toggle": "Ansicht wechseln",
+        "grid": "Raster",
+        "list": "Liste"
+    },
+    "activity_log": {
+        "title": "Aktivitätsprotokoll",
+        "description": "Zeige kürzliche Aktivitäten auf deinem Server.",
+        "no_logs": "Für diesen Server sind keine Aktivitätsprotokolle verfügbar.",
+        "clear_filters": "Filter zurücksetzen",
+        "events": {
+            "server": {
+                "power": {
+                    "kill": "Server heruntergefahren (Kill)",
+                    "stop": "Server gestoppt",
+                    "start": "Server gestartet"
+                },
+                "console": {
+                    "command": "Konsolenbefehl ausgeführt"
+                },
+                "backup": {
+                    "complete": "Backup abgeschlossen"
+                },
+                "sftp": {
+                    "write": "Datei per SFTP hochgeladen",
+                    "read": "Datei per SFTP aufgerufen",
+                    "delete": "Datei per SFTP gelöscht"
+                }
+            },
+            "auth": {
+                "success": "Anmeldung erfolgreich"
+            },
+            "account": {
+                "api_key": {
+                    "create": "API-Schlüssel erstellt",
+                    "delete": "API-Schlüssel gelöscht",
+                    "update": "API-Schlüssel aktualisiert"
+                }
+            }
+        }
+    }
+}

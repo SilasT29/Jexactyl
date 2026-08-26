@@ -1,0 +1,33 @@
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import useEventListener from '@/plugins/useEventListener';
+import SearchModal from '@account/search/SearchModal';
+
+export default () => {
+    const [visible, setVisible] = useState(false);
+
+    useEventListener('keydown', (e: KeyboardEvent) => {
+        if (['input', 'textarea'].indexOf(((e.target as HTMLElement).tagName || 'input').toLowerCase()) < 0) {
+            if (!visible && e.metaKey && e.key.toLowerCase() === '/') {
+                setVisible(true);
+            }
+        }
+    });
+
+    return (
+        <>
+            <SearchModal open={visible} onClose={() => setVisible(false)} />
+
+            <button
+                type={'button'}
+                className={'navigation-link min-h-[44px] min-w-[44px] justify-center'}
+                onClick={() => setVisible(true)}
+                aria-label={'Search servers'}
+            >
+                <FontAwesomeIcon icon={faSearch} />
+                <span className={'hidden sm:inline'}>Search</span>
+            </button>
+        </>
+    );
+};

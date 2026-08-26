@@ -17,10 +17,10 @@ export const getUpgradeCharge = (id: string, product_id: number): Promise<number
     });
 };
 
-export const processUpgrade = (id: string, product_id: number): Promise<string> => {
+export const processUpgrade = (id: string, product_id: number): Promise<void> => {
     return new Promise((resolve, reject) => {
         http.post(`/api/client/servers/${id}/upgrade`, { product_id })
-            .then(({ data }) => resolve(data))
+            .then(() => resolve())
             .catch(reject);
     });
 };

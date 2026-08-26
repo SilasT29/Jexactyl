@@ -1,17 +1,24 @@
-import { ElementType, ReactNode, useState } from 'react';
+import { ElementType, ReactNode } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useStoreState } from '@/state/hooks';
 import { HomeIcon } from '@heroicons/react/outline';
 import { withSubComponents } from '@/lib/helpers';
+import classNames from 'classnames';
 
 const MobileSidebar = ({ children }: { children: ReactNode[] }) => {
     return (
         <div
             className={
-                'block md:hidden w-full fixed bottom-0 h-16 z-50 rounded-t-2xl bg-black/70 backdrop-blur-lg border-t border-white/10 shadow-[0_-8px_24px_rgba(0,0,0,0.3)]'
+                'block md:hidden w-full fixed bottom-0 z-50 rounded-t-2xl bg-black/80 backdrop-blur-lg border-t border-white/10 shadow-[0_-8px_24px_rgba(0,0,0,0.4)]'
             }
+            style={{ height: 'calc(4rem + env(safe-area-inset-bottom, 0px))' }}
         >
-            <div className={'flex h-full px-8 space-x-8 overflow-x-auto'}>{children}</div>
+            <div
+                className={'flex h-16 overflow-x-auto overscroll-x-contain scrollbar-none'}
+                style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch', msOverflowStyle: 'none' }}
+            >
+                <div className={'flex items-stretch w-full min-w-full justify-around gap-1 px-2'}>{children}</div>
+            </div>
         </div>
     );
 };
@@ -27,7 +34,6 @@ const Link = ({
     linkTo: string;
     end?: boolean;
 }) => {
-    const [active, setActive] = useState<boolean>(false);
     const { colors } = useStoreState(s => s.theme.data!);
 
     return (
@@ -35,14 +41,28 @@ const Link = ({
             to={linkTo}
             end={end}
             className={({ isActive }) =>
-                `h-full flex items-center justify-center font-semibold transition-all duration-300 active:scale-90 ${
-                    isActive ? setActive(true) : setActive(false)
-                } ${isActive ? 'scale-105' : ''}`
+                classNames(
+                    'h-full min-w-[52px] flex flex-col items-center justify-center font-semibold transition-all duration-200 active:scale-95 px-2 flex-shrink-0 rounded-lg',
+                    isActive && 'scale-105',
+                )
             }
-            style={{ color: active ? colors.primary : '' }}
         >
-            {Icon && <Icon className={'w-4 h-4 mr-2 transition-transform duration-300'} />}
-            {text}
+            {({ isActive }) => (
+                <>
+                    {Icon && (
+                        <Icon
+                            className={'w-5 h-5 mb-0.5 transition-all duration-200'}
+                            style={{ color: isActive ? colors.primary : 'rgba(255,255,255,0.55)' }}
+                        />
+                    )}
+                    <span
+                        className={'text-[10px] leading-none'}
+                        style={{ color: isActive ? colors.primary : 'rgba(255,255,255,0.55)' }}
+                    >
+                        {text}
+                    </span>
+                </>
+            )}
         </NavLink>
     );
 };
@@ -51,12 +71,17 @@ const Home = () => {
     const { colors } = useStoreState(s => s.theme.data!);
     return (
         <>
-            <NavLink to={'/'} className={'active:scale-90 transition-transform duration-200'}>
-                <div className={'h-full flex items-center justify-center font-semibold my-auto'}>
-                    <HomeIcon className={'w-5 h-5 brightness-150'} style={{ color: colors.primary }} />
+            <NavLink
+                to={'/'}
+                className={'active:scale-95 transition-transform duration-150 flex-shrink-0 min-w-[52px]'}
+            >
+                <div className={'h-full flex flex-col items-center justify-center font-semibold my-auto px-2 rounded-lg'}>
+                    <HomeIcon className={'w-5 h-5 mb-0.5 brightness-150'} style={{ color: colors.primary }} />
+                    <span className={'text-[10px] leading-none'} style={{ color: colors.primary }}>
+                        Home
+                    </span>
                 </div>
             </NavLink>
-            <div className={'mx-3 my-auto'}>&bull;</div>
         </>
     );
 };

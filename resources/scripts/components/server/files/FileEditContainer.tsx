@@ -150,8 +150,8 @@ export default () => {
                 />
             </div>
 
-            <div css={tw`flex justify-end mt-4`}>
-                <div css={tw`flex-1 sm:flex-none rounded bg-neutral-900 mr-4`}>
+            <div css={tw`flex flex-col sm:flex-row sm:justify-end gap-2 sm:gap-0 mt-4`}>
+                <div css={tw`flex-1 sm:flex-none rounded bg-neutral-900 sm:mr-4`}>
                     <Select
                         value={language?.name ?? ''}
                         onChange={e => {

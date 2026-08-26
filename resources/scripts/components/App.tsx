@@ -106,7 +106,7 @@ function App() {
                                 <Onboarding />
                             </Spinner.Suspense>
                         ) : (
-                            <div className="mx-auto w-auto">
+                            <div className="mx-auto w-full max-w-full overflow-x-hidden">
                                 <BrowserRouter>
                                     <Routes>
                                         <Route

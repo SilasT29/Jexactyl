@@ -1,0 +1,741 @@
+{
+    "language": {
+        "label": "Language",
+        "english": "English",
+        "german": "German",
+        "select": "Select language"
+    },
+    "privacy_mode": {
+        "label": "Privacy Mode",
+        "description": "Hide email addresses, IPs and other private data across the panel.",
+        "indicator": "Privacy Mode: ON"
+    },
+    "nav": {
+        "dashboard": "Dashboard",
+        "files": "Files",
+        "console": "Console",
+        "settings": "Settings",
+        "account": "Account",
+        "security": "Security",
+        "admin": "Admin",
+        "logout": "Logout",
+        "servers": "Servers",
+        "billing": "Billing",
+        "orders": "Orders",
+        "tickets": "Tickets",
+        "api_keys": "API Keys",
+        "ssh_keys": "SSH Keys",
+        "passkeys": "Passkeys"
+    },
+    "user_menu": {
+        "welcome": "Welcome back",
+        "profile": "Profile",
+        "settings": "Settings"
+    },
+    "buttons": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "create": "Create",
+        "back": "Back",
+        "next": "Next",
+        "previous": "Previous",
+        "submit": "Submit",
+        "close": "Close",
+        "edit": "Edit",
+        "confirm": "Confirm",
+        "continue": "Continue"
+    },
+    "auth": {
+        "login": {
+            "title": "Welcome to {{appName}}",
+            "username_or_email": "Username or Email",
+            "password": "Password",
+            "forgot_password": "Forgot Password?",
+            "button": "Login",
+            "passkey": "Or, Sign in with a Passkey",
+            "discord_sso": "Use Discord SSO",
+            "google_sso": "Use Google SSO",
+            "register_with_email": "Register with Email",
+            "or": "OR"
+        },
+        "register": {
+            "title": "Create an Account",
+            "username": "Username",
+            "email": "Email Address",
+            "password": "Password",
+            "confirm_password": "Confirm Password",
+            "button": "Register",
+            "accept_privacy": "I have read and agree to the",
+            "privacy_link": "Privacy Policy",
+            "return_to_login": "Return to Login"
+        },
+        "forgot_password": {
+            "title": "Reset your Password",
+            "email": "Email Address",
+            "email_description": "Enter your account email address that you use to access the Panel.",
+            "recovery_code": "Account Recovery Code",
+            "recovery_code_description": "Enter the account recovery code you were given when your account was created. Don't have this code? Contact our support for assistance.",
+            "new_password": "New Password",
+            "new_password_description": "Enter the new password you'd like to use for this user account.",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_description": "For extra security, re-enter the above password.",
+            "button": "Attempt Login",
+            "return_to_login": "Return to Login"
+        }
+    },
+    "admin": {
+        "users": {
+            "title": "User Accounts",
+            "description": "All users that have access to the system.",
+            "users": "Users",
+            "admin_roles": "Administrator Roles",
+            "new_user": "New User"
+        },
+        "overview": {
+            "title": "Overview",
+            "subtitle": "A quick glance at your system.",
+            "version_info": "Version Information",
+            "debug_warning": "Jexpanelis running in debug mode. Do not use in production.",
+            "current_version": "You are currently running version {{current}}, with the latest release being {{latest}}.",
+            "beta_warning": "You are running a beta release of Jexpanelv4, which may include several bugs or weird glitches. Do NOT use this software in production unless you don't care about losing data.",
+            "statistics": "Statistics",
+            "nodes": "Nodes",
+            "servers": "Servers",
+            "users": "Users",
+            "pending_tickets": "Pending Tickets",
+            "databases": "Databases",
+            "backups": "Backups",
+            "revenue": "Revenue",
+            "orders_this_month": "orders this month",
+            "pending_orders": "Pending Orders",
+            "products_available": "products available",
+            "suspended": "suspended",
+            "installing": "installing",
+            "administrators": "administrators",
+            "suggested_actions": "Suggested Actions",
+            "auto_updates_title": "Enable automatic updates",
+            "auto_updates_description": "By setting up automatic updates, you can keep Jexpanelstable and secure in the background.",
+            "registration_title": "Allow user registration",
+            "registration_description": "Enabling the Authentication module allows users to signup via the login page.",
+            "first_node_title": "Add your first node",
+            "first_node_description": "Nodes are physical servers which Jexactyl's servers run on.",
+            "first_server_title": "Create your first server",
+            "first_server_description": "Create a server to host your favourite game or program.",
+            "tickets_title": "Answer customer tickets",
+            "tickets_description": "You currently have {{count}} pending tickets.",
+            "billing_orders_title": "Review pending orders",
+            "billing_orders_description": "You currently have {{count}} pending billing orders.",
+            "donate_title": "Donate to Jexactyl",
+            "donate_action": "Donate",
+            "donate_description": "Support the project by leaving a donation to help us pay for testing servers and domains."
+        },
+        "nodes": {
+            "title": "Nodes",
+            "subtitle": "All nodes available on the system.",
+            "new": "New Node",
+            "id": "ID",
+            "name": "Name",
+            "fqdn": "FQDN",
+            "total_memory": "Total Memory",
+            "total_disk": "Total Disk",
+            "secure": "Secure",
+            "non_secure": "Non-Secure"
+        },
+        "servers": {
+            "title": "Servers",
+            "subtitle": "All servers available on the system.",
+            "create": "Create Server",
+            "all_servers": "All Servers",
+            "presets": "Presets",
+            "nests": "Nests",
+            "table": {
+                "identifier": "Identifier",
+                "name": "Name",
+                "owner": "Owner",
+                "node": "Node",
+                "status": "Status",
+                "selected": "{{count}} selected",
+                "start": "Start",
+                "restart": "Restart",
+                "stop": "Stop",
+                "kill": "Kill"
+            },
+            "status": {
+                "installing": "Installing",
+                "transferring": "Transferring",
+                "suspended": "Suspended",
+                "active": "Active"
+            }
+        },
+        "sidebar": {
+            "general": "General",
+            "modules": "Modules",
+            "appearance": "Appearance",
+            "management": "Management",
+            "services": "Services",
+            "return": "Return",
+            "welcome": "Welcome,",
+            "root_admin": "Root Admin"
+        }
+    },
+    "dashboard": {
+        "title": "Welcome to {{appName}}",
+        "signed_in_as": "Signed in as {{email}}",
+        "your_servers": "Your Servers",
+        "other_servers": "Other Servers",
+        "show_all_servers": "Show all servers",
+        "server_offline": "Server is offline",
+        "server_suspended": "This server is suspended",
+        "transfer_in_progress": "Transfer in progress…",
+        "manage": "Manage",
+        "account_activity": "Account Activity",
+        "status": {
+            "online": "Online",
+            "offline": "Offline",
+            "starting": "Starting",
+            "stopping": "Stopping"
+        },
+        "no_servers": "No servers could be found.",
+        "deploy_title": "Deploy your first server",
+        "deploy_description_billing": "With our billing portal, you can configure and purchase a new server plan and choose options like amount of CPU, memory and which game you'd like to run.",
+        "deploy_description_support": "Think this is a mistake? Please contact our support team.",
+        "view_options": "View Options",
+        "add_group": "+ Group",
+        "remove_from_group": "Remove from group"
+    },
+    "account": {
+        "title": "Account",
+        "description": "An overview of the details on your account.",
+        "avatar": "Avatar",
+        "account_information": "Account Information",
+        "username": "Username",
+        "email_address": "Email Address",
+        "account_id": "Account ID",
+        "role": "Role",
+        "member_since": "Member Since",
+        "security_note": "Your email, password, and sign-in methods are managed under",
+        "security_link": "Security"
+    },
+    "common": {
+        "yes": "Yes",
+        "no": "No",
+        "enabled": "Enabled",
+        "disabled": "Disabled",
+        "active": "Active",
+        "suspended": "Suspended",
+        "admin": "Admin",
+        "standard": "Standard",
+        "loading": "Loading",
+        "search": "Search",
+        "saved": "Saved.",
+        "server_started": "Server started",
+        "server_stopped": "Server stopped",
+        "server_restarted": "Server restarted",
+        "server_killed": "Server killed"
+    },
+    "console": {
+        "title": "Server Console",
+        "command_placeholder": "Type a command...",
+        "power_buttons": {
+            "start": "Start",
+            "stop": "Stop",
+            "restart": "Restart",
+            "kill": "Kill"
+        },
+        "kill_dialog": {
+            "title": "Forcibly Stop Process",
+            "confirm": "Continue",
+            "message": "Forcibly stopping a server can lead to data corruption."
+        },
+        "save_logs": "Save",
+        "logs_saved": "Your server logs have been saved to the .console-logs folder.",
+        "stat_block": {
+            "address": "Address",
+            "uptime": "Uptime",
+            "cpu_load": "CPU Load",
+            "memory": "Memory",
+            "disk": "Disk"
+        },
+        "chart_block": {
+            "cpu": "CPU",
+            "memory": "Memory",
+            "network": "Network",
+            "inbound": "Inbound",
+            "outbound": "Outbound"
+        },
+        "status": {
+            "offline": "Offline",
+            "installing": "Installing",
+            "transferring": "Transferring"
+        },
+        "renewal_warning": "Your server is {{days}} day{{days_plural}} overdue for renewal. Please renew within {{graceDays}} days to avoid permanent suspension. Your server files and data will be preserved.",
+        "maintenance": "The node of this server is currently under maintenance and all actions are unavailable.",
+        "installing_message": "This server is currently running its installation process and most actions are unavailable.",
+        "transferring_message": "This server is currently being transferred to another node and all actions are unavailable.",
+        "days_until_renewal": "{{days}} days until renewal"
+    },
+    "files": {
+        "title": "File Manager",
+        "description": "Control your files and folders via the UI.",
+        "new_file": "New File",
+        "upload": "Upload",
+        "upload_drag": "Drag and drop files to upload.",
+        "folder_upload_error": "Folder uploads are not supported.",
+        "create_directory": "Create Directory",
+        "directory_name": "Name",
+        "directory_dialog_title": "Create Directory",
+        "directory_path_preview": "This directory will be created as",
+        "cancel": "Cancel",
+        "create": "Create",
+        "search_placeholder": "Search files...",
+        "sort_label": "Sort:",
+        "sort": "Sort",
+        "sort_options": {
+            "name": "Name",
+            "modified": "Modified",
+            "size": "Size",
+            "type": "Type",
+            "name_tooltip": "Sort by file/folder name",
+            "modified_tooltip": "Sort by last modified date",
+            "size_tooltip": "Sort by file size",
+            "type_tooltip": "Sort by file type/extension"
+        },
+        "empty_directory": "This directory seems to be empty.",
+        "no_search_results": "No files found matching your search.",
+        "search_too_many": "This directory is too large to display in the browser, limiting the output to the first 250 files.",
+        "search_match_count": "Found {{count}} {{count_plural}} matching \"{{term}}\"",
+        "file": "file",
+        "files": "files",
+        "sftp_details": "SFTP Details",
+        "server_address": "Server Address",
+        "username": "Username",
+        "sftp_password_note": "Your SFTP password is the same as the password you use to access this panel.",
+        "launch_sftp": "Launch SFTP",
+        "uploads_title": "File Uploads",
+        "uploads_description": "The following files are being uploaded to your server.",
+        "cancel_uploads": "Cancel Uploads",
+        "uploads_tooltip": "{{count}} files are uploading, click to view",
+        "close": "Close",
+        "mass_actions": {
+            "move": "Move",
+            "archive": "Archive",
+            "delete": "Delete",
+            "archiving": "Archiving files...",
+            "deleting": "Deleting files...",
+            "delete_title": "Delete Files",
+            "delete_confirm": "Delete",
+            "delete_message": "Are you sure you want to delete {{count}} files? This is a permanent action and the files cannot be recovered.",
+            "delete_others": "and {{count}} others"
+        },
+        "dropdown": {
+            "title": "File Options",
+            "rename": "Rename",
+            "move": "Move",
+            "permissions": "Perms",
+            "copy": "Copy",
+            "extract": "Extract",
+            "archive": "Archive",
+            "download": "Download",
+            "delete": "Delete",
+            "delete_file_title": "Delete File",
+            "delete_directory_title": "Delete Directory",
+            "delete_message": "You will not be able to recover the contents of {{name}} once deleted."
+        }
+    },
+    "schedules": {
+        "title": "Schedules",
+        "description": "Create and edit automatic tasks for your server.",
+        "new": "New Schedule",
+        "new_button": "Create schedule",
+        "empty": "There are no schedules configured for this server.",
+        "last_run": "Last run at: {{time}}",
+        "never": "never",
+        "active": "Active",
+        "inactive": "Inactive",
+        "processing": "Processing",
+        "modal": {
+            "edit_title": "Edit schedule",
+            "create_title": "Create new schedule",
+            "name": "Schedule name",
+            "name_description": "A human readable identifier for this schedule.",
+            "minute": "Minute",
+            "hour": "Hour",
+            "day_of_month": "Day of month",
+            "month": "Month",
+            "day_of_week": "Day of week",
+            "cron_help": "The schedule system supports the use of Cronjob syntax when defining when tasks should begin running. Use the fields above to specify when these tasks should begin running.",
+            "show_cheatsheet": "Show Cheatsheet",
+            "cheatsheet_description": "Show the cron cheatsheet for some examples.",
+            "only_when_online": "Only When Server Is Online",
+            "only_when_online_description": "Only execute this schedule when the server is in a running state.",
+            "enabled": "Schedule Enabled",
+            "enabled_description": "This schedule will be executed automatically if enabled.",
+            "save": "Save changes",
+            "create": "Create schedule"
+        },
+        "task": {
+            "new": "New Task",
+            "edit_title": "Edit Task",
+            "create_title": "Create Task",
+            "action": "Action",
+            "options": {
+                "command": "Send command",
+                "power": "Send power action",
+                "backup": "Create backup"
+            },
+            "power_options": {
+                "start": "Start the server",
+                "restart": "Restart the server",
+                "stop": "Stop the server",
+                "kill": "Terminate the server"
+            },
+            "time_offset": "Time offset (in seconds)",
+            "time_offset_description": "The amount of time to wait after the previous task executes before running this one. If this is the first task on a schedule this will not be applied.",
+            "payload": "Payload",
+            "ignored_files": "Ignored Files",
+            "ignored_files_description": "Optional. Include the files and folders to be excluded in this backup. By default, the contents of your .pteroignore file will be used. If you have reached your backup limit, the oldest backup will be rotated.",
+            "continue_on_failure": "Continue on Failure",
+            "continue_on_failure_description": "Future tasks will be run when this task fails.",
+            "save": "Save Changes",
+            "create": "Create Task",
+            "delete_title": "Confirm task deletion",
+            "delete_button": "Delete Task",
+            "delete_message": "Are you sure you want to delete this task? This action cannot be undone.",
+            "continues_on_failure": "Continues on Failure",
+            "seconds_later": "{{seconds}}s later",
+            "action_labels": {
+                "command": "Send Command",
+                "power": "Send Power Action",
+                "backup": "Create Backup",
+                "unknown": "Unknown Action"
+            },
+            "ignoring_files": "Ignoring files & folders:"
+        },
+        "backup_limit_error": "A backup task cannot be created when the server's backup limit is set to 0."
+    },
+    "backups": {
+        "title": "Backups",
+        "description": "Keep your data safe with backups.",
+        "create": "Create Backup",
+        "create_button": "Create backup",
+        "start_backup": "Start backup",
+        "modal": {
+            "title": "Create server backup",
+            "name": "Backup name",
+            "name_description": "If provided, the name that should be used to reference this backup.",
+            "ignored": "Ignored Files & Directories",
+            "ignored_description": "Enter the files or folders to ignore while generating this backup. Leave blank to use the contents of the .pteroignore file in the root of the server directory if present. Wildcard matching of files and folders is supported in addition to negating a rule by prefixing the path with an exclamation point.",
+            "locked": "Locked",
+            "locked_description": "Prevents this backup from being deleted until explicitly unlocked."
+        },
+        "empty": "It looks like there are no backups currently stored for this server.",
+        "no_more": "Looks like we've run out of backups to show you, try going back a page.",
+        "limit_zero": "Backups cannot be created for this server because the backup limit is set to 0.",
+        "count_status": "{{count}} of {{limit}} backups have been created for this server.",
+        "failed": "Failed",
+        "created": "Created"
+    },
+    "databases": {
+        "title": "Databases",
+        "description": "Assign databases directly to your server.",
+        "new": "New Database",
+        "create": "Create Database",
+        "modal": {
+            "title": "Create new database",
+            "name": "Database Name",
+            "name_description": "A descriptive name for your database instance.",
+            "connections_from": "Connections From",
+            "connections_from_description": "Where connections should be allowed from. Leave blank to allow connections from anywhere.",
+            "cancel": "Cancel"
+        },
+        "empty": "It looks like you have no databases.",
+        "limit_zero": "Databases cannot be created for this server.",
+        "count_status": "{{count}} of {{limit}} databases have been allocated to this server.",
+        "connection": {
+            "title": "Database connection details",
+            "endpoint": "Endpoint",
+            "connections_from": "Connections from",
+            "username": "Username",
+            "password": "Password",
+            "jdbc": "JDBC Connection String"
+        },
+        "delete": {
+            "title": "Confirm database deletion",
+            "message": "Deleting a database is a permanent action, it cannot be undone. This will permanently delete the {{name}} database and remove all associated data.",
+            "confirm_label": "Confirm Database Name",
+            "confirm_description": "Enter the database name to confirm deletion.",
+            "cancel": "Cancel",
+            "delete": "Delete Database"
+        },
+        "close": "Close"
+    },
+    "security": {
+        "title": "Security",
+        "description": "Update the email address, password, and two-step verification on your account.",
+        "tabs": {
+            "credentials": "Credentials",
+            "passkeys": "Passkeys",
+            "ssh_keys": "SSH Keys",
+            "api_credentials": "API Credentials"
+        },
+        "two_factor_required": "2-Factor Required",
+        "two_factor_required_message": "Your account must have two-factor authentication enabled in order to continue.",
+        "update_password": "Update Password",
+        "current_password": "Current Password",
+        "new_password": "New Password",
+        "confirm_new_password": "Confirm New Password",
+        "new_password_helper": "Your new password should be at least 8 characters in length and unique to this website.",
+        "update_password_button": "Update Password",
+        "update_email_address": "Update Email Address",
+        "email": "Email",
+        "confirm_password": "Confirm Password",
+        "update_email_button": "Update Email",
+        "two_step_verification": "Two-Step Verification",
+        "two_step_enabled": "Two-step verification is currently enabled on your account.",
+        "two_step_disabled": "You do not currently have two-step verification enabled on your account. Click the button below to begin configuring it.",
+        "enable_two_step": "Enable Two-Step",
+        "disable_two_step": "Disable Two-Step"
+    },
+    "startup": {
+        "title": "Startup Settings",
+        "description": "Control startup variables for your server.",
+        "startup_command": "Startup Command",
+        "docker_image": "Docker Image",
+        "docker_image_description": "This is an advanced feature allowing you to select a Docker image to use when running this server instance.",
+        "docker_image_custom": "This server's Docker image has been manually set by an administrator and cannot be changed through this UI.",
+        "variables": "Variables",
+        "read_only": "Read Only",
+        "var_names": {
+            "MINECRAFT_VERSION": "Minecraft Version",
+            "MINECRAFT_VERSION_desc": "The version of Minecraft to download. Leave as latest to always get the latest version. Invalid versions will default to latest.",
+            "SERVER_JARFILE": "Server Jar File",
+            "SERVER_JARFILE_desc": "The name of the server jarfile to run the server with.",
+            "BUILD_NUMBER": "Build Number",
+            "BUILD_NUMBER_desc": "The build number for the Paper release. Leave as latest to always get the latest version. Invalid versions will default to latest.",
+            "DL_PATH": "Download URL",
+            "DL_PATH_desc": "Optional custom download URL for the server jarfile."
+        }
+    },
+    "users": {
+        "title": "Subusers",
+        "description": "Control the access of other users to this server.",
+        "new": "New User",
+        "empty": "It looks like you don't have any subusers.",
+        "count_status": "{{count}} of {{limit}} subusers have been created for this server.",
+        "modal": {
+            "edit_title": "{{action}} permissions for {{email}}",
+            "edit_action": "Modify",
+            "view_action": "View",
+            "create_title": "Create new subuser",
+            "save": "Save",
+            "invite": "Invite User",
+            "email": "User Email",
+            "email_description": "Enter the email address of the user you wish to invite as a subuser for this server.",
+            "permission_note": "Only permissions which your account is currently assigned may be selected when creating or modifying other users."
+        },
+        "permissions": {
+            "control": {
+                "title": "Control"
+            },
+            "user": {
+                "title": "User"
+            },
+            "file": {
+                "title": "File"
+            },
+            "backup": {
+                "title": "Backup"
+            },
+            "startup": {
+                "title": "Startup"
+            },
+            "schedule": {
+                "title": "Schedule"
+            },
+            "settings": {
+                "title": "Settings"
+            },
+            "database": {
+                "title": "Database"
+            },
+            "allocation": {
+                "title": "Allocation"
+            },
+            "websocket": {
+                "title": "Websocket"
+            }
+        }
+    },
+    "network": {
+        "title": "Network",
+        "description": "Assign, edit and remove ports from this server.",
+        "allocations": "Allocations",
+        "create_allocation": "Create Allocation",
+        "usage_status": "You are currently using {{count}} of {{limit}} allowed allocations for this server.",
+        "primary": "Primary",
+        "make_primary": "Make Primary",
+        "delete_title": "Remove Allocation",
+        "delete_message": "This allocation will be immediately removed from your server.",
+        "delete": "Delete",
+        "notes_placeholder": "Notes",
+        "hostname": "Hostname",
+        "ip_address": "IP Address",
+        "port": "Port"
+    },
+    "settings": {
+        "title": "Settings",
+        "description": "Manage general server settings.",
+        "server_name": "Server Name",
+        "debug": {
+            "debug_mode": "Debug Mode"
+        }
+    },
+    "groups": {
+        "title": "Server Groups",
+        "bulk_power": {
+            "start_group": "Start all servers in group",
+            "stop_group": "Stop all servers in group",
+            "restart_group": "Restart all servers in group",
+            "confirm_title": "{{signal}} group: {{name}}",
+            "confirm_message": "Are you sure you want to send {{signal}} to {{count}} server(s) in the group {{name}}?",
+            "confirm_button": "Confirm",
+            "empty": "The group {{name}} has no servers on the current page.",
+            "signals": {
+                "start": "start",
+                "stop": "stop",
+                "restart": "restart",
+                "kill": "kill"
+            },
+            "result": {
+                "success": "Sent {{signal}} to {{success}} of {{total}} servers.",
+                "error": "Sent {{signal}} to {{success}} of {{total}} servers ({{failed}} failed).",
+                "info": "No servers in group {{name}} to act on."
+            }
+        }
+    },
+    "billing": {
+        "title": "Server Billing",
+        "description": "Control your billing settings for this server.",
+        "plan": "Plan",
+        "cost": "Cost",
+        "renews_in": "Renews In",
+        "status": "Status",
+        "active": "Active",
+        "renewing_soon": "Renewing Soon",
+        "left": "left",
+        "next_renewal": "Next renewal due",
+        "your_package": "Your package",
+        "unknown": "Unknown",
+        "plan_cost": "Plan cost",
+        "every_days": "every {{days}} days",
+        "view_order": "View order",
+        "related_orders": "Related Orders",
+        "renew_server": "Renew Server",
+        "renewing": "Renewing...",
+        "renew_button": "Renew Server",
+        "product_missing": "The product package you purchase initially no longer exists, so some details may not be shown.",
+        "product_missing_renew": "The product package that the server was made with no longer exists. In order to renew your server, you'll need to speak to an administrator.",
+        "free_server": "This is a free server. You must renew it before your server expires in {{days}} days to prevent your server from being permenantly deleted.",
+        "renew_window": "You can renew your server within 7 days of the expiration date (in {{days}} days)",
+        "upgrade_package": "Upgrade Server Package",
+        "upgrade_description": "If you wish to pay extra for more resources for your server, you can use our upgrade system to choose a new plan to suit your needs. A pro-rata price will be generated to cover the cost between now and your next renewal date, and the new resources will be added upon payment.",
+        "view_options": "View Options",
+        "no_renewal": "There is no present renewal date for your server.",
+        "summary": "Summary",
+        "order": {
+            "title": "Your Order",
+            "subtitle": "Customize your selected plan and submit an order request for staff review.",
+            "choose_location": "Choose a location",
+            "location_description": "Select a location from our list to deploy your server to.",
+            "choose_egg": "Choose your egg",
+            "egg_description": "Select which server type from this nest you would like to deploy.",
+            "plan_variables": "Plan Variables",
+            "variables_description": "Modify your server variables before your server is even created for ease of use.",
+            "legal_documents": "Legal Documents",
+            "legal_description": "Agree and sign the relevant legal documents for your new server.",
+            "terms_title": "Terms of Service agreement",
+            "terms_link": "Terms of Service",
+            "terms_completed": "Terms of Service completed",
+            "privacy_title": "Privacy Policy agreement",
+            "privacy_link": "Privacy Policy",
+            "privacy_completed": "Privacy Policy completed",
+            "legal_warning": "Please agree to the above legal documents before proceeding with your order.",
+            "no_nodes": "There are no nodes available for deployment. Please contact an administrator.",
+            "no_eggs": "There are no eggs available for this product. Please contact an administrator.",
+            "select_egg_warning": "Please select an egg above to continue.",
+            "due_today": "Due Today",
+            "per_month": "/ mo",
+            "deployment_fee": "(includes {{fee}} one-time deployment fee)",
+            "discount_applied": "({{code}} discount applied)",
+            "then_per_month": "Then {{price}}/mo starting next billing cycle.",
+            "submit_description": "Press Submit Order to send your request to our team for review.",
+            "submit_button": "Submit Order",
+            "submit_success": "Your order request has been submitted. Our team will review it and contact you for payment.",
+            "view_tickets": "View Tickets",
+            "free_description": "As this product is free, no purchase needs to be made via our payment gateways.",
+            "free_create": "Create Server"
+        },
+        "cancel": {
+            "title": "Order Cancelled",
+            "description": "Your order request was cancelled or could not be completed. No server has been created. If you would like to retry this order, please click 'Order' above."
+        }
+    },
+    "tickets": {
+        "support_tickets": "Support Tickets",
+        "your_tickets": "Your Support Tickets",
+        "create_description": "Create a ticket to gain support from an administrator.",
+        "create_ticket": "Create Ticket",
+        "no_tickets": "No tickets exist for this account.",
+        "created": "Created",
+        "form": {
+            "ticket_name": "Ticket Name",
+            "ticket_name_description": "Enter a user-friendly name for this ticket.",
+            "message": "Message",
+            "message_description": "Enter a message for this ticket."
+        },
+        "create_server": "Create Server",
+        "create_server_success": "Server created successfully and the customer has been notified in this ticket."
+    },
+    "view": {
+        "toggle": "Switch view",
+        "grid": "Grid",
+        "list": "List"
+    },
+    "activity_log": {
+        "title": "Activity Log",
+        "description": "View recent activity on your server.",
+        "no_logs": "No activity logs available for this server.",
+        "clear_filters": "Clear Filters",
+        "events": {
+            "server": {
+                "power": {
+                    "kill": "Server killed",
+                    "stop": "Server stopped",
+                    "start": "Server started"
+                },
+                "console": {
+                    "command": "Console command executed"
+                },
+                "backup": {
+                    "complete": "Backup completed"
+                },
+                "sftp": {
+                    "write": "File uploaded via SFTP",
+                    "read": "File accessed via SFTP",
+                    "delete": "File deleted via SFTP"
+                }
+            },
+            "auth": {
+                "success": "Login successful"
+            },
+            "account": {
+                "api_key": {
+                    "create": "API key created",
+                    "delete": "API key deleted",
+                    "update": "API key updated"
+                }
+            }
+        }
+    }
+}

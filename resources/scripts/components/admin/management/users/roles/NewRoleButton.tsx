@@ -111,7 +111,7 @@ export default () => {
             <Button
                 type={'button'}
                 size={Button.Sizes.Large}
-                css={tw`h-10 px-4 py-0 whitespace-nowrap`}
+                css={tw`h-10 px-4 py-0 whitespace-nowrap w-full sm:w-auto`}
                 onClick={() => setVisible(true)}
             >
                 New Role

@@ -35,10 +35,10 @@ const variants = {
 };
 
 const sizeMap = {
-    sm: 'max-w-md',
-    md: 'max-w-xl',
-    lg: 'max-w-4xl',
-    xl: 'max-w-7xl',
+    sm: 'max-w-[95vw] sm:max-w-md',
+    md: 'max-w-[95vw] sm:max-w-xl',
+    lg: 'max-w-[95vw] md:max-w-4xl',
+    xl: 'max-w-[95vw] md:max-w-7xl',
 };
 
 export default ({

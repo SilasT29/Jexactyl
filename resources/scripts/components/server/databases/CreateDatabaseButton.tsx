@@ -10,6 +10,7 @@ import FlashMessageRender from '@/elements/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
 import { Button } from '@/elements/button';
 import tw from 'twin.macro';
+import { useTranslation } from 'react-i18next';
 
 interface Values {
     databaseName: string;
@@ -29,6 +30,7 @@ const schema = object().shape({
 });
 
 export default () => {
+    const { t } = useTranslation();
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
     const { addError, clearFlashes } = useFlash();
     const [visible, setVisible] = useState(false);
@@ -69,24 +71,22 @@ export default () => {
                         }}
                     >
                         <FlashMessageRender byKey={'database:create'} css={tw`mb-6`} />
-                        <h2 css={tw`text-2xl mb-6`}>Create new database</h2>
+                        <h2 css={tw`text-2xl mb-6`}>{t('databases.modal.title')}</h2>
                         <Form css={tw`m-0`}>
                             <Field
                                 type={'string'}
                                 id={'database_name'}
                                 name={'databaseName'}
-                                label={'Database Name'}
-                                description={'A descriptive name for your database instance.'}
+                                label={t('databases.modal.name')}
+                                description={t('databases.modal.name_description')}
                             />
                             <div css={tw`mt-6`}>
                                 <Field
                                     type={'string'}
                                     id={'connections_from'}
                                     name={'connectionsFrom'}
-                                    label={'Connections From'}
-                                    description={
-                                        'Where connections should be allowed from. Leave blank to allow connections from anywhere.'
-                                    }
+                                    label={t('databases.modal.connections_from')}
+                                    description={t('databases.modal.connections_from_description')}
                                 />
                             </div>
                             <div css={tw`flex flex-wrap justify-end mt-6`}>
@@ -95,17 +95,17 @@ export default () => {
                                     css={tw`w-full sm:w-auto sm:mr-2`}
                                     onClick={() => setVisible(false)}
                                 >
-                                    Cancel
+                                    {t('databases.modal.cancel')}
                                 </Button>
                                 <Button css={tw`w-full mt-4 sm:w-auto sm:mt-0`} type={'submit'}>
-                                    Create Database
+                                    {t('databases.create')}
                                 </Button>
                             </div>
                         </Form>
                     </Modal>
                 )}
             </Formik>
-            <Button onClick={() => setVisible(true)}>New Database</Button>
+            <Button onClick={() => setVisible(true)}>{t('databases.new')}</Button>
         </>
     );
 };

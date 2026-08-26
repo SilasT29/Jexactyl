@@ -17,13 +17,13 @@ const PaginatedFooter = ({
             style={{ backgroundColor: !noBackground ? colors.secondary : 'transparent' }}
             className={'rounded-b-xl py-2 px-4'}
         >
-            <div className={'flex justify-between space-x-2'}>
-                <p className={'text-xs font-bold text-gray-400 my-auto'}>
+            <div className={'flex flex-col sm:flex-row sm:justify-between gap-2 sm:space-x-2'}>
+                <p className={'text-xs font-bold text-gray-400 my-auto text-center sm:text-left'}>
                     Showing <span className={'text-white'}>{pagination.startIndex + 1}</span> to{' '}
                     <span className={'text-white'}>{pagination.endIndex}</span> of{' '}
                     <span className={'text-white'}>{pagination.totalItems}</span> results
                 </p>
-                <div className={'inline-flex'}>
+                <div className={'inline-flex items-center mx-auto sm:mx-0'}>
                     <p className={'text-xs font-bold text-gray-400 my-auto mr-2'}>
                         Page <span className={'text-white'}>{pagination.currentPage}</span> of{' '}
                         <span className={'text-white'}>{pagination.totalPages}</span>

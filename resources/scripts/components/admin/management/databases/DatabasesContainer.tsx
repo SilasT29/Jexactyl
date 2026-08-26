@@ -38,19 +38,19 @@ export default ({ filters }: Props) => {
             <Dialog title={'Create a New Database'} open={open} onClose={() => setOpen(false)} size={'lg'}>
                 <InformationContainer title={'Information'} onSubmit={submit} />
             </Dialog>
-            <div className={'w-full flex flex-row items-center mb-8'}>
-                <div className={'flex flex-col flex-shrink'} style={{ minWidth: '0' }}>
+            <div className={'w-full flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-0 mb-8'}>
+                <div className={'flex flex-col flex-shrink w-full sm:w-auto'} style={{ minWidth: '0' }}>
                     <h2 className={'text-2xl text-neutral-50 font-header font-medium'}>Database Hosts</h2>
                     <p className={'hidden lg:block text-base text-neutral-400 whitespace-nowrap'}>
                         Modify node database hosts linked to the Panel.
                     </p>
                 </div>
-                <div className={'w-full text-right mb-4'}>
+                <div className={'sm:ml-auto sm:pl-4 w-full sm:w-auto'}>
                     <Button
                         icon={PlusIcon}
                         size={Button.Sizes.Large}
                         onClick={() => setOpen(true)}
-                        className={'h-10 px-4 py-0 whitespace-nowrap'}
+                        className={'h-10 px-4 py-0 whitespace-nowrap w-full sm:w-auto'}
                     >
                         New Database Host
                     </Button>

@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import isEqual from 'react-fast-compare';
+import { useTranslation } from 'react-i18next';
 import { Alert } from '@/elements/alert';
 import Can from '@/elements/Can';
 import Spinner from '@/elements/Spinner';
@@ -47,6 +48,8 @@ function ServerConsoleContainer() {
     const billingProductId = ServerContext.useStoreState(state => state.server.data!.billingProductId);
     const settings = useStoreState(state => state.everest.data!.billing);
 
+    const { t } = useTranslation();
+
     const freeGraceDays = settings.renewal?.days || 7;
 
     const daysUntilRenewal = renewalDate
@@ -60,24 +63,26 @@ function ServerConsoleContainer() {
         Math.abs(daysUntilRenewal) <= freeGraceDays;
 
     return (
-        <PageContentBlock title={'Server Console'} showFlashKey={'console:share'}>
+        <PageContentBlock title={t('console.title')} showFlashKey={'console:share'}>
             {showRenewalWarning && (
                 <Alert type={'warning'} className={'mb-4'}>
-                    Your server is {Math.abs(daysUntilRenewal!)} day{Math.abs(daysUntilRenewal!) !== 1 ? 's' : ''}{' '}
-                    overdue for renewal. Please renew within {freeGraceDays} days to avoid permanent suspension. Your
-                    server files and data will be preserved.
+                    {t('console.renewal_warning', {
+                        days: Math.abs(daysUntilRenewal!).toString(),
+                        days_plural: Math.abs(daysUntilRenewal!) === 1 ? '' : 's',
+                        graceDays: freeGraceDays,
+                    })}
                 </Alert>
             )}
             {(isNodeUnderMaintenance || isInstalling || isTransferring) && (
                 <Alert type={'warning'} className={'mb-4'}>
                     {isNodeUnderMaintenance
-                        ? 'The node of this server is currently under maintenance and all actions are unavailable.'
+                        ? t('console.maintenance')
                         : isInstalling
-                        ? 'This server is currently running its installation process and most actions are unavailable.'
-                        : 'This server is currently being transferred to another node and all actions are unavailable.'}
+                        ? t('console.installing_message')
+                        : t('console.transferring_message')}
                 </Alert>
             )}
-            <div className={'mb-4 flex justify-between gap-4 bg-black/50 rounded-lg p-5'}>
+            <div className={'mb-4 flex flex-col sm:flex-row sm:justify-between gap-4 bg-black/50 rounded-lg p-4 sm:p-5'}>
                 <div className={'hidden pr-4 sm:col-span-2 sm:block lg:col-span-3'}>
                     <div className={'flex items-center space-x-2'}>
                         <h1 className={'font-header text-2xl leading-relaxed text-slate-50 line-clamp-1'}>{name}</h1>
@@ -85,13 +90,13 @@ function ServerConsoleContainer() {
                             {isInstalling && (
                                 <>
                                     <FontAwesomeIcon icon={faDownload} className={'my-auto mr-1'} />
-                                    Installing
+                                    {t('console.status.installing')}
                                 </>
                             )}
                             {isTransferring && (
                                 <>
                                     <FontAwesomeIcon icon={faSpinner} className={'animate-spin my-auto mr-1'} />
-                                    Transferring
+                                    {t('console.status.transferring')}
                                 </>
                             )}
                             {!isInstalling && !isTransferring && (
@@ -109,13 +114,15 @@ function ServerConsoleContainer() {
                     <p className={'text-sm line-clamp-2'}>
                         {description ?? uuid}
                         {renewalDate && (
-                            <span className={'ml-1'}>&bull; {timeUntil(renewalDate!).days} days until renewal</span>
+                            <span className={'ml-1'}>
+                                &bull; {t('console.days_until_renewal', { days: timeUntil(renewalDate!).days })}
+                            </span>
                         )}
                     </p>
                 </div>
-                <div className={'my-auto'}>
+                <div className={'sm:my-auto w-full sm:w-auto'}>
                     <Can action={['control.start', 'control.stop', 'control.restart']} matchAny>
-                        <PowerButtons className={' flex space-x-2 sm:justify-center'} />
+                        <PowerButtons className={'grid grid-cols-2 gap-2 sm:flex sm:space-x-2 sm:justify-center'} />
                     </Can>
                 </div>
             </div>

@@ -52,19 +52,19 @@ const NavigationBar = () => {
     }, []);
 
     const renderBreadcrumbs = () => (
-        <ol className="w-1/3 text-gray-400 text-sm inline-flex space-x-2">
-            <Link to={'/'}>
+        <ol className="min-w-0 flex-1 md:flex-none md:w-1/3 text-gray-400 text-sm inline-flex items-center space-x-2 overflow-hidden">
+            <Link to={'/'} className="flex-shrink-0">
                 <HomeIcon className="w-4 h-4 my-auto brightness-150" />
             </Link>
             {pathnames.map((segment, index) => {
                 const href = `/${pathnames.slice(0, index + 1).join('/')}`;
                 return (
-                    <li key={index} className="inline-flex">
-                        <ChevronRightIcon className="mr-2 w-4 h-4 my-auto" />
+                    <li key={index} className="inline-flex items-center min-w-0">
+                        <ChevronRightIcon className="mr-2 w-4 h-4 my-auto flex-shrink-0" />
                         {index === pathnames.length - 1 ? (
-                            <span className="capitalize">{segment}</span>
+                            <span className="capitalize truncate">{segment}</span>
                         ) : (
-                            <Link to={href} className="capitalize brightness-150">
+                            <Link to={href} className="capitalize brightness-150 truncate">
                                 {segment}
                             </Link>
                         )}
@@ -121,7 +121,7 @@ const NavigationBar = () => {
             className="w-full overflow-x-auto shadow-md mb-8 backdrop-blur-md border-b border-white/5"
             style={{ backgroundColor: theme.colors.sidebar }}
         >
-            <div className="px-8 flex h-[3.5rem] w-full items-center">
+            <div className="px-3 sm:px-8 flex h-[3.5rem] w-full items-center">
                 {renderBreadcrumbs()}
                 <RightNavigation className="flex h-full items-center justify-center ml-auto" theme={theme}>
                     <div className="relative">

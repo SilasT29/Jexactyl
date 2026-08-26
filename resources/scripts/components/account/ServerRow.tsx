@@ -25,6 +25,7 @@ import { type ServerGroup } from '@definitions/server';
 import { VisibleDialog } from './groups/ServerGroupDialog';
 import useFlash from '@/plugins/useFlash';
 import { timeUntil } from '../server/billing/ServerBillingContainer';
+import { useTranslation } from 'react-i18next';
 
 export function statusToColor(state?: ServerPowerState): string {
     switch (state) {
@@ -52,16 +53,16 @@ export function statusToBg(state?: ServerPowerState): string {
     }
 }
 
-export function statusToLabel(state?: ServerPowerState): string {
+export function statusToLabel(state?: ServerPowerState, t?: (key: string) => string): string {
     switch (state) {
         case 'running':
-            return 'Online';
+            return t ? t('dashboard.status.online') : 'Online';
         case 'starting':
-            return 'Starting';
+            return t ? t('dashboard.status.starting') : 'Starting';
         case 'stopping':
-            return 'Stopping';
+            return t ? t('dashboard.status.stopping') : 'Stopping';
         default:
-            return 'Offline';
+            return t ? t('dashboard.status.offline') : 'Offline';
     }
 }
 
@@ -140,6 +141,7 @@ export default ({
     group?: ServerGroup;
     setOpen: React.Dispatch<React.SetStateAction<VisibleDialog>>;
 }) => {
+    const { t } = useTranslation();
     const { clearFlashes, addFlash, clearAndAddHttpError } = useFlash();
     const [stats, setStats] = useState<ServerStats>();
     const colors = useStoreState(state => state.theme.data!.colors);
@@ -257,10 +259,10 @@ export default ({
                                 )}
                             >
                                 {isSuspended
-                                    ? 'Suspended'
+                                    ? t('common.suspended')
                                     : isTransferring
-                                    ? 'Transferring'
-                                    : statusToLabel(powerState)}
+                                    ? t('admin.servers.status.transferring')
+                                    : statusToLabel(powerState, t)}
                             </span>
                             {hasGroup ? (
                                 <span
@@ -276,9 +278,9 @@ export default ({
                                     <button
                                         onClick={onDelete}
                                         className={
-                                            'ml-0.5 text-gray-600 hover:text-red-400 transition-colors duration-150'
+                                            'ml-0.5 -mr-1 p-1.5 text-gray-600 hover:text-red-400 transition-colors duration-150'
                                         }
-                                        title={'Remove from group'}
+                                        title={t('dashboard.remove_from_group')}
                                     >
                                         <FontAwesomeIcon icon={faTrash} size={'xs'} />
                                     </button>
@@ -287,11 +289,11 @@ export default ({
                                 <button
                                     onClick={() => setOpen({ open: 'add', serverId: server.uuid })}
                                     className={
-                                        'hidden xl:inline-flex items-center gap-1 text-xs text-gray-600 hover:text-gray-300 border border-dashed border-gray-700 hover:border-gray-500 rounded-full px-2 py-0.5 transition-all duration-200 hover:bg-white/5'
+                                        'inline-flex items-center gap-1 min-h-[32px] xl:min-h-0 text-xs text-gray-500 hover:text-gray-300 border border-dashed border-gray-700 hover:border-gray-500 rounded-full px-3 py-1 xl:px-2 xl:py-0.5 transition-all duration-200 hover:bg-white/5'
                                     }
                                 >
                                     <FontAwesomeIcon icon={faPlus} size={'xs'} />
-                                    Group
+                                    {t('dashboard.add_group')}
                                 </button>
                             )}
                         </div>
@@ -342,10 +344,10 @@ export default ({
                             />
                             <span className={'text-sm text-gray-500'}>
                                 {isTransferring
-                                    ? 'Transfer in progress…'
+                                    ? t('dashboard.transfer_in_progress')
                                     : isSuspended
-                                    ? 'This server is suspended'
-                                    : `Server is ${server.status ?? 'offline'}`}
+                                    ? t('dashboard.server_suspended')
+                                    : t('dashboard.server_offline')}
                             </span>
                         </div>
                     ) : (
@@ -369,15 +371,15 @@ export default ({
                         </div>
                     )}
                 </div>
-                <div className={'flex-shrink-0 hidden xl:flex items-center'}>
+                <div className={'flex-shrink-0 flex items-center'}>
                     <Link
                         to={`/server/${server.id}`}
                         className={
-                            'flex items-center gap-1.5 text-xs text-gray-600 hover:text-white border border-white/5 hover:border-white/20 rounded-lg px-3 py-2 bg-white/[0.02] hover:bg-white/10 transition-all duration-200'
+                            'flex items-center gap-1.5 min-h-[44px] px-4 w-full sm:w-auto justify-center text-sm xl:text-xs text-gray-300 hover:text-white border border-white/10 hover:border-white/20 rounded-lg xl:py-2 bg-white/[0.02] hover:bg-white/10 transition-all duration-200'
                         }
                     >
                         <FontAwesomeIcon icon={faArrowUpRightFromSquare} size={'xs'} />
-                        Manage
+                        {t('dashboard.manage')}
                     </Link>
                 </div>
             </div>

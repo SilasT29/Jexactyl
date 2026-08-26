@@ -19,10 +19,15 @@ export default () => {
         <>
             <SearchModal open={visible} onClose={() => setVisible(false)} />
 
-            <div className={'navigation-link'} onClick={() => setVisible(true)}>
+            <button
+                type={'button'}
+                className={'navigation-link min-h-[44px] min-w-[44px] justify-center'}
+                onClick={() => setVisible(true)}
+                aria-label={'Search servers'}
+            >
                 <FontAwesomeIcon icon={faSearch} />
-                Search
-            </div>
+                <span className={'hidden sm:inline'}>Search</span>
+            </button>
         </>
     );
 };

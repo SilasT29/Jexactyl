@@ -2,6 +2,7 @@ import { useStoreState } from 'easy-peasy';
 import type { FormikHelpers } from 'formik';
 import { Formik } from 'formik';
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Reaptcha from 'reaptcha';
 import tw from 'twin.macro';
@@ -21,6 +22,7 @@ interface Values {
 }
 
 function ForgotPasswordContainer() {
+    const { t } = useTranslation();
     const ref = useRef<Reaptcha>(null);
     const token = useRef('');
 
@@ -83,40 +85,38 @@ function ForgotPasswordContainer() {
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={'Reset your Password'} css={tw`w-full flex`}>
+                <LoginFormContainer title={String(t('auth.forgot_password.title'))} css={tw`w-full flex`}>
                     <Field
-                        label={'Email Address'}
-                        description={'Enter your account email address that you use to access the Panel.'}
+                        label={String(t('auth.forgot_password.email'))}
+                        description={String(t('auth.forgot_password.email_description'))}
                         name={'email'}
                         type={'email'}
                     />
                     <div className={'mt-6'}>
                         <Field
-                            label={'Account Recovery Code'}
-                            description={
-                                "Enter the account recovery code you were given when your account was created. Don't have this code? Contact our support for assistance."
-                            }
+                            label={String(t('auth.forgot_password.recovery_code'))}
+                            description={String(t('auth.forgot_password.recovery_code_description'))}
                             name={'code'}
                             type={'text'}
                         />
                     </div>
                     <div className={'my-6'}>
                         <Field
-                            label={'New Password'}
-                            description={"Enter the new password you'd like to use for this user account."}
+                            label={String(t('auth.forgot_password.new_password'))}
+                            description={String(t('auth.forgot_password.new_password_description'))}
                             name={'password'}
                             type={'password'}
                         />
                     </div>
                     <Field
-                        label={'Confirm New Password'}
-                        description={'For extra security, re-enter the above password.'}
+                        label={String(t('auth.forgot_password.confirm_password'))}
+                        description={String(t('auth.forgot_password.confirm_password_description'))}
                         name={'password_confirm'}
                         type={'password'}
                     />
                     <div css={tw`mt-6`}>
                         <Button type={'submit'} className={'w-full'} size={Button.Sizes.Large} disabled={isSubmitting}>
-                            Attempt Login
+                            {String(t('auth.forgot_password.button'))}
                         </Button>
                     </div>
                     {recaptchaEnabled && (
@@ -139,7 +139,7 @@ function ForgotPasswordContainer() {
                             to={'/auth/login'}
                             css={tw`text-xs text-neutral-300 tracking-wide no-underline uppercase font-medium hover:text-neutral-600`}
                         >
-                            Return to Login
+                            {String(t('auth.forgot_password.return_to_login'))}
                         </Link>
                     </div>
                 </LoginFormContainer>

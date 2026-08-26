@@ -186,7 +186,7 @@ function ServerRouter() {
                         <Spinner size="large" centered />
                     )
                 ) : (
-                    <div className={'flex-1 overflow-x-hidden'}>
+                    <div className={'flex-1 overflow-x-hidden pb-20 md:pb-0'}>
                         <InstallListener />
                         <TransferListener />
                         <WebsocketHandler />

@@ -1,16 +1,16 @@
 .manager_actions {
-    @apply grid grid-cols-2 sm:grid-cols-3 w-full gap-4 mb-4;
+    @apply flex flex-wrap items-center justify-center gap-2 w-full mb-4 max-w-full;
 
-    & button {
-        @apply w-full first:col-span-2 sm:first:col-span-1;
+    & > * {
+        @apply flex-none;
+    }
+
+    & a, & button {
+        @apply inline-flex w-auto;
     }
 
     @screen md {
-        @apply flex flex-1 justify-end mb-0;
-
-        & button {
-            @apply w-auto;
-        }
+        @apply flex-1 mb-0;
     }
 }
 

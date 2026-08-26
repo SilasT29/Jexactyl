@@ -69,8 +69,8 @@ const NodeRouter = () => {
 
     return (
         <AdminContentBlock title={'Node - ' + node.name}>
-            <div css={tw`w-full flex flex-row items-center mb-4`}>
-                <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+            <div css={tw`w-full flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0 mb-4`}>
+                <div css={tw`flex flex-col flex-shrink w-full sm:w-auto`} style={{ minWidth: '0' }}>
                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>
                         {node.name}
                         <NodeStatus node={node.id} className={'ml-2 mb-0.5'} />

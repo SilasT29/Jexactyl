@@ -27,6 +27,7 @@ import { processFreeCheckoutSession } from '@/api/routes/account/billing/orders/
 import StatTile from '@/elements/billing/StatTile';
 import Money from '@/elements/billing/Money';
 import RadialProgress from '@/elements/billing/RadialProgress';
+import { useTranslation } from 'react-i18next';
 
 export function timeUntil(targetDate: Date | string) {
     const date = targetDate instanceof Date ? targetDate : new Date(targetDate);
@@ -41,6 +42,7 @@ export function timeUntil(targetDate: Date | string) {
 }
 
 export default () => {
+    const { t } = useTranslation();
     const [product, setProduct] = useState<Product>();
     const [loading, setLoading] = useState<boolean>(true);
     const [renewing, setRenewing] = useState<boolean>(false);
@@ -87,37 +89,37 @@ export default () => {
 
     return (
         <PageContentBlock
-            title={'Server Billing'}
+            title={t('billing.title')}
             header
-            description={'Control your billing settings for this server.'}
+            description={t('billing.description')}
         >
             {!product && !loading && (
                 <Alert type={'warning'} className={'mb-6'}>
-                    The product package you purchase initially no longer exists, so some details may not be shown.
+                    {t('billing.product_missing')}
                 </Alert>
             )}
             {renewalDate && (
                 <div className={'grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6'}>
-                    <StatTile icon={faBoxOpen} label={'Plan'} value={product ? product.name : 'Unknown'} />
+                    <StatTile icon={faBoxOpen} label={t('billing.plan')} value={product ? product.name : t('billing.unknown')} />
                     <StatTile
                         icon={faCalendarCheck}
-                        label={'Cost'}
+                        label={t('billing.cost')}
                         value={product ? <Money value={product.price} /> : '...'}
-                        caption={`every ${settings.renewal.days} days`}
+                        caption={t('billing.every_days', { days: settings.renewal.days })}
                     />
-                    <StatTile icon={faHourglassHalf} label={'Renews In'} value={`${daysRemaining}d`} />
+                    <StatTile icon={faHourglassHalf} label={t('billing.renews_in')} value={`${daysRemaining}d`} />
                     <StatTile
                         icon={daysRemaining > settings.renewal.threshold ? faCircleCheck : faTriangleExclamation}
-                        label={'Status'}
-                        value={daysRemaining > settings.renewal.threshold ? 'Active' : 'Renewing Soon'}
+                        label={t('billing.status')}
+                        value={daysRemaining > settings.renewal.threshold ? t('billing.active') : t('billing.renewing_soon')}
                     />
                 </div>
             )}
             <div className={'grid lg:grid-cols-3 gap-4'}>
                 {!renewalDate ? (
-                    <Alert type={'warning'}>There is no present renewal date for your server.</Alert>
+                    <Alert type={'warning'}>{t('billing.no_renewal')}</Alert>
                 ) : (
-                    <ContentBox title={'Summary'}>
+                    <ContentBox title={t('billing.summary')}>
                         <SpinnerOverlay visible={loading} />
                         <div className={'flex items-center gap-6'}>
                             <RadialProgress
@@ -125,61 +127,58 @@ export default () => {
                                 label={
                                     <div className={'text-center'}>
                                         <p className={'text-lg font-bold leading-none'}>{daysRemaining}d</p>
-                                        <p className={'text-2xs text-gray-400 mt-1'}>left</p>
+                                        <p className={'text-2xs text-gray-400 mt-1'}>{t('billing.left')}</p>
                                     </div>
                                 }
                             />
                             <div>
-                                <Label>Next renewal due</Label>
+                                <Label>{t('billing.next_renewal')}</Label>
                                 <p className={'text-gray-400 text-sm'}>
                                     {new Date(renewalDate).toLocaleDateString()}
                                     {' - '}
-                                    {timeUntil(renewalDate).days} days, {timeUntil(renewalDate).hours} hours
+                                    {t('billing.every_days', {
+                                        days: timeUntil(renewalDate).days,
+                                        hours: timeUntil(renewalDate).hours,
+                                    })}
                                 </p>
                             </div>
                         </div>
                         <div className={'my-6'}>
-                            <Label>Your package</Label>
-                            <p className={'text-gray-400 text-sm'}>{product ? product.name : 'Unknown'}</p>
+                            <Label>{t('billing.your_package')}</Label>
+                            <p className={'text-gray-400 text-sm'}>{product ? product.name : t('billing.unknown')}</p>
                             <p className={'text-gray-500 text-xs'}>{product && product.description}</p>
                         </div>
                         <div>
-                            <Label>Plan cost</Label>
+                            <Label>{t('billing.plan_cost')}</Label>
                             <div className={'flex justify-between'}>
                                 <p className={'text-gray-400 text-sm'}>
-                                    {product ? <Money value={product.price} /> : '...'} every {settings.renewal.days}{' '}
-                                    days
+                                    {product ? <Money value={product.price} /> : '...'} {t('billing.every_days', { days: settings.renewal.days })}
                                 </p>
                                 <Link to={'/account/billing/orders'} className={'text-green-400 text-xs'}>
-                                    View order <FontAwesomeIcon icon={faArrowRight} />
+                                    {t('billing.view_order')} <FontAwesomeIcon icon={faArrowRight} />
                                 </Link>
                             </div>
                         </div>
                     </ContentBox>
                 )}
                 <div className={'lg:col-span-2'}>
-                    <h2 className={'text-neutral-300 mb-4 px-4 text-2xl'}>Related Orders</h2>
+                    <h2 className={'text-neutral-300 mb-4 px-4 text-2xl'}>{t('billing.related_orders')}</h2>
                     <OrdersContainer server_id={Number(serverId)} />
                 </div>
-                <ContentBox title={'Renew Server'} className={'mt-6'}>
+                <ContentBox title={t('billing.renew_server')} className={'mt-6'}>
                     <FlashMessageRender byKey={'server:billing'} className={'mb-4'} />
                     {!product ? (
-                        <Alert type={'danger'}>
-                            The product package that the server was made with no longer exists. In order to renew your
-                            server, you&apos;ll need to speak to an administrator.
-                        </Alert>
+                        <Alert type={'danger'}>{t('billing.product_missing_renew')}</Alert>
                     ) : (
                         <>
                             {product.price === 0 ? (
                                 <div>
                                     <p className={'mb-4'}>
-                                        This is a free server. You must renew it before your server expires in{' '}
-                                        {daysRemaining} days to prevent your server from being permenantly deleted.
+                                        {t('billing.free_server', { days: daysRemaining })}
                                     </p>
                                     {!(daysRemaining - 7 <= 0) && (
                                         <p className={'mb-4 text-sm text-gray-400'}>
-                                            You can renew your server within 7 days of the expiration date (in{' '}
-                                            {daysRemaining - 7} days)
+                                            {t('billing.renew_window', { days: daysRemaining - 7 })}
                                         </p>
                                     )}
                                     {daysRemaining - 7 <= 0 && (
@@ -188,7 +187,7 @@ export default () => {
                                             disabled={renewing}
                                             size={Button.Sizes.Large}
                                         >
-                                            {renewing ? 'Renewing...' : 'Renew Server'}
+                                            {renewing ? t('billing.renewing') : t('billing.renew_button')}
                                         </Button>
                                     )}
                                 </div>
@@ -199,14 +198,12 @@ export default () => {
                     )}
                 </ContentBox>
                 {settings.allow_upgrades && (
-                    <ContentBox className={'mt-6 lg:col-span-2'} title={'Upgrade Server Package'}>
-                        If you wish to pay extra for more resources for your server, you can use our upgrade system to
-                        choose a new plan to suit your needs. A pro-rata price will be generated to cover the cost
-                        between now and your next renewal date, and the new resources will be added upon payment.
+                    <ContentBox className={'mt-6 lg:col-span-2'} title={t('billing.upgrade_package')}>
+                        {t('billing.upgrade_description')}
                         <div className={'text-right'}>
                             <Link to={`/server/${serverUuid.slice(0, 8)}/billing/upgrade`}>
                                 <Button className={'mt-8'} size={Button.Sizes.Large}>
-                                    View Options <FontAwesomeIcon icon={faArrowRight} className={'ml-2'} />
+                                    {t('billing.view_options')} <FontAwesomeIcon icon={faArrowRight} className={'ml-2'} />
                                 </Button>
                             </Link>
                         </div>

@@ -31,7 +31,6 @@
         "spatie/laravel-fractal": "^6.4",
         "spatie/laravel-query-builder": "^7.0",
         "staudenmeir/belongs-to-through": "^2.18",
-        "stripe/stripe-php": "^17.3",
         "symfony/http-client": "^7.4",
         "symfony/mailgun-mailer": "^7.4",
         "symfony/postmark-mailer": "^7.4",

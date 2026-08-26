@@ -10,8 +10,10 @@ import useFileManagerSwr from '@/plugins/useFileManagerSwr';
 import useFlash from '@/plugins/useFlash';
 import { ServerContext } from '@/state/server';
 import FadeTransition from '@/elements/transitions/FadeTransition';
+import { useTranslation } from 'react-i18next';
 
 const MassActionsBar = () => {
+    const { t } = useTranslation();
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
 
     const { mutate } = useFileManagerSwr();
@@ -32,7 +34,7 @@ const MassActionsBar = () => {
     const onClickCompress = () => {
         setLoading(true);
         clearFlashes('files');
-        setLoadingMessage('Archiving files...');
+        setLoadingMessage(t('files.mass_actions.archiving'));
 
         compressFiles(uuid, directory, selectedFiles)
             .then(() => mutate())
@@ -45,7 +47,7 @@ const MassActionsBar = () => {
         setLoading(true);
         setShowConfirm(false);
         clearFlashes('files');
-        setLoadingMessage('Deleting files...');
+        setLoadingMessage(t('files.mass_actions.deleting'));
 
         deleteFiles(uuid, directory, selectedFiles)
             .then(async () => {
@@ -66,21 +68,21 @@ const MassActionsBar = () => {
                     {loadingMessage}
                 </SpinnerOverlay>
                 <Dialog.Confirm
-                    title={'Delete Files'}
+                    title={t('files.mass_actions.delete_title')}
                     open={showConfirm}
-                    confirm={'Delete'}
+                    confirm={t('files.mass_actions.delete_confirm')}
                     onClose={() => setShowConfirm(false)}
                     onConfirmed={onClickConfirmDeletion}
                 >
                     <p className="mb-2">
-                        Are you sure you want to delete&nbsp;
-                        <span className="font-semibold text-slate-50">{selectedFiles.length} files</span>? This is a
-                        permanent action and the files cannot be recovered.
+                        {t('files.mass_actions.delete_message', { count: selectedFiles.length })}
                     </p>
                     {selectedFiles.slice(0, 15).map(file => (
                         <li key={file}>{file}</li>
                     ))}
-                    {selectedFiles.length > 15 && <li>and {selectedFiles.length - 15} others</li>}
+                    {selectedFiles.length > 15 && (
+                        <li>{t('files.mass_actions.delete_others', { count: selectedFiles.length - 15 })}</li>
+                    )}
                 </Dialog.Confirm>
                 {showMove && (
                     <RenameFileModal
@@ -95,10 +97,10 @@ const MassActionsBar = () => {
                     <div className="pointer-events-none fixed bottom-0 z-50 mb-6 flex w-full justify-center">
                         <FadeTransition duration="duration-75" show={selectedFiles.length > 0} appear unmount>
                             <div className="pointer-events-auto flex items-center space-x-4 rounded bg-black/50 p-4">
-                                <Button onClick={() => setShowMove(true)}>Move</Button>
-                                <Button onClick={onClickCompress}>Archive</Button>
+                                <Button onClick={() => setShowMove(true)}>{t('files.mass_actions.move')}</Button>
+                                <Button onClick={onClickCompress}>{t('files.mass_actions.archive')}</Button>
                                 <Button.Danger variant={Button.Variants.Secondary} onClick={() => setShowConfirm(true)}>
-                                    Delete
+                                    {t('files.mass_actions.delete')}
                                 </Button.Danger>
                             </div>
                         </FadeTransition>

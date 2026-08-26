@@ -102,9 +102,7 @@ Route::prefix('/')->middleware([SuspendedAccount::class])->group(function () {
         Route::get('/orders/{order:id}/invoice', [Client\Billing\OrderController::class, 'invoice']);
 
         // Billing controllers and services
-        Route::post('/stripe/create', [Client\Billing\StripeController::class, 'create']);
-        Route::post('/stripe/process', [Client\Billing\StripeController::class, 'process']);
-
+        Route::post('/order-tickets', [Client\Billing\OrderTicketController::class, 'create']);
         Route::post('/free/process', [Client\Billing\FreeProductController::class, 'process']);
     });
 

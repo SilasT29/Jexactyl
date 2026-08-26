@@ -102,3 +102,11 @@ export const createMessage = (values: CreateTicketMessageValues): Promise<Ticket
             .catch(reject);
     });
 };
+
+export const createServerFromTicket = (ticketId: number): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        http.post(`/api/application/tickets/${ticketId}/create-server`)
+            .then(() => resolve())
+            .catch(reject);
+    });
+};

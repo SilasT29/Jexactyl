@@ -12,6 +12,7 @@ import Avatar from '@/elements/Avatar';
 import useLocationHash from '@/plugins/useLocationHash';
 import { getObjectKeys, isObject } from '@/lib/objects';
 import { useStoreState } from '@/state/hooks';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     activity: ActivityLog;
@@ -40,10 +41,14 @@ export function wrapProperties(value: unknown): any {
 }
 
 export default ({ activity, children }: Props) => {
+    const { t } = useTranslation();
     const { pathTo } = useLocationHash();
     const actor = activity.relationships.actor;
     const properties = wrapProperties(activity.properties);
     const { colors } = useStoreState(state => state.theme.data!);
+
+    const eventKey = activity.event.replace(/:/g, '.');
+    const eventLabel = t(`activity_log.events.${eventKey}`, { defaultValue: activity.event });
 
     return (
         <div
@@ -70,7 +75,7 @@ export default ({ activity, children }: Props) => {
                                 'text-gray-300 transition-colors duration-75 hover:text-cyan-400 active:text-cyan-400'
                             }
                         >
-                            {activity.description ?? activity.event}
+                            {eventLabel}
                         </Link>
                         <div className={classNames(style.icons, 'group-hover:text-slate-300')}>
                             {activity.isApi && (

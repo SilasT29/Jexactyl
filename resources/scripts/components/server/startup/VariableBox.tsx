@@ -12,12 +12,14 @@ import FlashMessageRender from '@/elements/FlashMessageRender';
 import Select from '@/elements/Select';
 import isEqual from 'react-fast-compare';
 import { ServerContext } from '@/state/server';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     variable: EggVariable;
 }
 
 const VariableBox = ({ variable }: Props) => {
+    const { t } = useTranslation();
     const FLASH_KEY = `server:startup:${variable.envVariable}`;
 
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
@@ -58,14 +60,17 @@ const VariableBox = ({ variable }: Props) => {
     const isStringSwitch = variable.rules.some(v => v === 'string');
     const selectValues = variable.rules.find(v => v.startsWith('in:'))?.split(',') || [];
 
+    const translatedName = t(`startup.var_names.${variable.envVariable}`, { defaultValue: variable.name });
+    const translatedDesc = t(`startup.var_names.${variable.envVariable}_desc`, { defaultValue: variable.description });
+
     return (
         <TitledGreyBox
             title={
                 <p className="text-sm font-semibold">
                     {!variable.isEditable && (
-                        <span className="bg-neutral-700 text-xs py-1 px-2 rounded-full mr-2 mb-1">Read Only</span>
+                        <span className="bg-neutral-700 text-xs py-1 px-2 rounded-full mr-2 mb-1">{t('startup.read_only')}</span>
                     )}
-                    {variable.name}
+                    {translatedName}
                 </p>
             }
         >
@@ -129,7 +134,7 @@ const VariableBox = ({ variable }: Props) => {
                 )}
             </InputSpinner>
 
-            <p className="mt-1 text-xs text-neutral-300">{variable.description}</p>
+            <p className="mt-1 text-xs text-neutral-300">{translatedDesc}</p>
         </TitledGreyBox>
     );
 };

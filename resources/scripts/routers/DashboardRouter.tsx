@@ -9,6 +9,8 @@ import { useStoreState } from '@/state/hooks';
 import { usePersistedState } from '@/plugins/usePersistedState';
 import Sidebar from '@/elements/Sidebar';
 import { CogIcon, DesktopComputerIcon, ExternalLinkIcon, LogoutIcon, PuzzleIcon } from '@heroicons/react/outline';
+import { ShieldCheckIcon } from '@heroicons/react/solid';
+import { useTranslation } from 'react-i18next';
 import Avatar from '@/elements/Avatar';
 import MobileSidebar from '@/elements/MobileSidebar';
 import { CustomLink } from '@definitions/admin';
@@ -17,8 +19,10 @@ import http from '@/api/http';
 import NavigationBar from '@/elements/NavigationBar';
 import DashboardContainer from '@account/DashboardContainer';
 import PageTransition from '@/elements/transitions/PageTransition';
+import { isPrivacyModeEnabled } from '@/hooks/usePrivacyMode';
 
 function DashboardRouter() {
+    const { t } = useTranslation();
     const location = useLocation();
     const user = useStoreState(s => s.user.data!);
     const { name, logo } = useStoreState(s => s.settings.data!);
@@ -26,6 +30,7 @@ function DashboardRouter() {
     const [links, setLinks] = useState<CustomLink[] | null>();
     const flags = useStoreState(state => state.everest.data!);
     const [collapsed, setCollapsed] = usePersistedState<boolean>(`sidebar_user_${user.uuid}`, false);
+    const privacyMode = isPrivacyModeEnabled();
 
     useEffect(() => {
         getLinks().then(setLinks).catch();
@@ -50,7 +55,7 @@ function DashboardRouter() {
                             key={route.route}
                             icon={route.icon ?? PuzzleIcon}
                             text={route.name}
-                            linkTo={route.path !== '' ? `/account/${route.path}` : ''}
+                            linkTo={route.path !== '' ? `/account/${route.path}` : '/account'}
                             end={route.end}
                         />
                     ))}
@@ -78,7 +83,7 @@ function DashboardRouter() {
                 <Sidebar.Wrapper theme={theme}>
                     <NavLink to={'/'} end className={'mb-[18px]'}>
                         <DesktopComputerIcon />
-                        <span>Dashboard</span>
+                        <span>{String(t('nav.dashboard'))}</span>
                     </NavLink>
                     {routes.account
                         .filter(route => route.name && (!route.condition || route.condition(flags)))
@@ -113,12 +118,12 @@ function DashboardRouter() {
                     {(user.rootAdmin || user.admin_role_id) && (
                         <NavLink to={'/admin'}>
                             <CogIcon />
-                            <span className={collapsed ? 'hidden' : ''}>Settings</span>
+                            <span className={collapsed ? 'hidden' : ''}>{String(t('nav.settings'))}</span>
                         </NavLink>
                     )}
                     <NavLink to={'/'} onClick={onTriggerLogout}>
                         <LogoutIcon />
-                        <span className={collapsed ? 'hidden' : ''}>Logout</span>
+                        <span className={collapsed ? 'hidden' : ''}>{String(t('nav.logout'))}</span>
                     </NavLink>
                 </span>
                 <Sidebar.User>
@@ -131,9 +136,15 @@ function DashboardRouter() {
                                 'font-sans font-normal text-xs text-gray-300 whitespace-nowrap leading-tight select-none'
                             }
                         >
-                            <div className={'text-gray-400 text-sm'}>Welcome back,</div>
-                            {user.email}
+                            <div className={'text-gray-400 text-sm'}>{String(t('user_menu.welcome'))},</div>
+                            {privacyMode ? '***' : user.email}
                         </span>
+                        {privacyMode && !collapsed && (
+                            <span className={'mt-1 inline-flex items-center text-xs font-medium text-green-400'}>
+                                <ShieldCheckIcon className={'w-3 h-3 mr-1'} />
+                                {String(t('privacy_mode.indicator'))}
+                            </span>
+                        )}
                     </div>
                 </Sidebar.User>
             </Sidebar>

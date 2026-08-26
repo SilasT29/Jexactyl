@@ -9,6 +9,7 @@ import { httpErrorToHuman } from '@/api/http';
 import { ApplicationStore } from '@/state';
 import tw from 'twin.macro';
 import { Button } from '@/elements/button/index';
+import { useTranslation } from 'react-i18next';
 
 interface Values {
     current: string;
@@ -29,6 +30,7 @@ const schema = Yup.object().shape({
 });
 
 export default () => {
+    const { t } = useTranslation();
     const user = useStoreState((state: State<ApplicationStore>) => state.user.data);
     const { clearFlashes, addFlash } = useStoreActions((actions: Actions<ApplicationStore>) => actions.flashes);
 
@@ -69,17 +71,15 @@ export default () => {
                                 id={'current_password'}
                                 type={'password'}
                                 name={'current'}
-                                label={'Current Password'}
+                                label={t('security.current_password')}
                             />
                             <div css={tw`mt-6`}>
                                 <Field
                                     id={'new_password'}
                                     type={'password'}
                                     name={'password'}
-                                    label={'New Password'}
-                                    description={
-                                        'Your new password should be at least 8 characters in length and unique to this website.'
-                                    }
+                                    label={t('security.new_password')}
+                                    description={t('security.new_password_helper')}
                                 />
                             </div>
                             <div css={tw`mt-6`}>
@@ -87,11 +87,11 @@ export default () => {
                                     id={'confirm_new_password'}
                                     type={'password'}
                                     name={'confirmPassword'}
-                                    label={'Confirm New Password'}
+                                    label={t('security.confirm_new_password')}
                                 />
                             </div>
                             <div css={tw`mt-6`}>
-                                <Button disabled={isSubmitting || !isValid}>Update Password</Button>
+                                <Button disabled={isSubmitting || !isValid}>{t('security.update_password_button')}</Button>
                             </div>
                         </Form>
                     </Fragment>

@@ -36,18 +36,20 @@ export const TableHeader = ({
     name,
     onClick,
     direction,
+    className,
 }: {
     name?: string;
     onClick?: (e: MouseEvent) => void;
     direction?: number | null;
+    className?: string;
 }) => {
     if (!name) {
-        return <th css={tw`px-6 py-2`} />;
+        return <th className={className} css={tw`px-6 py-2`} />;
     }
 
     return (
-        <th css={tw`px-6 py-2`} onClick={onClick}>
-            <span css={tw`flex flex-row items-center cursor-pointer`}>
+        <th className={className} css={tw`px-6 py-2`} onClick={onClick}>
+            <span css={tw`flex flex-row items-center cursor-pointer py-2 -my-2`}>
                 <span
                     css={tw`text-xs font-medium tracking-wider uppercase text-neutral-300 whitespace-nowrap select-none`}
                 >
@@ -109,7 +111,7 @@ interface Props<T> {
 }
 
 const PaginationButton = styled.button<{ active?: boolean }>`
-    ${tw`relative items-center px-3 py-1 -ml-px text-sm font-normal leading-5 transition-all duration-150 ease-in-out border border-neutral-500 focus:z-10 focus:outline-none focus:border-primary-300 inline-flex`};
+    ${tw`relative items-center px-4 py-2.5 md:px-3 md:py-1 -ml-px text-sm font-normal leading-5 transition-all duration-150 ease-in-out border border-neutral-500 focus:z-10 focus:outline-none focus:border-primary-300 inline-flex`};
 
     ${props =>
         props.active
@@ -118,7 +120,7 @@ const PaginationButton = styled.button<{ active?: boolean }>`
 `;
 
 const PaginationArrow = styled.button`
-    ${tw`relative inline-flex items-center px-1 py-1 text-sm font-medium leading-5 transition-all duration-150 ease-in-out border border-neutral-500 bg-neutral-600/80 text-neutral-400 hover:text-neutral-50 hover:bg-neutral-500/80 focus:z-10 focus:outline-none focus:border-primary-300`};
+    ${tw`relative inline-flex items-center px-3 py-2.5 md:px-2 md:py-1 text-sm font-medium leading-5 transition-all duration-150 ease-in-out border border-neutral-500 bg-neutral-600/80 text-neutral-400 hover:text-neutral-50 hover:bg-neutral-500/80 focus:z-10 focus:outline-none focus:border-primary-300`};
 
     &:disabled {
         ${tw`bg-neutral-700`}
@@ -182,7 +184,9 @@ export function Pagination<T>({ data, onPageSelect, children }: Props<T>) {
         <>
             {children}
 
-            <div css={tw`h-12 flex flex-row items-center w-full px-6 py-3 border-t border-neutral-500`}>
+            <div
+                css={tw`min-h-[3rem] flex flex-col sm:flex-row items-center w-full px-6 py-3 gap-2 sm:gap-0 border-t border-neutral-500`}
+            >
                 <p css={tw`text-sm leading-5 text-neutral-400`}>
                     Showing{' '}
                     <span css={tw`text-neutral-300`}>
@@ -196,7 +200,7 @@ export function Pagination<T>({ data, onPageSelect, children }: Props<T>) {
                 </p>
 
                 {isFirstPage && isLastPage ? null : (
-                    <div css={tw`flex flex-row ml-auto`}>
+                    <div css={tw`flex flex-row sm:ml-auto`}>
                         <nav css={tw`relative z-0 inline-flex shadow-sm`}>
                             <PaginationArrow
                                 type="button"
@@ -310,12 +314,12 @@ export const ContentWrapper = ({ onSearch, children }: Params) => {
 
     return (
         <>
-            <div css={tw`flex flex-row items-center h-12 px-6`}>
-                <div css={tw`flex flex-row items-center ml-auto`}>
+            <div css={tw`flex flex-col sm:flex-row items-start sm:items-center h-auto sm:h-12 px-6 py-2 sm:py-0 gap-2 sm:gap-0`}>
+                <div css={tw`flex flex-row items-center w-full sm:w-auto sm:ml-auto`}>
                     <InputSpinner visible={loading}>
                         <Input
                             value={inputText}
-                            css={tw`h-8`}
+                            css={tw`h-10 sm:h-8 w-full sm:w-auto`}
                             placeholder="Search..."
                             onChange={e => {
                                 setInputText(e.currentTarget.value);

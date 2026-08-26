@@ -92,19 +92,21 @@ function OrderTable({ server_id }: { server_id?: number }) {
                                     direction={sort === 'total' ? (sortDirection ? 1 : 2) : null}
                                     onClick={() => setSort('total')}
                                 />
-                                <TableHeader name={'Description'} />
+                                <TableHeader name={'Description'} className={'hidden md:table-cell'} />
                                 <TableHeader
                                     name={'Created At'}
                                     direction={sort === 'created_at' ? (sortDirection ? 1 : 2) : null}
                                     onClick={() => setSort('created_at')}
+                                    className={'hidden lg:table-cell'}
                                 />
                                 <TableHeader name={'Payment State'} />
                                 <TableHeader
                                     name={'Order Type'}
                                     direction={sort === 'type' ? (sortDirection ? 1 : 2) : null}
                                     onClick={() => setSort('type')}
+                                    className={'hidden md:table-cell'}
                                 />
-                                {!server_id && <TableHeader name={'Active Service'} />}
+                                {!server_id && <TableHeader name={'Active Service'} className={'hidden lg:table-cell'} />}
                                 <TableHeader name={'Invoice'} />
                             </TableHead>
                             <TableBody>
@@ -122,8 +124,8 @@ function OrderTable({ server_id }: { server_id?: number }) {
                                             <td className={'px-6 py-4 text-white font-bold'}>
                                                 <Money value={order.total} suffix={'/mo'} />
                                             </td>
-                                            <td className={'px-6 py-4'}>{order.description}</td>
-                                            <td className={'px-6 py-4'}>
+                                            <td className={'px-6 py-4 hidden md:table-cell'}>{order.description}</td>
+                                            <td className={'px-6 py-4 hidden lg:table-cell'}>
                                                 {formatDistanceToNowStrict(order.created_at, { addSuffix: true })}
                                             </td>
                                             <td className={'px-6 py-4 text-left'}>
@@ -131,13 +133,13 @@ function OrderTable({ server_id }: { server_id?: number }) {
                                                     {order.status}
                                                 </Pill>
                                             </td>
-                                            <td className={'pr-12 py-4 text-center'}>
+                                            <td className={'px-6 py-4 text-center hidden md:table-cell'}>
                                                 <Pill size={'small'} type={order.type === 'new' ? 'success' : 'info'}>
                                                     {order.type.toUpperCase()}
                                                 </Pill>
                                             </td>
                                             {!server_id && (
-                                                <td className={'px-6 py-4 text-left ml-4'}>
+                                                <td className={'px-6 py-4 text-left hidden lg:table-cell'}>
                                                     {order.server_id ? (
                                                         <FontAwesomeIcon
                                                             icon={faCheckCircle}
@@ -191,7 +193,7 @@ function BillingStats() {
     });
 
     return (
-        <div className={'grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8'}>
+        <div className={'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8'}>
             <StatTile
                 icon={faServer}
                 label={'Active Services'}

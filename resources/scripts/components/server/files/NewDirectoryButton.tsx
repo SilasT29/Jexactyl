@@ -14,6 +14,7 @@ import { Dialog, DialogWrapperContext } from '@/elements/dialog';
 import Code from '@/elements/Code';
 import asDialog from '@/hoc/asDialog';
 import { FileObject } from '@definitions/server';
+import { useTranslation } from 'react-i18next';
 
 interface Values {
     directoryName: string;
@@ -41,6 +42,7 @@ const generateDirectoryData = (name: string): FileObject => ({
 const NewDirectoryDialog = asDialog({
     title: 'Create Directory',
 })(() => {
+    const { t } = useTranslation();
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
     const directory = ServerContext.useStoreState(state => state.files.directory);
 
@@ -70,9 +72,14 @@ const NewDirectoryDialog = asDialog({
                 <>
                     <FlashMessageRender key={'files:directory-modal'} />
                     <Form css={tw`m-0`}>
-                        <Field autoFocus id={'directoryName'} name={'directoryName'} label={'Name'} />
+                        <Field
+                            autoFocus
+                            id={'directoryName'}
+                            name={'directoryName'}
+                            label={t('files.directory_name')}
+                        />
                         <p css={tw`mt-2 text-sm md:text-base break-all`}>
-                            <span css={tw`text-neutral-200`}>This directory will be created as&nbsp;</span>
+                            <span css={tw`text-neutral-200`}>{t('files.directory_path_preview')}&nbsp;</span>
                             <Code>
                                 /home/container/
                                 <span css={tw`text-cyan-200`}>
@@ -83,10 +90,10 @@ const NewDirectoryDialog = asDialog({
                     </Form>
                     <Dialog.Footer>
                         <Button.Text className={'w-full sm:w-auto'} onClick={close}>
-                            Cancel
+                            {t('files.cancel')}
                         </Button.Text>
                         <Button className={'w-full sm:w-auto'} onClick={submitForm}>
-                            Create
+                            {t('files.create')}
                         </Button>
                     </Dialog.Footer>
                 </>
@@ -96,13 +103,14 @@ const NewDirectoryDialog = asDialog({
 });
 
 export default ({ className }: { className?: string }) => {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
 
     return (
         <>
             <NewDirectoryDialog open={open} onClose={setOpen.bind(this, false)} />
             <Button.Text onClick={setOpen.bind(this, true)} className={className}>
-                Create Directory
+                {t('files.create_directory')}
             </Button.Text>
         </>
     );

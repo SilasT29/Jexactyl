@@ -57,16 +57,18 @@ const RolesContainer = () => {
 
     return (
         <AdminContentBlock title={'Roles'}>
-            <div css={tw`w-full flex flex-row items-center mb-8`}>
-                <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+            <div css={tw`w-full flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-0 mb-8`}>
+                <div css={tw`flex flex-col flex-shrink w-full sm:w-auto`} style={{ minWidth: '0' }}>
                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>Administrator Roles</h2>
                     <p css={tw`text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}>
                         Roles are sets of permissions that you can assign to your panel administrators.
                     </p>
                 </div>
 
-                <div css={tw`flex ml-auto pl-4`}>
-                    <NewRoleButton />
+                <div css={tw`w-full sm:w-auto sm:ml-auto sm:pl-4`}>
+                    <div className={'w-full sm:w-auto'}>
+                        <NewRoleButton />
+                    </div>
                 </div>
             </div>
 

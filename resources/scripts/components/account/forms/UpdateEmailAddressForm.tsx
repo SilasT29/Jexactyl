@@ -8,6 +8,7 @@ import { httpErrorToHuman } from '@/api/http';
 import { ApplicationStore } from '@/state';
 import tw from 'twin.macro';
 import { Button } from '@/elements/button/index';
+import { useTranslation } from 'react-i18next';
 
 interface Values {
     email: string;
@@ -20,6 +21,7 @@ const schema = Yup.object().shape({
 });
 
 export default () => {
+    const { t } = useTranslation();
     const user = useStoreState((state: State<ApplicationStore>) => state.user.data);
     const updateEmail = useStoreActions((state: Actions<ApplicationStore>) => state.user.updateUserEmail);
 
@@ -56,17 +58,17 @@ export default () => {
                 <Fragment>
                     <SpinnerOverlay size={'large'} visible={isSubmitting} />
                     <Form css={tw`m-0`}>
-                        <Field id={'current_email'} type={'email'} name={'email'} label={'Email'} />
+                        <Field id={'current_email'} type={'email'} name={'email'} label={t('security.email')} />
                         <div css={tw`mt-6`}>
                             <Field
                                 id={'confirm_password'}
                                 type={'password'}
                                 name={'password'}
-                                label={'Confirm Password'}
+                                label={t('security.confirm_password')}
                             />
                         </div>
                         <div css={tw`mt-6`}>
-                            <Button disabled={isSubmitting || !isValid}>Update Email</Button>
+                            <Button disabled={isSubmitting || !isValid}>{t('security.update_email_button')}</Button>
                         </div>
                     </Form>
                 </Fragment>

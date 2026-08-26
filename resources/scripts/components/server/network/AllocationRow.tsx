@@ -18,6 +18,8 @@ import CopyOnClick from '@/elements/CopyOnClick';
 import DeleteAllocationButton from '@server/network/DeleteAllocationButton';
 import { ip } from '@/lib/formatters';
 import Code from '@/elements/Code';
+import { isPrivacyModeEnabled, maskIP } from '@/hooks/usePrivacyMode';
+import { useTranslation } from 'react-i18next';
 
 const Label = styled.label`
     ${tw`uppercase text-xs mt-1 text-neutral-400 block px-1 select-none transition-colors duration-150`}
@@ -28,10 +30,13 @@ interface Props {
 }
 
 const AllocationRow = ({ allocation }: Props) => {
+    const { t } = useTranslation();
     const [loading, setLoading] = useState(false);
     const { clearFlashes, clearAndAddHttpError } = useFlashKey('server:network');
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
     const { mutate } = getAllocations();
+
+    const displayIP = isPrivacyModeEnabled() ? maskIP(ip(allocation.ip)) : ip(allocation.ip);
 
     const onNotesChanged = useCallback((id: number, notes: string) => {
         mutate(data => data?.map(a => (a.id === id ? { ...a, notes } : a)), false);
@@ -71,22 +76,22 @@ const AllocationRow = ({ allocation }: Props) => {
                             </Code>
                         </CopyOnClick>
                     ) : (
-                        <CopyOnClick text={ip(allocation.ip)}>
-                            <Code dark>{ip(allocation.ip)}</Code>
+                        <CopyOnClick text={displayIP}>
+                            <Code dark>{displayIP}</Code>
                         </CopyOnClick>
                     )}
-                    <Label>{allocation.alias ? 'Hostname' : 'IP Address'}</Label>
+                    <Label>{allocation.alias ? t('network.hostname') : t('network.ip_address')}</Label>
                 </div>
                 <div className={'w-16 overflow-hidden md:w-24'}>
                     <Code dark>{allocation.port}</Code>
-                    <Label>Port</Label>
+                    <Label>{t('network.port')}</Label>
                 </div>
             </div>
             <div className={'mt-4 w-full md:mt-0 md:w-auto md:flex-1'}>
                 <InputSpinner visible={loading}>
                     <Textarea
                         className={'border-transparent bg-neutral-800 hover:border-neutral-600'}
-                        placeholder={'Notes'}
+                        placeholder={t('network.notes_placeholder')}
                         defaultValue={allocation.notes || undefined}
                         onChange={e => doSetNotes(e.currentTarget.value)}
                     />
@@ -95,7 +100,7 @@ const AllocationRow = ({ allocation }: Props) => {
             <div className={'mt-4 flex w-full justify-end space-x-4 md:mt-0 md:w-48'}>
                 {allocation.isDefault ? (
                     <Button size={Button.Sizes.Small} className={'!bg-blue-600 !text-slate-50'} disabled>
-                        Primary
+                        {t('network.primary')}
                     </Button>
                 ) : (
                     <>
@@ -104,7 +109,7 @@ const AllocationRow = ({ allocation }: Props) => {
                         </Can>
                         <Can action={'allocation.update'}>
                             <Button.Text size={Button.Sizes.Small} onClick={doSetPrimary}>
-                                Make Primary
+                                {t('network.make_primary')}
                             </Button.Text>
                         </Can>
                     </>

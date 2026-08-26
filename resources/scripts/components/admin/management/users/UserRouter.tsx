@@ -70,8 +70,8 @@ const UserRouter = () => {
 
     return (
         <AdminContentBlock title={'User - ' + user.id}>
-            <div css={tw`w-full flex flex-row items-center mb-4`}>
-                <div css={tw`flex flex-col flex-shrink`} style={{ minWidth: '0' }}>
+            <div css={tw`w-full flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-0 mb-4`}>
+                <div css={tw`flex flex-col flex-shrink w-full sm:w-auto`} style={{ minWidth: '0' }}>
                     <h2 css={tw`text-2xl text-neutral-50 font-header font-medium`}>{user.email}</h2>
                     <p
                         css={tw`hidden md:block text-base text-neutral-400 whitespace-nowrap overflow-ellipsis overflow-hidden`}
@@ -79,9 +79,9 @@ const UserRouter = () => {
                         {user.uuid}
                     </p>
                 </div>
-                <div css={tw`flex ml-auto pl-4`}>
-                    <Link to={'/admin/users'}>
-                        <Button>
+                <div css={tw`w-full sm:w-auto sm:ml-auto sm:pl-4`}>
+                    <Link to={'/admin/users'} className={'block w-full sm:w-auto'}>
+                        <Button className={'w-full sm:w-auto'}>
                             <FontAwesomeIcon icon={faArrowLeft} className={'mr-2 my-auto'} /> Back to Users
                         </Button>
                     </Link>

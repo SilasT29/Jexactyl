@@ -11,16 +11,18 @@ import { theme } from 'twin.macro';
 import ChartBlock from '@server/console/ChartBlock';
 import Tooltip from '@/elements/tooltip/Tooltip';
 import { useStoreState } from '@/state/hooks';
+import { useTranslation } from 'react-i18next';
 
 export default () => {
+    const { t } = useTranslation();
     const { primary } = useStoreState(state => state.theme.data!.colors);
     const status = ServerContext.useStoreState(state => state.status.value);
     const limits = ServerContext.useStoreState(state => state.server.data!.limits);
     const previous = useRef<Record<'tx' | 'rx', number>>({ tx: -1, rx: -1 });
 
-    const cpu = useChartTickLabel('CPU', limits.cpu, '%', 0);
-    const memory = useChartTickLabel('Memory', limits.memory, 'MiB');
-    const network = useChart('Network', {
+    const cpu = useChartTickLabel(t('console.chart_block.cpu'), limits.cpu, '%', 0);
+    const memory = useChartTickLabel(t('console.chart_block.memory'), limits.memory, 'MiB');
+    const network = useChart(t('console.chart_block.network'), {
         sets: 2,
         options: {
             scales: {
@@ -33,10 +35,10 @@ export default () => {
                 },
             },
         },
-        callback(opts, index) {
-            return {
-                ...opts,
-                label: !index ? 'Network In' : 'Network Out',
+                callback(opts, index) {
+                    return {
+                        ...opts,
+                        label: !index ? t('console.chart_block.inbound') : t('console.chart_block.outbound'),
                 borderColor: !index ? theme('colors.cyan.400') : primary,
                 backgroundColor: hexToRgba(!index ? theme('colors.cyan.700') : primary, 0.5),
             };
@@ -70,20 +72,20 @@ export default () => {
 
     return (
         <>
-            <ChartBlock title={'CPU'}>
+            <ChartBlock title={t('console.chart_block.cpu')}>
                 <Line {...cpu.props} />
             </ChartBlock>
-            <ChartBlock title={'Memory'}>
+            <ChartBlock title={t('console.chart_block.memory')}>
                 <Line {...memory.props} />
             </ChartBlock>
             <ChartBlock
-                title={'Network'}
+                title={t('console.chart_block.network')}
                 legend={
                     <>
-                        <Tooltip arrow content={'Inbound'}>
+                        <Tooltip arrow content={t('console.chart_block.inbound')}>
                             <CloudDownloadIcon className={'mr-2 h-4 w-4 text-green-400'} />
                         </Tooltip>
-                        <Tooltip arrow content={'Outbound'}>
+                        <Tooltip arrow content={t('console.chart_block.outbound')}>
                             <CloudUploadIcon className={'h-4 w-4 text-cyan-400'} />
                         </Tooltip>
                     </>

@@ -11,8 +11,10 @@ import { httpErrorToHuman } from '@/api/http';
 import Can from '@/elements/Can';
 import tw from 'twin.macro';
 import PageContentBlock from '@/elements/PageContentBlock';
+import { useTranslation } from 'react-i18next';
 
 export default () => {
+    const { t } = useTranslation();
     const [loading, setLoading] = useState(true);
 
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
@@ -50,10 +52,10 @@ export default () => {
     }
 
     return (
-        <PageContentBlock title={'Subusers'} header description={'Control the access of other users to this server.'}>
+        <PageContentBlock title={t('users.title')} header description={t('users.description')}>
             <FlashMessageRender byKey={'users'} css={tw`mb-4`} />
             {!subusers.length ? (
-                <p css={tw`text-center text-sm text-neutral-300`}>It looks like you don&apos;t have any subusers.</p>
+                <p css={tw`text-center text-sm text-neutral-300`}>{t('users.empty')}</p>
             ) : (
                 subusers.map(subuser => <UserRow key={subuser.uuid} subuser={subuser} />)
             )}
@@ -61,7 +63,7 @@ export default () => {
                 <div css={tw`mt-6 sm:flex items-center justify-end`}>
                     {limit > 0 && subusers.length > 0 && (
                         <p css={tw`text-sm text-neutral-300 mb-4 sm:mr-6 sm:mb-0`}>
-                            {subusers.length} of {limit} subusers have been created for this server.
+                            {t('users.count_status', { count: subusers.length, limit })}
                         </p>
                     )}
                     {limit > 0 && limit > subusers.length && <AddSubuserButton css={tw`w-full sm:w-auto`} />}

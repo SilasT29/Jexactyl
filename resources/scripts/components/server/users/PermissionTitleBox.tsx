@@ -6,6 +6,7 @@ import tw from 'twin.macro';
 
 import TitledGreyBox from '@/elements/TitledGreyBox';
 import Input from '@/elements/Input';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     children?: ReactNode;
@@ -16,7 +17,9 @@ interface Props {
     permissions: string[];
 }
 
-function PermissionTitleBox({ isEditable, title, permissions, className, children }: Props) {
+function PermissionTitleBox({ isEditable, title: titleKey, permissions, className, children }: Props) {
+    const { t } = useTranslation();
+    const title = t(`users.permissions.${titleKey}.title`, { defaultValue: titleKey });
     const [{ value }, , { setValue }] = useField<string[]>('permissions');
 
     const onCheckboxClicked = useCallback(
