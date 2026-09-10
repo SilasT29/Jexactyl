@@ -106,6 +106,9 @@ class ServerGroupController extends ClientApiController
             throw new DisplayException('You do not have permission to edit this server group.');
         }
 
+        // Server der Gruppe abkoppeln, damit keine verwaisten group_ids übrig bleiben
+        Server::where('group_id', $group->id)->update(['group_id' => null]);
+
         $group->delete();
 
         return $this->returnNoContent();
