@@ -54,9 +54,9 @@
             "forgot_password": "Passwort vergessen?",
             "button": "Anmelden",
             "passkey": "Oder mit einem Passkey anmelden",
-            "discord_sso": "Mit Discord anmelden",
-            "google_sso": "Mit Google anmelden",
-            "register_with_email": "Mit E-Mail registrieren",
+            "discord_sso": "Discord",
+            "google_sso": "Google",
+            "register_with_email": "Registrieren",
             "or": "ODER",
             "recaptcha_notice": "Dieses Formular ist durch reCAPTCHA geschützt"
         },
