@@ -12,7 +12,7 @@ type Props = React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, 
 };
 
 const PageWrapper = styled.div`
-    ${tw`min-h-screen w-full flex items-center justify-center p-4 relative overflow-hidden`};
+    ${tw`w-full flex items-center justify-center p-4 relative`};
 
     /* reCAPTCHA-Badge ausblenden (Funktion bleibt) */
     .grecaptcha-badge {

@@ -12,7 +12,7 @@ import PageTransition from '@/elements/transitions/PageTransition';
 import { getTransitionKey } from '@/routers/routes/utils';
 
 const Container = styled.div`
-    ${tw`min-h-screen w-full relative`};
+    ${tw`fixed inset-0 overflow-hidden`};
     background: #0b0e14 url('/assets/auth-bg.jpg') center / cover no-repeat;
 
     &::before {
@@ -21,6 +21,16 @@ const Container = styled.div`
         inset: 0;
         background: linear-gradient(180deg, rgba(11, 14, 20, 0.45) 0%, rgba(11, 14, 20, 0.7) 100%);
         backdrop-filter: blur(3px);
+    }
+
+    /* Innerer Bereich: scrollt nur wenn der Inhalt wirklich nicht passt (z.B. Register mobil) */
+    & > div {
+        overflow-y: auto;
+        scrollbar-width: none;
+    }
+
+    & > div::-webkit-scrollbar {
+        display: none;
     }
 
     /* reCAPTCHA-Badge ausblenden (Funktion bleibt), dezenter Hinweis steht unter dem Formular */
@@ -37,7 +47,7 @@ export default () => {
 
     return (
         <Container>
-            <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 py-8 xl:py-32">
+            <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 py-6">
                 <AnimatePresence mode={'wait'} initial={false}>
                     <Routes
                         location={location}

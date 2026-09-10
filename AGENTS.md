@@ -50,7 +50,7 @@ Ein angepasster **Jexactyl v4.0.7** Game-Server-Management-Panel, lokal auf eine
 ### 2.2 Login / Register
 
 - Login- und Register-Container zentriert mit Minecraft-Key-Art-Hintergrund
-- **Hintergrund:** Offizielles Java-Edition-Key-Art, lokal ausgeliefert unter `public/assets/auth-bg.jpg` (2560×1440, von minecraft.wiki geholt, da minecraft.net vom Server nicht erreichbar ist). Eingebaut im `AuthenticationRouter.tsx` (Container) → gilt einheitlich für Login, Register, Passwort-Seiten. Overlay: linear-gradient + blur(3px).
+- **Hintergrund:** Offizielles Minecraft-Natur-Key-Art 2024 (Java & Bedrock, Himmel/Wiese/Fluss), lokal ausgeliefert unter `public/assets/auth-bg.jpg` (1920×1080, von minecraft.wiki geholt, da minecraft.net vom Server nicht erreichbar ist). Eingebaut im `AuthenticationRouter.tsx` (Container, `fixed inset-0`) → gilt einheitlich für Login, Register, Passwort-Seiten. Overlay: linear-gradient + blur(3px). Kein Seitenscroll möglich: Container ist fixiert, innerer Bereich scrollt nur bei Bedarf (kleine Phones + Register) mit verstecktem Scrollbar.
 - **reCAPTCHA-Badge:** per CSS ausgeblendet (`.grecaptcha-badge { opacity: 0 }` in AuthenticationRouter + LoginFormContainer), Funktion bleibt erhalten; dezenter i18n-Hinweis `auth.login.recaptcha_notice` unter dem Formular (Google-Sichtbarkeitsanforderung).
 - E-Mail-Placeholder: `user@silast29.de`
 - Datenschutz-Checkbox in Registrierung mit Link zu `https://silast29.de/datenschutz`
