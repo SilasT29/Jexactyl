@@ -17,15 +17,26 @@ class StoreNodeTokensAsEncryptedValue extends Migration
      */
     public function up(): void
     {
+        // Fork-fix: auf frischen Installationen heißt die Spalte bereits daemon_token
+        // (2016_01_23_200648_add_nodes wurde im Fork angepasst) — nur dann droppen/rename,
+        // wenn das Legacy-Feld daemonSecret überhaupt existiert.
         Schema::table('nodes', function (Blueprint $table) {
-            $table->dropUnique(['daemonSecret']);
+            if (Schema::hasColumn('nodes', 'daemonSecret')) {
+                $table->dropUnique(['daemonSecret']);
+            }
         });
 
         Schema::table('nodes', function (Blueprint $table) {
-            $table->char('uuid', 36)->after('id');
-            $table->char('daemon_token_id', 16)->after('upload_size');
+            if (!Schema::hasColumn('nodes', 'uuid')) {
+                $table->char('uuid', 36)->after('id');
+            }
+            if (!Schema::hasColumn('nodes', 'daemon_token_id')) {
+                $table->char('daemon_token_id', 16)->after('upload_size');
+            }
 
-            $table->renameColumn('daemonSecret', 'daemon_token');
+            if (Schema::hasColumn('nodes', 'daemonSecret')) {
+                $table->renameColumn('daemonSecret', 'daemon_token');
+            }
         });
 
         Schema::table('nodes', function (Blueprint $table) {
@@ -38,16 +49,11 @@ class StoreNodeTokensAsEncryptedValue extends Migration
         foreach (DB::select('SELECT id, daemon_token FROM nodes') as $datum) {
             DB::update('UPDATE nodes SET uuid = ?, daemon_token_id = ?, daemon_token = ? WHERE id = ?', [
                 Uuid::uuid4()->toString(),
-                substr($datum->daemon_token, 0, 16),
-                $encrypter->encrypt(substr($datum->daemon_token, 16)),
+                str_random(16),
+                $encrypter->encrypt($datum->daemon_token),
                 $datum->id,
             ]);
         }
-
-        Schema::table('nodes', function (Blueprint $table) {
-            $table->unique(['uuid']);
-            $table->unique(['daemon_token_id']);
-        });
     }
 
     /**
@@ -55,31 +61,6 @@ class StoreNodeTokensAsEncryptedValue extends Migration
      */
     public function down(): void
     {
-        DB::transaction(function () {
-            /** @var Encrypter $encrypter */
-            $encrypter = Container::getInstance()->make(Encrypter::class);
-
-            foreach (DB::select('SELECT id, daemon_token_id, daemon_token FROM nodes') as $datum) {
-                DB::update('UPDATE nodes SET daemon_token = ? WHERE id = ?', [
-                    $datum->daemon_token_id . $encrypter->decrypt($datum->daemon_token),
-                    $datum->id,
-                ]);
-            }
-        });
-
-        Schema::table('nodes', function (Blueprint $table) {
-            $table->dropUnique(['uuid']);
-            $table->dropUnique(['daemon_token_id']);
-        });
-
-        Schema::table('nodes', function (Blueprint $table) {
-            $table->dropColumn(['uuid', 'daemon_token_id']);
-            $table->renameColumn('daemon_token', 'daemonSecret');
-        });
-
-        Schema::table('nodes', function (Blueprint $table) {
-            $table->string('daemonSecret', 36)->change();
-            $table->unique(['daemonSecret']);
-        });
+        // Intentionally left empty — reversing this migration is not supported.
     }
 }
