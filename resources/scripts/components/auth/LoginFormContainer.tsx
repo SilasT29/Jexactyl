@@ -3,6 +3,8 @@ import * as React from 'react';
 import { Form } from 'formik';
 import styled from 'styled-components';
 import tw from 'twin.macro';
+import { useStoreState } from 'easy-peasy';
+import { useTranslation } from 'react-i18next';
 import FlashMessageRender from '@/elements/FlashMessageRender';
 
 type Props = React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement> & {
@@ -11,14 +13,11 @@ type Props = React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, 
 
 const PageWrapper = styled.div`
     ${tw`min-h-screen w-full flex items-center justify-center p-4 relative overflow-hidden`};
-    background: #0b0e14 url('https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_Vanilla_1-21.jpg') center / cover no-repeat fixed;
 
-    &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, rgba(11, 14, 20, 0.6) 0%, rgba(11, 14, 20, 0.85) 100%);
-        backdrop-filter: blur(3px);
+    /* reCAPTCHA-Badge ausblenden (Funktion bleibt) */
+    .grecaptcha-badge {
+        opacity: 0 !important;
+        pointer-events: none !important;
     }
 `;
 
@@ -31,6 +30,8 @@ const FormCard = styled.div<{ isVisible: boolean }>`
 
 export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => {
     const [visible, setVisible] = useState(false);
+    const { t } = useTranslation();
+    const recaptchaEnabled = useStoreState(state => state.settings.data!.recaptcha.enabled);
 
     useEffect(() => {
         const timeout = setTimeout(() => setVisible(true), 50);
@@ -47,6 +48,11 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
                         <div css={tw`flex-1`}>{props.children}</div>
                     </div>
                 </Form>
+                {recaptchaEnabled && (
+                    <p css={tw`text-center text-neutral-400 text-[10px] mt-2 drop-shadow`}>
+                        {String(t('auth.login.recaptcha_notice'))}
+                    </p>
+                )}
                 <p css={tw`text-center text-neutral-300 text-xs mt-4 drop-shadow`}>
                     &copy; {new Date().getFullYear()}&nbsp;Powered by&nbsp;
                     <a

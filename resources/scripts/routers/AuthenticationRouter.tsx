@@ -12,8 +12,22 @@ import PageTransition from '@/elements/transitions/PageTransition';
 import { getTransitionKey } from '@/routers/routes/utils';
 
 const Container = styled.div`
-    ${tw`h-screen bg-black`};
-    background-image: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.06), transparent 60%);
+    ${tw`min-h-screen w-full relative`};
+    background: #0b0e14 url('/assets/auth-bg.jpg') center / cover no-repeat;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(11, 14, 20, 0.45) 0%, rgba(11, 14, 20, 0.7) 100%);
+        backdrop-filter: blur(3px);
+    }
+
+    /* reCAPTCHA-Badge ausblenden (Funktion bleibt), dezenter Hinweis steht unter dem Formular */
+    .grecaptcha-badge {
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
 `;
 
 export default () => {
@@ -23,7 +37,7 @@ export default () => {
 
     return (
         <Container>
-            <div className="pt-8 xl:pt-32">
+            <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 py-8 xl:py-32">
                 <AnimatePresence mode={'wait'} initial={false}>
                     <Routes
                         location={location}

@@ -57,7 +57,8 @@
             "discord_sso": "Use Discord SSO",
             "google_sso": "Use Google SSO",
             "register_with_email": "Register with Email",
-            "or": "OR"
+            "or": "OR",
+            "recaptcha_notice": "This form is protected by reCAPTCHA"
         },
         "register": {
             "title": "Create an Account",
