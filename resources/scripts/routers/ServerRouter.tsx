@@ -136,7 +136,7 @@ function ServerRouter() {
                             <DesktopComputerIcon />
                             <span>Dashboard</span>
                         </NavLink>
-                        <Sidebar.Section>Server {server?.uuid?.slice(0, 8)}</Sidebar.Section>
+                        <Sidebar.Section>Server {server?.id}</Sidebar.Section>
                         {routes.server
                             .filter(
                                 route =>
@@ -186,7 +186,7 @@ function ServerRouter() {
                         <Spinner size="large" centered />
                     )
                 ) : (
-                    <div className={'flex-1 overflow-x-hidden pb-20 md:pb-0'}>
+                    <div className={'flex-1 overflow-y-auto overflow-x-clip no-scrollbar pb-20 md:pb-0'}>
                         <InstallListener />
                         <TransferListener />
                         <WebsocketHandler />

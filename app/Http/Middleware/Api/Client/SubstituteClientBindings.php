@@ -15,13 +15,22 @@ class SubstituteClientBindings extends SubstituteBindings
         // Override default behavior of the model binding to use a specific table
         // column rather than the default 'id'.
         $this->router->bind('server', function ($value) {
-            return Server::query()
-                ->when(
-                    str_starts_with($value, 'serv_'),
-                    fn ($builder) => $builder->whereIdentifier($value),
-                    fn ($builder) => $builder->where(strlen($value) === 8 ? 'uuidShort' : 'uuid', $value)
-                )
-                ->firstOrFail();
+            // Akzeptiert: uuidShort (8 Zeichen), volle UUID, serv_-Identifier und
+            // UUID-Präfixe (damit ein kopierter UUID-Anfang nicht zum 404 führt).
+            if (str_starts_with($value, 'serv_')) {
+                return Server::query()->whereIdentifier($value)->firstOrFail();
+            }
+
+            $server = Server::query()
+                ->where(fn ($q) => $q->where('uuidShort', $value)->orWhere('uuid', $value))
+                ->first();
+
+            if ($server) {
+                return $server;
+            }
+
+            // Fallback: Präfix der vollen UUID (z.B. "5119d7aa" oder "5119d7aa-e08a")
+            return Server::query()->where('uuid', 'LIKE', $value . '%')->firstOrFail();
         });
 
         $this->router->bind('user', function ($value, $route) {
