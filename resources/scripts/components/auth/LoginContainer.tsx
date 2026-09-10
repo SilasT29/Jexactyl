@@ -171,7 +171,7 @@ function LoginContainer() {
                         <Button
                             type={'submit'}
                             loading={isSubmitting}
-                            className={'w-full'}
+                            className={'!w-full'}
                             size={Button.Sizes.Large}
                             disabled={isSubmitting}
                         >
@@ -186,7 +186,7 @@ function LoginContainer() {
                                 type={'button'}
                                 onClick={usePasskey}
                                 loading={passkeyPending}
-                                className={'w-full'}
+                                className={'!w-full'}
                             >
                                 <FontAwesomeIcon icon={faFingerprint} className={'mr-2 my-auto'} />{' '}
                                 {String(t('auth.login.passkey'))}
@@ -229,6 +229,7 @@ function LoginContainer() {
                                 type={'button'}
                                 onClick={() => navigate('/auth/register')}
                                 size={Button.Sizes.Small}
+                                className={'!w-full col-span-2'}
                             >
                                 <FontAwesomeIcon icon={faEnvelope} className={'mr-2 my-auto'} />{' '}
                                 {String(t('auth.login.register_with_email'))}
