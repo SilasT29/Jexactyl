@@ -54,7 +54,7 @@ export default () => {
 
     const { data: servers, error } = useSWR<PaginatedResult<Server>>(
         ['/api/client/servers', showOnlyAdmin && user.rootAdmin, page],
-        () => getServers({ page, type: showOnlyAdmin && user.rootAdmin ? 'admin' : undefined, per_page: 5 }),
+        () => getServers({ page, type: showOnlyAdmin && user.rootAdmin ? 'admin' : undefined, per_page: 4 }),
     );
 
     const serversByGroup = useMemo(() => {
@@ -186,7 +186,7 @@ export default () => {
                 </div>
             )}
             <div className={classNames('grid gap-4', activityEnabled ? 'lg:grid-cols-3' : 'lg:grid-cols-2')}>
-                <div className="relative overflow-x-auto lg:col-span-2">
+                <div className="relative overflow-x-hidden lg:col-span-2">
                     <div css={tw`mb-4 px-4`}>
                         <div className={'flex items-center justify-between gap-3 mb-3 w-full'}>
                             <h2 className={'text-neutral-300 text-xl sm:text-2xl whitespace-nowrap overflow-hidden text-ellipsis leading-none py-1'}>
