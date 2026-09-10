@@ -3,6 +3,7 @@
 namespace Everest\Services\Users;
 
 use Everest\Models\User;
+use Illuminate\Support\Str;
 use Webauthn\CredentialRecord;
 use Everest\Models\UserPasskey;
 use Webauthn\PublicKeyCredential;
@@ -147,9 +148,12 @@ class PasskeyService
         }
 
         return $user->passkeys()->create([
-            'name' => $name,
+            // Fix: UUID muss vor der saving-Validierung existieren — das creating-Event
+            // feuert erst NACH saving, sieht die Validierung also nicht („uuid required").
+            'uuid'          => Str::uuid()->toString(),
+            'name'          => $name,
             'credential_id' => $credentialId,
-            'credential' => $this->serializer->serialize($record, 'json'),
+            'credential'    => $this->serializer->serialize($record, 'json'),
         ]);
     }
 
