@@ -54,7 +54,14 @@ const User = styled.div`
 `;
 
 const Sidebar = styled.div<{ $collapsed?: boolean; theme: SiteTheme }>`
-    ${tw`hidden md:flex h-screen flex-col items-center flex-shrink-0 overflow-x-hidden ease-linear`};
+    ${tw`hidden md:flex h-screen flex-col items-center flex-shrink-0 overflow-y-auto ease-linear`};
+    scrollbar-width: none; /* hide sidebar scrollbar */
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
     ${tw`transition-all duration-500 border-r border-white/5 shadow-xl`};
     ${tw`w-[15rem]`};
 

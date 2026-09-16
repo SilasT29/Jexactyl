@@ -70,7 +70,8 @@ export default ({ expand, setExpand }: Props) => {
     };
 
     const { secondary } = useStoreState(state => state.theme.data!.colors);
-    const TERMINAL_PRELUDE = '\n\u001b[1m\u001b[33mEverest Container: \u001b[0m';
+    const appName = useStoreState(state => state.settings.data!.name);
+    const TERMINAL_PRELUDE = `\n\u001b[1m\u001b[33m${appName || 'Everest'} Container: \u001b[0m`;
     const ref = useRef<HTMLDivElement>(null);
     const terminal = useMemo(() => new Terminal({ ...terminalProps, ...terminalInitOnlyProps }), []);
     const fitAddon = useMemo(() => new FitAddon(), []);

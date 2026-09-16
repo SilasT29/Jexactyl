@@ -33,7 +33,33 @@ export default createGlobalStyle`
         -moz-appearance: textfield !important;
     }
 
-    /* Scroll Bar Style */
+    /* Hide main page scrollbar (scrolling still works) */
+    html,
+    body {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* legacy Edge/IE */
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    /* Scroll containers that scroll without a visible bar (main content column) */
+    .no-scrollbar {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* legacy Edge/IE */
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    /* Inner scrollbars (console, tables, dropdowns) keep their style */
     ::-webkit-scrollbar {
         background: none;
         width: 16px;

@@ -148,7 +148,7 @@ function DashboardRouter() {
                     </div>
                 </Sidebar.User>
             </Sidebar>
-            <div className={'flex-1 overflow-x-hidden'}>
+            <div className={'flex-1 overflow-y-auto overflow-x-clip no-scrollbar'}>
                 <NavigationBar />
                 <Suspense fallback={<Spinner centered />}>
                     <AnimatePresence mode={'wait'} initial={false}>

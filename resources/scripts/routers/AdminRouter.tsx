@@ -120,7 +120,7 @@ function AdminRouter() {
                 </Sidebar.User>
             </Sidebar>
             <div
-                className={'flex-1 overflow-x-hidden px-6 pt-6 pb-24 md:pb-10 lg:px-10 lg:pt-8 xl:px-16 xl:pt-12'}
+                className={'flex-1 overflow-y-auto overflow-x-clip no-scrollbar px-6 pt-6 pb-24 md:pb-10 lg:px-10 lg:pt-8 xl:px-16 xl:pt-12'}
             >
                 <div className={'w-full max-w-full overflow-x-hidden flex flex-col mx-auto'} style={{ maxWidth: '86rem' }}>
                     <ErrorBoundary>
