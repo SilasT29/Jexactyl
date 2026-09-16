@@ -1,7 +1,7 @@
 import type { Actions } from 'easy-peasy';
 import { useStoreActions } from 'easy-peasy';
 import type { FormikHelpers } from 'formik';
-import { Form, Formik } from 'formik';
+import { Form, Formik, useFormikContext } from 'formik';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Field, { FieldRow } from '@/elements/Field';
 import tw from 'twin.macro';
@@ -10,7 +10,7 @@ import { Button } from '@/elements/button';
 import type { ApplicationStore } from '@/state';
 import AdminBox from '@/elements/AdminBox';
 import { object, string, number } from 'yup';
-import { faArrowLeft, faBell, faMicrochip, faPuzzlePiece } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faBell, faCube, faMicrochip, faPuzzlePiece } from '@fortawesome/free-solid-svg-icons';
 import { useStoreState } from '@/state/hooks';
 import { createProduct, updateProduct } from '@/api/routes/admin/billing';
 import ProductDeleteButton from './ProductDeleteButton';
@@ -21,11 +21,72 @@ import { getCategory } from '@/api/routes/admin/billing';
 import { Product } from '@definitions/admin';
 import { ProductValues } from '@/api/routes/admin/billing';
 import { Alert } from '@/elements/alert';
+import { searchEggs } from '@/api/routes/admin/eggs';
+import type { Egg } from '@definitions/admin';
+
+const EggAvailability = ({ categoryNestId }: { categoryNestId?: number }) => {
+    const { values, setFieldValue } = useFormikContext<ProductValues>();
+    const [eggs, setEggs] = useState<Egg[] | null>(null);
+
+    useEffect(() => {
+        if (!categoryNestId) {
+            setEggs([]);
+            return;
+        }
+        searchEggs(categoryNestId, {})
+            .then(setEggs)
+            .catch(error => console.error(error));
+    }, [categoryNestId]);
+
+    const toggle = (eggId: number) => {
+        const current = values.allowedEggs ?? [];
+        if (current.includes(eggId)) {
+            const next = current.filter(id => id !== eggId);
+            setFieldValue('allowedEggs', next.length > 0 ? next : null);
+        } else {
+            setFieldValue('allowedEggs', [...current, eggId]);
+        }
+    };
+
+    return (
+        <AdminBox title={'Egg Availability'} icon={faCube} className={'mt-4'}>
+            <p className={'text-sm text-neutral-400 mb-3'}>
+                Select which eggs customers can choose for this product. If none are selected, all eggs from the
+                category&apos;s nest are available.
+            </p>
+            {!categoryNestId ? (
+                <p className={'text-sm text-yellow-400'}>
+                    This category has a fixed egg pinned, so there is nothing to configure here.
+                </p>
+            ) : (
+                <div className={'grid grid-cols-1 sm:grid-cols-2 gap-2'}>
+                    {eggs?.map(egg => (
+                        <label
+                            key={egg.id}
+                            className={
+                                'flex items-center gap-2 bg-neutral-800 rounded border border-neutral-700 px-3 py-2 cursor-pointer hover:border-neutral-500 transition-colors'
+                            }
+                        >
+                            <input
+                                type={'checkbox'}
+                                checked={values.allowedEggs?.includes(egg.id) ?? false}
+                                onChange={() => toggle(egg.id)}
+                                className={'accent-blue-500'}
+                            />
+                            <span className={'text-sm text-neutral-200'}>{egg.name}</span>
+                        </label>
+                    ))}
+                </div>
+            )}
+        </AdminBox>
+    );
+};
 
 export default ({ product }: { product?: Product }) => {
     const navigate = useNavigate();
     const params = useParams<'id'>();
     const [uuid, setUuid] = useState<string>();
+    const [categoryNestId, setCategoryNestId] = useState<number | undefined>();
 
     const { clearFlashes, clearAndAddHttpError } = useStoreActions(
         (actions: Actions<ApplicationStore>) => actions.flashes,
@@ -59,7 +120,10 @@ export default ({ product }: { product?: Product }) => {
     };
 
     useEffect(() => {
-        getCategory(Number(params.id)).then(category => setUuid(category.uuid));
+        getCategory(Number(params.id)).then(category => {
+            setUuid(category.uuid);
+            setCategoryNestId(category.nestId);
+        });
     }, [params.id]);
 
     return (
@@ -98,6 +162,7 @@ export default ({ product }: { product?: Product }) => {
                     // @ts-expect-error this is fine
                     price: product?.price?.toString() ?? '9.99',
                     description: product?.description ?? 'This is a server plan.',
+                    allowedEggs: product?.allowedEggs ?? null,
                     limits: {
                         cpu: product?.limits.cpu ?? 100,
                         memory: product?.limits.memory ?? 1024,
@@ -226,6 +291,7 @@ export default ({ product }: { product?: Product }) => {
                                         abuse.
                                     </Alert>
                                 )}
+                                <EggAvailability categoryNestId={categoryNestId} />
                                 <div css={tw`rounded shadow-md mt-4 py-2 pr-6`} style={{ backgroundColor: secondary }}>
                                     <div css={tw`text-right`}>
                                         {product && <ProductDeleteButton product={product} />}

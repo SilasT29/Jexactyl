@@ -49,7 +49,7 @@ const StepHeader = ({
     const { colors } = useStoreState(state => state.theme.data!);
 
     return (
-        <div className={'flex items-start gap-4 mb-4'}>
+        <div className={'flex items-start gap-3 mb-2'}>
             <div
                 className={'w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-1 font-bold text-sm'}
                 style={
@@ -60,7 +60,7 @@ const StepHeader = ({
             >
                 {complete ? <FontAwesomeIcon icon={faCheck} className={'w-3.5 h-3.5'} /> : step}
             </div>
-            <div className={'text-xl lg:text-3xl font-semibold'}>
+            <div className={'text-lg lg:text-xl font-semibold'}>
                 {title}
                 <p className={'text-gray-400 font-normal text-sm mt-1'}>{description}</p>
             </div>
@@ -160,7 +160,7 @@ export default () => {
     return (
         <PageContentBlock title={'Your Order'} className={'pb-20 md:pb-8'}>
             <FlashMessageRender byKey={'account:billing:order'} className={'mb-4'} />
-            <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
+            <div className={'text-2xl lg:text-3xl font-bold mt-2 mb-4'}>
                 Your Order
                 <p className={'text-gray-400 font-normal text-sm mt-1'}>
                     Customize your selected plan and submit an order request for staff review.
@@ -178,18 +178,18 @@ export default () => {
                         <Money value={Number(finalPrice)} className={'mr-1'} accent />
                         <span className={'text-sm'}>/ mo</span>
                     </div>
-                    <div className={'h-0.5 my-4 bg-gray-600 mr-8 rounded-full'} />
+                    <div className={'h-0.5 my-2 bg-gray-600 mr-8 rounded-full'} />
                     <LimitBox icon={faMicrochip} limit={<>{product.limits.cpu}% CPU</>} />
                     <LimitBox icon={faMemory} limit={<>{(product.limits.memory / 1024).toFixed(1)} GiB Memory</>} />
                     <LimitBox icon={faHdd} limit={<>{(product.limits.disk / 1024).toFixed(1)} GiB Disk</>} />
-                    <div className={'h-0.5 my-4 bg-gray-600 mr-8 rounded-full'} />
+                    <div className={'h-0.5 my-2 bg-gray-600 mr-8 rounded-full'} />
                     <LimitBox icon={faArchive} limit={<>{product.limits.backup} Backup Slots</>} />
                     <LimitBox icon={faDatabase} limit={<>{product.limits.database} Database Slots</>} />
                     <LimitBox icon={faEthernet} limit={<>{product.limits.allocation} Network Ports</>} />
                 </div>
                 <div className={'lg:col-span-6'}>
                     <div>
-                        <div className={'my-10'}>
+                        <div className={'my-4'}>
                             <StepHeader
                                 step={locationStep}
                                 complete={!!selectedNode && (nodes?.length ?? 0) > 0}
@@ -216,7 +216,7 @@ export default () => {
                         <div className={'h-px bg-gray-700 rounded-full'} />
                         {needsEggSelection && (
                             <>
-                                <div className={'my-10'}>
+                                <div className={'my-4'}>
                                     <StepHeader
                                         step={eggStep!}
                                         complete={!!selectedEgg}
@@ -247,7 +247,7 @@ export default () => {
                         )}
                         {showVariablesStep && (
                             <>
-                                <div className={'my-10'}>
+                                <div className={'my-4'}>
                                     <StepHeader
                                         step={variablesStep!}
                                         complete={!!selectedNode && (nodes?.length ?? 0) > 0}
@@ -267,7 +267,7 @@ export default () => {
                                 <div className={'h-px bg-gray-700 rounded-full'} />
                             </>
                         )}
-                        <div className={'my-10'}>
+                        <div className={'my-4'}>
                             <StepHeader
                                 step={legalStep}
                                 complete={termsAgreed && privacyAgreed}
@@ -358,7 +358,7 @@ export default () => {
                                                 )
                                             }
                                         />
-                                        <div className={'flex justify-between w-full mt-8'}>
+                                        <div className={'flex justify-between w-full mt-4'}>
                                             <DiscountCodeDialog
                                                 discountCode={discountCode}
                                                 setDiscountCode={setDiscountCode}
@@ -375,7 +375,7 @@ export default () => {
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className={'flex w-full mt-8'}>
+                                    <div className={'flex w-full mt-4'}>
                                         {needsEggSelection && !selectedEgg ? (
                                             <Alert type={'warning'} className={'w-full'}>
                                                 Please select an egg above to continue.

@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $backup_limit
  * @property int $database_limit
  * @property int $allocation_limit
+ * @property array|null $allowed_eggs
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property mixed $category
@@ -45,6 +46,7 @@ class Product extends Model
         'name', 'icon', 'price', 'description',
         'cpu_limit', 'memory_limit', 'disk_limit',
         'backup_limit', 'database_limit', 'allocation_limit',
+        'allowed_eggs',
     ];
 
     /**
@@ -57,6 +59,7 @@ class Product extends Model
         'backup_limit' => 'integer',
         'database_limit' => 'integer',
         'allocation_limit' => 'integer',
+        'allowed_eggs' => 'array',
     ];
 
     public static array $validationRules = [

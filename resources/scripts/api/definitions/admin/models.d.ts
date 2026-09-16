@@ -565,6 +565,7 @@ interface Product extends Model {
     icon?: string;
     price: number;
     description: string;
+    allowedEggs?: number[] | null;
 
     limits: {
         cpu: number;

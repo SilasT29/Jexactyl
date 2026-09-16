@@ -25,6 +25,7 @@ export interface ProductValues {
     icon: string | undefined;
     price: number;
     description: string;
+    allowedEggs?: number[] | null;
 
     limits: {
         cpu: number;
@@ -186,7 +187,10 @@ export const getProducts = (id: number): Promise<Product[]> => {
 
 export const createProduct = (id: number, values: ProductValues): Promise<Product> => {
     return new Promise((resolve, reject) => {
-        http.post(`/api/application/billing/categories/${id}/products`, values)
+        http.post(`/api/application/billing/categories/${id}/products`, {
+            ...values,
+            allowed_eggs: values.allowedEggs ?? null,
+        })
             .then(({ data }) => resolve(Transformers.toProduct(data)))
             .catch(reject);
     });
@@ -200,7 +204,10 @@ export const getProduct = async (id: number): Promise<Product> => {
 
 export const updateProduct = (id: number, productId: number, values: ProductValues): Promise<void> => {
     return new Promise((resolve, reject) => {
-        http.patch(`/api/application/billing/categories/${id}/products/${productId}`, values)
+        http.patch(`/api/application/billing/categories/${id}/products/${productId}`, {
+            ...values,
+            allowed_eggs: values.allowedEggs ?? null,
+        })
             .then(() => resolve())
             .catch(reject);
     });

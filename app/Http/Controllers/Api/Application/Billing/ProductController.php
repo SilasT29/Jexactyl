@@ -68,6 +68,7 @@ class ProductController extends ApplicationApiController
                 'backup_limit' => $request['limits']['backup'],
                 'database_limit' => $request['limits']['database'],
                 'allocation_limit' => $request['limits']['allocation'],
+                'allowed_eggs' => $request->filled('allowed_eggs') ? $request->input('allowed_eggs') : ($product->allowed_eggs ?? null),
             ]);
         } catch (\Exception $ex) {
             throw new \Exception('Failed to create a new product: ' . $ex->getMessage());
@@ -101,6 +102,7 @@ class ProductController extends ApplicationApiController
                 'backup_limit' => $request['limits']['backup'],
                 'database_limit' => $request['limits']['database'],
                 'allocation_limit' => $request['limits']['allocation'],
+                'allowed_eggs' => $request->filled('allowed_eggs') ? $request->input('allowed_eggs') : ($product->allowed_eggs ?? null),
             ]);
         } catch (\Exception $ex) {
             throw new \Exception('Failed to update a product: ' . $ex->getMessage());

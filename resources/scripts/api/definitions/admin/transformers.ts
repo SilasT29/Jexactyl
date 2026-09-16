@@ -203,6 +203,7 @@ export default class Transformers {
         id: attributes.id,
         uuid: attributes.uuid,
         categoryId: attributes.category_id,
+        allowedEggs: attributes.allowed_eggs ?? null,
         categoryUuid: attributes.category_uuid,
         name: attributes.name,
         icon: attributes.icon,

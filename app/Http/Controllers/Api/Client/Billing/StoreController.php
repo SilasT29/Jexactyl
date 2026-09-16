@@ -85,7 +85,11 @@ class StoreController extends ClientApiController
      */
     public function eggs(Product $product): array
     {
-        $eggs = Egg::where('nest_id', $product->category->nest_id)->get();
+        $eggs = Egg::where('nest_id', $product->category->nest_id)
+            ->when(is_array($product->allowed_eggs) && count($product->allowed_eggs) > 0, function ($query) use ($product) {
+                $query->whereIn('id', $product->allowed_eggs);
+            })
+            ->get();
 
         return $this->transform($eggs, EggTransformer::class);
     }

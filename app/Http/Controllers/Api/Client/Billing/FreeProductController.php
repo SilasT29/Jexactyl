@@ -129,6 +129,11 @@ class FreeProductController extends ClientApiController
             throw new DisplayException('The selected egg does not belong to this product\'s nest.');
         }
 
+        $allowed = $product->allowed_eggs;
+        if (is_array($allowed) && count($allowed) > 0 && !in_array((int) $egg->id, array_map('intval', $allowed))) {
+            throw new DisplayException('The selected egg is not available for this product.');
+        }
+
         return $egg->id;
     }
 }

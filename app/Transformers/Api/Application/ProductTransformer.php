@@ -25,6 +25,7 @@ class ProductTransformer extends Transformer
             'icon' => $model->icon,
             'price' => $model->price,
             'description' => $model->description,
+            'allowed_eggs' => $model->allowed_eggs,
             'limits' => [
                 'cpu' => $model->cpu_limit,
                 'memory' => $model->memory_limit,
