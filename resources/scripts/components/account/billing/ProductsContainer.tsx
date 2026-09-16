@@ -50,15 +50,15 @@ export default () => {
 
     return (
         <PageContentBlock title={'Available Products'}>
-            <div className={'text-3xl lg:text-5xl font-bold mt-8 mb-12'}>
+            <div className={'text-2xl lg:text-3xl font-bold mt-2 mb-6'}>
                 Order a Product
                 <p className={'text-gray-400 font-normal text-sm mt-1'}>
                     Choose and configure any of the products below to your liking.
                 </p>
             </div>
-            <div className={'grid lg:grid-cols-4 gap-4 lg:gap-12'}>
+            <div className={'grid lg:grid-cols-4 gap-4 lg:gap-8'}>
                 <div>
-                    <p className={'text-2xl text-gray-300 mb-6 mt-4 font-bold'}>Categories</p>
+                    <p className={'text-xl text-gray-300 mb-4 font-bold'}>Categories</p>
                     {(!categories || categories.length < 1) && (
                         <div className={'font-semibold my-4 text-gray-400'}>
                             <FontAwesomeIcon icon={faExclamationTriangle} className={'w-5 h-5 mr-2 text-yellow-400'} />
@@ -115,42 +115,54 @@ export default () => {
                                     No products could be found in this category.
                                 </div>
                             )}
-                            <div className={'grid grid-cols-1 xl:grid-cols-3 gap-4'}>
+                            <div className={'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 auto-rows-fr'}>
                                 {products?.map(product => (
                                     <ContentBox
                                         key={product.id}
                                         className={
-                                            'transition duration-200 hover:shadow-xl hover:-translate-y-0.5 flex flex-col'
+                                            'transition duration-200 hover:shadow-xl hover:-translate-y-0.5 flex flex-col h-full'
                                         }
                                     >
-                                        <div className={'p-3 lg:p-6 flex flex-col flex-1'}>
+                                        <div className={'p-4 lg:p-5 flex flex-col flex-1'}>
                                             <div className={'flex justify-center'}>
                                                 <div
                                                     className={
-                                                        'w-16 h-16 rounded-full flex items-center justify-center'
+                                                        'w-12 h-12 rounded-full flex items-center justify-center'
                                                     }
                                                     style={{ backgroundColor: hexToRgba(colors.primary, 0.1) }}
                                                 >
                                                     {product.icon ? (
-                                                        <img src={product.icon} className={'w-9 h-9'} />
+                                                        <img
+                                                            src={product.icon}
+                                                            className={'w-7 h-7'}
+                                                            onError={e => {
+                                                                (e.currentTarget as HTMLImageElement).style.display =
+                                                                    'none';
+                                                            }}
+                                                        />
                                                     ) : (
                                                         <FontAwesomeIcon
                                                             icon={faShoppingBag}
-                                                            className={'w-7 h-7'}
+                                                            className={'w-6 h-6'}
                                                             style={{ color: colors.primary }}
                                                         />
                                                     )}
                                                 </div>
                                             </div>
-                                            <p className={'text-2xl font-bold text-center mt-4 font-header'}>
+                                            <p
+                                                className={
+                                                    'text-lg lg:text-xl font-bold text-center mt-3 font-header line-clamp-2'
+                                                }
+                                                title={product.name}
+                                            >
                                                 {product.name}
                                             </p>
-                                            <p className={'text-center mt-1 mb-6'}>
+                                            <p className={'text-center mt-1 mb-4'}>
                                                 <Money
                                                     value={product.price}
                                                     suffix={' / mo'}
                                                     accent
-                                                    className={'text-2xl font-bold'}
+                                                    className={'text-lg font-bold'}
                                                 />
                                             </p>
                                             <div className={'grid grid-cols-2 gap-x-4 gap-y-1'}>
@@ -187,7 +199,7 @@ export default () => {
                                             </div>
                                             <div
                                                 className={
-                                                    'text-center pt-4 mt-auto border-t border-dashed border-gray-700'
+                                                    'text-center pt-3 mt-auto border-t border-dashed border-gray-700'
                                                 }
                                             >
                                                 <Link to={`/account/billing/order/${product.id}`}>

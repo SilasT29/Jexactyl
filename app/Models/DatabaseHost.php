@@ -39,6 +39,15 @@ class DatabaseHost extends Model
     /**
      * Fields that are mass assignable.
      */
+    /**
+     * database_hosts hat keine uuid-Spalte; Route-Binding muss auf id laufen,
+     * sonst liefert das Binding ein leeres Modell (Timestamps null -> 500).
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'id';
+    }
+
     protected $fillable = [
         'name', 'host', 'port', 'username', 'password', 'max_databases',
     ];

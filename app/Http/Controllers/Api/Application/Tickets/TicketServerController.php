@@ -96,7 +96,11 @@ class TicketServerController extends ApplicationApiController
      */
     private function postServerCreatedMessage(Ticket $ticket, Server $server, Order $order, CreateServerFromTicketRequest $request): void
     {
-        $primaryAllocation = $server->allocations()->where('is_default', true)->first();
+        try {
+            $primaryAllocation = $server->allocations()->where('is_default', true)->first();
+        } catch (\Illuminate\Database\QueryException $e) {
+            $primaryAllocation = $server->allocation;
+        }
         $address = $primaryAllocation ? sprintf('%s:%d', $primaryAllocation->ip, $primaryAllocation->port) : 'N/A';
 
         $message = sprintf(

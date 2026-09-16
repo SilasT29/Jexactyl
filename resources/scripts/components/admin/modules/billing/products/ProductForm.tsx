@@ -24,6 +24,35 @@ import { Alert } from '@/elements/alert';
 import { searchEggs } from '@/api/routes/admin/eggs';
 import type { Egg } from '@definitions/admin';
 
+const FieldErrors = () => {
+    const { errors } = useFormikContext<ProductValues>();
+    const flatten = (obj: unknown, prefix = ''): string[] => {
+        const out: string[] = [];
+        for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {
+            const path = prefix ? `${prefix}.${key}` : key;
+            if (typeof value === 'string') {
+                out.push(`${path}: ${value}`);
+            } else if (value && typeof value === 'object') {
+                out.push(...flatten(value, path));
+            }
+        }
+        return out;
+    };
+    const all = flatten(errors);
+    if (all.length === 0) return null;
+
+    return (
+        <Alert type={'danger'} className={'mt-4'}>
+            <p className={'font-bold mb-1'}>Please fix the following before submitting:</p>
+            <ul className={'list-disc ml-5'}>
+                {all.map(e => (
+                    <li key={e}>{e}</li>
+                ))}
+            </ul>
+        </Alert>
+    );
+};
+
 const EggAvailability = ({ categoryNestId }: { categoryNestId?: number }) => {
     const { values, setFieldValue } = useFormikContext<ProductValues>();
     const [eggs, setEggs] = useState<Egg[] | null>(null);
@@ -120,10 +149,14 @@ export default ({ product }: { product?: Product }) => {
     };
 
     useEffect(() => {
-        getCategory(Number(params.id)).then(category => {
-            setUuid(category.uuid);
-            setCategoryNestId(category.nestId);
-        });
+        getCategory(Number(params.id))
+            .then(category => {
+                setUuid(category.uuid);
+                setCategoryNestId(category.nestId);
+            })
+            .catch(error => {
+                clearAndAddHttpError({ key: 'admin:billing:product:create', error });
+            });
     }, [params.id]);
 
     return (
@@ -292,6 +325,7 @@ export default ({ product }: { product?: Product }) => {
                                     </Alert>
                                 )}
                                 <EggAvailability categoryNestId={categoryNestId} />
+                                <FieldErrors />
                                 <div css={tw`rounded shadow-md mt-4 py-2 pr-6`} style={{ backgroundColor: secondary }}>
                                     <div css={tw`text-right`}>
                                         {product && <ProductDeleteButton product={product} />}
